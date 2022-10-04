@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - PlatformDetector
     - PlayerCollision
     - PlayerController
+    - SlowMoBar
     - TimeManager
     - TouchManager
     Cinemachine.dll:
@@ -171,83 +172,85 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4010}
     - Class: 114
-      Script: {instanceID: 4182}
+      Script: {instanceID: 4094}
     - Class: 114
-      Script: {instanceID: 4222}
+      Script: {instanceID: 4184}
     - Class: 114
-      Script: {instanceID: 4280}
+      Script: {instanceID: 4224}
     - Class: 114
-      Script: {instanceID: 4338}
+      Script: {instanceID: 4282}
     - Class: 114
-      Script: {instanceID: 4556}
+      Script: {instanceID: 4340}
     - Class: 114
-      Script: {instanceID: 4592}
+      Script: {instanceID: 4558}
     - Class: 114
-      Script: {instanceID: 4968}
+      Script: {instanceID: 4594}
     - Class: 114
-      Script: {instanceID: 5158}
+      Script: {instanceID: 4970}
     - Class: 114
-      Script: {instanceID: 5172}
+      Script: {instanceID: 5160}
     - Class: 114
-      Script: {instanceID: 5232}
+      Script: {instanceID: 5174}
     - Class: 114
-      Script: {instanceID: 5256}
+      Script: {instanceID: 5234}
     - Class: 114
-      Script: {instanceID: 5424}
+      Script: {instanceID: 5258}
     - Class: 114
       Script: {instanceID: 5426}
     - Class: 114
-      Script: {instanceID: 5450}
+      Script: {instanceID: 5428}
     - Class: 114
-      Script: {instanceID: 5722}
+      Script: {instanceID: 5452}
     - Class: 114
-      Script: {instanceID: 5806}
+      Script: {instanceID: 5724}
     - Class: 114
-      Script: {instanceID: 5846}
+      Script: {instanceID: 5808}
     - Class: 114
-      Script: {instanceID: 5998}
+      Script: {instanceID: 5848}
     - Class: 114
-      Script: {instanceID: 6070}
+      Script: {instanceID: 6000}
     - Class: 114
-      Script: {instanceID: 6076}
+      Script: {instanceID: 6072}
     - Class: 114
-      Script: {instanceID: 6176}
+      Script: {instanceID: 6078}
     - Class: 114
-      Script: {instanceID: 6210}
+      Script: {instanceID: 6178}
     - Class: 114
-      Script: {instanceID: 6256}
+      Script: {instanceID: 6212}
     - Class: 114
-      Script: {instanceID: 6322}
+      Script: {instanceID: 6258}
     - Class: 114
-      Script: {instanceID: 6330}
+      Script: {instanceID: 6324}
     - Class: 114
-      Script: {instanceID: 6438}
+      Script: {instanceID: 6332}
     - Class: 114
-      Script: {instanceID: 6574}
+      Script: {instanceID: 6440}
     - Class: 114
-      Script: {instanceID: 6612}
+      Script: {instanceID: 6576}
     - Class: 114
-      Script: {instanceID: 6688}
+      Script: {instanceID: 6614}
     - Class: 114
-      Script: {instanceID: 6742}
+      Script: {instanceID: 6690}
     - Class: 114
-      Script: {instanceID: 7298}
+      Script: {instanceID: 6744}
     - Class: 114
-      Script: {instanceID: 7316}
+      Script: {instanceID: 7300}
     - Class: 114
-      Script: {instanceID: 7346}
+      Script: {instanceID: 7318}
     - Class: 114
-      Script: {instanceID: 7670}
+      Script: {instanceID: 7348}
     - Class: 114
-      Script: {instanceID: 7798}
+      Script: {instanceID: 7672}
     - Class: 114
-      Script: {instanceID: 7818}
+      Script: {instanceID: 7800}
     - Class: 114
-      Script: {instanceID: 7870}
+      Script: {instanceID: 7820}
     - Class: 114
-      Script: {instanceID: 7910}
+      Script: {instanceID: 7872}
     - Class: 114
-      Script: {instanceID: 7956}
+      Script: {instanceID: 7912}
+    - Class: 114
+      Script: {instanceID: 7958}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -747,6 +750,12 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 251d0150d8fbbc393ee2dce692b6b7ff
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SlowMoBar
+  - hash:
+      serializedVersion: 2
       Hash: 1e3d6222ff533d213aab144eb854a53b
     assemblyName: Cinemachine.dll
     namespaceName: 
@@ -867,7 +876,7 @@ ScriptsOnlyBuild:
     className: CinemachinePOV
   - hash:
       serializedVersion: 2
-      Hash: 3a6531c6f79ccb2dc2ca4e2f8db56f6a
+      Hash: 37584ca275bfbbf4ab34fd3cf7cacfdd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeManager
@@ -1377,7 +1386,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: c369727b388837d3497cedf7f3d5fbdd
+      Hash: 196e47bbaad742f7d640c58598351606
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1534,4 +1543,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Unity Projects/High Contrast/Builds/1.28/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Unity Projects/High-Contrast/Builds/1.30/highcontrast.apk

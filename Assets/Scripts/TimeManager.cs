@@ -34,6 +34,22 @@ public class TimeManager : MonoBehaviour
         print(vigValue);
     }
 
+    void FixedUpdate(){
+        
+        if(isSlowing){
+            slowBar.takeSlow();
+        }
+        else{
+            if(canRestoreSlow && !isTryingToSlow){
+                slowBar.restoreSlow();
+            }
+            else{
+                Invoke("restoreSlow", 2f);
+            }
+            
+        }
+    }
+
     
     void Update()
     {
@@ -48,7 +64,6 @@ public class TimeManager : MonoBehaviour
             if(applyVignette && vig.intensity.value < vigValue){
                 vig.intensity.value += vignetteMultiplier * (Time.deltaTime*10); 
             }
-            slowBar.takeSlow();
             canRestoreSlow = false;
         }
         else{  // not slowing
@@ -57,12 +72,7 @@ public class TimeManager : MonoBehaviour
             }
             
 
-            if(canRestoreSlow && !isTryingToSlow){
-                slowBar.restoreSlow();
-            }
-            else{
-                Invoke("restoreSlow", 2f);
-            }
+            
         }   
     }
     

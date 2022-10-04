@@ -126,7 +126,7 @@ public class PlayerCollision : MonoBehaviour
                 particles.Play();
                 dead = true;
                 
-                tm.SlowMotion(0.1f,1.5f);
+                // tm.SlowMotion(0.1f,1.5f);
                 StartCoroutine(newGame());   
                 break;
 
