@@ -10,21 +10,26 @@ public class TimeManager : MonoBehaviour
 {
     // public float slowDownFactor = 0.05f;
     float slowDownLength = 2f;
+    float slowDownFactor;
+    float slowDownTimer = 0f;
     float defaultTimeScale;
 
     Vignette vig;
     [SerializeField] float vigValue;
+    [SerializeField] float particleSpeed;
     public float vignetteMultiplier = 4f;
 
-    public bool slowing = false;
+    public bool isTryingToSlow = false;
+    bool isSlowing = false;
     bool applyVignette = false;
-
-    float slowDownTimer = 0f;
+    bool canRestoreSlow;
+    SlowMoBar slowBar;
 
     void Start()
     {
         defaultTimeScale = Time.timeScale;
         vig = GameObject.Find("LevelManager").GetComponent<InvertColor>().vignette;
+        slowBar = GameObject.Find("SlowMoBar").GetComponent<SlowMoBar>();
         vigValue = vig.intensity.value;
         print(vigValue);
     }
@@ -32,31 +37,48 @@ public class TimeManager : MonoBehaviour
     
     void Update()
     {
-        
-        var slowDownScale = slowing ? slowDownLength : 0.5f;
+        isSlowing = slowDownTimer > 0 && isTryingToSlow && slowBar.currentSlow > 0;
+        var slowDownScale = isSlowing ? slowDownLength : 0.5f;
         Time.timeScale += (1f/slowDownScale) * Time.unscaledDeltaTime; 
         Time.timeScale = Mathf.Clamp(Time.timeScale,0,1f);
 
-        if(slowDownTimer > 0 && slowing){
+
+        if(isSlowing){ // slowing
             slowDownTimer -= Time.deltaTime;
             if(applyVignette && vig.intensity.value < vigValue){
                 vig.intensity.value += vignetteMultiplier * (Time.deltaTime*10); 
             }
+            slowBar.takeSlow();
+            canRestoreSlow = false;
         }
-        else{
+        else{  // not slowing
             if(vig.intensity.value > 0){
                 vig.intensity.value -= vignetteMultiplier * (Time.deltaTime*5); 
+            }
+            
+
+            if(canRestoreSlow && !isTryingToSlow){
+                slowBar.restoreSlow();
+            }
+            else{
+                Invoke("restoreSlow", 2f);
             }
         }   
     }
     
 
-    public void SlowMotion(float slowDownFactor, float slowDownLen, bool vignette = false){
-        Time.timeScale = slowDownFactor;
-        slowing = true;
+    public void SlowMotion(float slowDownStrength, float slowDownLen, bool vignette = false){
+        isTryingToSlow = true;
+        if(slowBar.currentSlow <= 0) return;
+        Time.timeScale = slowDownStrength;
         slowDownLength = slowDownLen;
         slowDownTimer = slowDownLen;
         applyVignette = vignette;        
+    }
+
+
+    void restoreSlow(){
+        canRestoreSlow = true;
     }
 
 

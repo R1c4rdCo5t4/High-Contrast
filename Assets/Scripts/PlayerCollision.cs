@@ -86,6 +86,10 @@ public class PlayerCollision : MonoBehaviour
                 SpriteRenderer sprite = collider.gameObject.GetComponent<SpriteRenderer>();
                 if(!sprite.enabled) return;
                 ParticleSystem partSystem = collider.gameObject.GetComponent<ParticleSystem>();
+   
+                var main = partSystem.main;
+                main.startSpeed = tm.isTryingToSlow ? 5f : 20f; // set speed to slow-mo manually 
+               
                 partSystem.Stop();
                 partSystem.Play();
 

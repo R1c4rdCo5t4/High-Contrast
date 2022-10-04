@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private float dashCoolTimer, dashTimer;
     public float gravity;
     public float initialGravity;
+    public float coyoteTime = 0.2f;
+    public float coyoteTimeCounter;
+
   
     [Range(0,5F)]
     [SerializeField] float groundCheckRadius;
@@ -50,6 +53,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float verticalInput;
     [SerializeField] float wallCheckDistance = 0.4f;
     [SerializeField] float airBorneCheckRadius;
+    [SerializeField] float stopGroundSpeed = 1f;
+    [SerializeField] float stopAirSpeed = 0.2f;
     
 
     [Header("Ints")]
@@ -69,7 +74,6 @@ public class PlayerController : MonoBehaviour
     public bool canWallHop = true;
     public bool canDash = true;
     public bool inMovingPlatform = false;
-    public bool stopPlayer;
     [SerializeField] bool canGroundJump;
     [SerializeField] bool canWallJump;
     [SerializeField] bool hasJump = true;
@@ -111,19 +115,14 @@ public class PlayerController : MonoBehaviour
 
     void movePlayer(){
 
-        // if(Mathf.Abs(rb.velocity.x) > maxMoveSpeed){
-        //     flip();
-        // }
-
-        if(canMove && !isDashing && !isWallJumping){ 
-            rb.velocity = new Vector2(facing*activeMovespeed,rb.velocity.y);
+        if(activeMovespeed > 0){ 
+            if(canMove && !isDashing && !isWallJumping){
+                rb.velocity = new Vector2(facing*activeMovespeed,rb.velocity.y);
+            }
         }
-
-        if(stopPlayer){
-            stopPlayer = false;
-            rb.velocity = Vector2.zero;
+        else{
+            rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
         }
-         
     }
 
 
@@ -151,8 +150,9 @@ public class PlayerController : MonoBehaviour
 
     public void jump(float force)
     {
-        if(isGrounded && !isWallSliding && hasJump){
+        if(coyoteTimeCounter > 0 && !isWallSliding && hasJump){
             isJumping = true;
+            coyoteTimeCounter = 0f;
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         }
     }
@@ -173,11 +173,15 @@ public class PlayerController : MonoBehaviour
         if(isGrounded){
             canWallHop = true;
             canDash = true;
+            coyoteTimeCounter = coyoteTime;
             if(rb.velocity.y <= 0){
                 isJumping = false;
             }
             
         }   
+        else{
+            coyoteTimeCounter -= Time.deltaTime;
+        }
     }
 
 
@@ -194,7 +198,7 @@ public class PlayerController : MonoBehaviour
     public void Dash(Vector2 dashDir, float speed, float duration, bool hyperDash=false, bool gravity=false){
 
 
-        if(hyperDash || ((!isGrounded && !isTouchingWall) && canDash && (Mathf.Sign(dashDir.x) == facing || Mathf.Abs(dashDir.x) < 0.3f) && hasAirDash)){
+        if(hyperDash || (coyoteTimeCounter < 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dashDir.x) == facing || Mathf.Abs(dashDir.x) < 0.3f) )){
             isDashing = true;
             canDash = hyperDash;
             rb.velocity = Vector2.zero;
@@ -211,7 +215,7 @@ public class PlayerController : MonoBehaviour
         if(dashTimer > 0){
             dashTimer -= Time.deltaTime;
 
-            if(dashTimer <= 0 || isTouchingWall || stopPlayer){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
+            if(dashTimer <= 0 || isTouchingWall){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
                 isDashing = false;
                 activeMovespeed = movementSpeed;
                 dashCoolTimer = dashCoolDown;

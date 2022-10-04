@@ -211,8 +211,8 @@ public class TouchManager : MonoBehaviour
         endTouchPosition = touch.position;
         Vector2 movedDist = endTouchPosition - startTouchPosition;
 
-        if(touch.position.x < Screen.width / 3 && tm.slowing){
-            tm.slowing = false;
+        if(touch.position.x < Screen.width / 3 && tm.isTryingToSlow){
+            tm.isTryingToSlow = false;
           
         }
         else{
@@ -224,7 +224,6 @@ public class TouchManager : MonoBehaviour
 
     void tap(){
         ps.activeMovespeed = 0f; 
-        ps.stopPlayer = true;   
     }
 }
 
