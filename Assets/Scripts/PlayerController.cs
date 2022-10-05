@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallHopDir;
     public Vector2 wallOutDir;
     public Vector2 currVelocity;
+    public Vector2 infiniteDashForce = Vector2.zero;
 
     [Header("Floats")]
     public float movementSpeed;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
     public bool canWallHop = true;
     public bool canDash = true;
     public bool inMovingPlatform = false;
+    public bool inInfiniteDashZone;
     [SerializeField] bool canGroundJump;
     [SerializeField] bool canWallJump;
     [SerializeField] bool hasJump = true;
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         movePlayer();
-        wallSlide();
+        wallSlide();   
     }
 
     
@@ -115,14 +117,24 @@ public class PlayerController : MonoBehaviour
 
     void movePlayer(){
 
-        if(activeMovespeed > 0){ 
-            if(canMove && !isDashing && !isWallJumping){
-                rb.velocity = new Vector2(facing*activeMovespeed,rb.velocity.y);
+        if(!inInfiniteDashZone){
+            if(activeMovespeed > 0){ 
+                if(canMove && !isDashing && !isWallJumping){
+                    rb.velocity = new Vector2(facing*activeMovespeed,rb.velocity.y);
+                }
+            }
+            else{
+                rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
             }
         }
         else{
-            rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
+            
+            rb.velocity = infiniteDashForce;
+            if(Mathf.Sign(infiniteDashForce.x) != facing){
+                flip();
+            }
         }
+        
     }
 
 
@@ -187,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
     void trailRender()
     {
-        if(activeMovespeed > 0f || isDashing){
+        if(activeMovespeed > 0f || isDashing || infiniteDashForce != Vector2.zero){
             trail.emitting = true;
         }
         else{

@@ -130,6 +130,15 @@ public class PlayerCollision : MonoBehaviour
                 StartCoroutine(newGame());   
                 break;
 
+
+            case "ZoneIn":
+                ps.inInfiniteDashZone = true;
+                rb.gravityScale = 0f;
+                break;
+            case "ZoneOut":
+                ps.inInfiniteDashZone = false;
+                rb.gravityScale = ps.initialGravity;
+                break;
             default: break;
 
         }

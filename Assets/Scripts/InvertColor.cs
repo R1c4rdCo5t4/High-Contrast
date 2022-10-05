@@ -26,7 +26,7 @@ public class InvertColor : MonoBehaviour
         
     }
 
-    Color getCurrentColor(Color prevColor, float alpha=1f) => new Color(1f-prevColor.r, 1f-prevColor.g, 1f-prevColor.b, alpha);
+    Color getCurrentColor(Color prevColor, float alpha=1f) => new Color(1f-prevColor.r, 1f-prevColor.g, 1f-prevColor.b, prevColor.a);
 
     public void Invert(){
         foreach(Transform obj in objects){

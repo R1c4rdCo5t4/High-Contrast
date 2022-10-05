@@ -9,6 +9,7 @@ public class TouchManager : MonoBehaviour
     [SerializeField] InvertColor ic;
     PlayerCollision pc;
     TimeManager tm;
+    Rigidbody2D rb;
     
     Vector2 startTouchPosition;
     Vector2 currentPosition;
@@ -33,6 +34,7 @@ public class TouchManager : MonoBehaviour
         swipeRange = Screen.height * swipeRangeMultiplier / 100;
         pc = GameObject.Find("Player").GetComponent<PlayerCollision>();
         tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        rb = GameObject.Find("Player").GetComponent<Rigidbody2D>();
     }
 
 
@@ -80,23 +82,23 @@ public class TouchManager : MonoBehaviour
             Vector2 dashForce = (Swipe.normalized * ps.dashSpeed) / screenDiagonal * 70f;
             // print(dashForce);
             if (Swipe.x < -swipeRange){ // left
-                leftSwipe();
+                if(!ps.inInfiniteDashZone)leftSwipe();
                 checkDash(dashForce, Direction.Left);
                 
             }
 
             else if (Swipe.x > swipeRange){  // right
-                rightSwipe();
+                if(!ps.inInfiniteDashZone) rightSwipe();
                 checkDash(dashForce, Direction.Right);
             }
 
             else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
-                upSwipe(Swipe.y);
+                if(!ps.inInfiniteDashZone) upSwipe(Swipe.y);
                 checkDash(dashForce, Direction.Up);
             }
             
             else if (Swipe.y < -swipeRange){ // down
-                downSwipe();
+                if(!ps.inInfiniteDashZone) downSwipe();
                 checkDash(dashForce, Direction.Down);
             }
 
@@ -108,14 +110,26 @@ public class TouchManager : MonoBehaviour
     void checkDash(Vector2 force, Direction dir){
         
 
-        if(!ps.isTouchingWall && !ps.isGrounded){
-            if((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
-                ps.flip();
-                return;
+        if(!ps.inInfiniteDashZone){
+            if(!ps.isTouchingWall && !ps.isGrounded){
+                if((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
+                    ps.flip();
+                    return;
+                }
+                ps.Dash(force, ps.dashSpeed, ps.dashDuration);  
             }
-            ps.Dash(force, ps.dashSpeed, ps.dashDuration);  
+        }
+
+        else{
+            if(!ps.isAirBorne || rb.velocity == Vector2.zero){
+                ps.infiniteDashForce = force * ps.dashSpeed;
+            }
+            
             
         }
+
+
+        
      
         
     }

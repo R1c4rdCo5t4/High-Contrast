@@ -16,6 +16,8 @@ TagManager:
   - Wall
   - MovingPlatform
   - CrystalDash
+  - ZoneOut
+  - ZoneIn
   layers:
   - Default
   - TransparentFX
