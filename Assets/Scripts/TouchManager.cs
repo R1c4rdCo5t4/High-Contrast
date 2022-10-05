@@ -20,9 +20,9 @@ public class TouchManager : MonoBehaviour
     public float tapRange;
     float swipeRange; 
     float tapTimer = 0f;
-    float holdTimer = 0f;
     float tapMaxDuration = .5f;
 
+    // float holdTimer = 0f;
     // float holdMinDuration = .0005f;
     // int taps = 0;
 
@@ -40,6 +40,8 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {   
+
+        if(ps.isDead) return;
 
         if(tapTimer > 0){
             tapTimer -= Time.deltaTime;
@@ -82,7 +84,7 @@ public class TouchManager : MonoBehaviour
             Vector2 dashForce = (Swipe.normalized * ps.dashSpeed) / screenDiagonal * 70f;
             // print(dashForce);
             if (Swipe.x < -swipeRange){ // left
-                if(!ps.inInfiniteDashZone)leftSwipe();
+                if(!ps.inInfiniteDashZone) leftSwipe();
                 checkDash(dashForce, Direction.Left);
                 
             }
@@ -203,14 +205,6 @@ public class TouchManager : MonoBehaviour
         Vector2 movedDist = touch.position - startTouchPosition;
 
 
-
-        // if(holdTimer > 0){
-        //     holdTimer -= Time.deltaTime;
-        // }
-
-        print(holdTimer);
-
-
         if(touch.position.x < Screen.width / 3){ // Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer <= 0
             tm.SlowMotion(0.25f,4f,true);
            
@@ -225,7 +219,7 @@ public class TouchManager : MonoBehaviour
         endTouchPosition = touch.position;
         Vector2 movedDist = endTouchPosition - startTouchPosition;
 
-        if(touch.position.x < Screen.width / 3 && tm.isTryingToSlow){
+        if((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && tm.isTryingToSlow){
             tm.isTryingToSlow = false;
           
         }

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     GameManager gm;
     GameObject otherComponents;
     TrailRenderer trail;
+    ParticleSystem ps;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
     [SerializeField] LayerMask airBorneLayer;
@@ -33,7 +34,6 @@ public class PlayerController : MonoBehaviour
     public float activeMovespeed;
     public float minJumpForce = 45f;
     public float maxJumpForce = 60f;
-    public float bumpForce = 10f;
     public float wallJumpForce;
     public float wallSlideSpeed;
     public float defaultSlideSpeed;
@@ -50,8 +50,6 @@ public class PlayerController : MonoBehaviour
   
     [Range(0,5F)]
     [SerializeField] float groundCheckRadius;
-    [SerializeField] float horizontalInput;
-    [SerializeField] float verticalInput;
     [SerializeField] float wallCheckDistance = 0.4f;
     [SerializeField] float airBorneCheckRadius;
     [SerializeField] float stopGroundSpeed = 1f;
@@ -62,13 +60,9 @@ public class PlayerController : MonoBehaviour
     public int facing;
 
     [Header("Booleans")]
-    public bool isGrounded;
+    public bool isGrounded, isTouchingWall;
     public bool isJumping;
-    public bool isTryingToJump;
-    public bool isTouchingWall;
-    public bool isWallSliding;
-    public bool isWallGrabbing;
-    public bool isWallJumping;
+    public bool isWallSliding, isWallGrabbing, isWallJumping;
     public bool isAirBorne;
     public bool isDashing;
     public bool canMove = true;
@@ -76,14 +70,13 @@ public class PlayerController : MonoBehaviour
     public bool canDash = true;
     public bool inMovingPlatform = false;
     public bool inInfiniteDashZone;
-    [SerializeField] bool canGroundJump;
-    [SerializeField] bool canWallJump;
+    public bool isDead = false;
     [SerializeField] bool hasJump = true;
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
 
 
-    ParticleSystem ps;
+   
     
 
     void Start()
@@ -120,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if(!inInfiniteDashZone){
             if(activeMovespeed > 0){ 
                 if(canMove && !isDashing && !isWallJumping){
-                    rb.velocity = new Vector2(facing*activeMovespeed,rb.velocity.y);
+                    rb.velocity = new Vector2( Mathf.Lerp(rb.velocity.x, facing*activeMovespeed, 0.5f),rb.velocity.y);
                 }
             }
             else{
@@ -199,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     void trailRender()
     {
-        if(activeMovespeed > 0f || isDashing || infiniteDashForce != Vector2.zero){
+        if(!isDead && (activeMovespeed > 0f || isDashing || infiniteDashForce != Vector2.zero)){
             trail.emitting = true;
         }
         else{

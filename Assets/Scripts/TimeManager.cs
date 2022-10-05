@@ -31,7 +31,7 @@ public class TimeManager : MonoBehaviour
         vig = GameObject.Find("LevelManager").GetComponent<InvertColor>().vignette;
         slowBar = GameObject.Find("SlowMoBar").GetComponent<SlowMoBar>();
         vigValue = vig.intensity.value;
-        print(vigValue);
+   
     }
 
     void FixedUpdate(){

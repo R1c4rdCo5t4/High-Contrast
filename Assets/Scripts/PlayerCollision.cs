@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour
     TimeManager tm;
     SpriteRenderer[] sprites;
 
-    bool dead = false;
+    
 
     [SerializeField] Transform respawnPoint;
     [SerializeField] LayerMask explosionLayer;
@@ -107,7 +107,7 @@ public class PlayerCollision : MonoBehaviour
             case "Spike":
             case "Death":
 
-                if(dead) break;
+                if(ps.isDead) break;
                 
 
                 foreach(SpriteRenderer sr in sprites){
@@ -124,7 +124,7 @@ public class PlayerCollision : MonoBehaviour
                 ps.activeMovespeed = 0f;
                 rb.velocity = Vector2.zero;
                 particles.Play();
-                dead = true;
+                ps.isDead = true;
                 
                 // tm.SlowMotion(0.1f,1.5f);
                 StartCoroutine(newGame());   
@@ -177,7 +177,7 @@ public class PlayerCollision : MonoBehaviour
                 sr.enabled = true;
             } 
         }
-        dead = false;
+        ps.isDead = false;
         rb.constraints = RigidbodyConstraints2D.None;
         particles.Stop();
 

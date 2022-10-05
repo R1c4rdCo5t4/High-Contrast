@@ -80,7 +80,8 @@ public class InvertColor : MonoBehaviour
 
         if(obj.GetComponent<ParticleSystem>() != null){
             ParticleSystem particles = obj.GetComponent<ParticleSystem>();
-            particles.startColor = getCurrentColor(particles.startColor);
+            ParticleSystem.MainModule psMain = particles.main;
+            psMain.startColor = getCurrentColor(psMain.startColor.color);
                
         }   
 
