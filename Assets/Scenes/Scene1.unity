@@ -44280,7 +44280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228127914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.30004883, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 952789419}
@@ -50378,6 +50378,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1753853285822813563, guid: 22fc78f573fe9124c9e952540a1457ea, type: 3}
   m_PrefabInstance: {fileID: 1753853285507514110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1566112794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2130853337, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
+  m_PrefabInstance: {fileID: 2070891414388526363}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1591220810
 GameObject:
@@ -81703,6 +81708,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2130853337, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.645
+      objectReference: {fileID: 0}
     - target: {fileID: 682430610998803870, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_Interpolate
       value: 2
@@ -81748,8 +81757,20 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
+      propertyPath: backHitTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
+      propertyPath: platformDetector
+      value: 
+      objectReference: {fileID: 1566112794}
+    - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
+      propertyPath: frontHitTransform
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: groundCheckRadius

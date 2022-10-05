@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         checkSurroundings();
-        trailRender();
+        trailRenderer();
         dashController();
         handleRotation();
     }
@@ -190,18 +190,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void trailRender()
+    void trailRenderer()
     {
-        if(!isDead && (activeMovespeed > 0f || isDashing || infiniteDashForce != Vector2.zero)){
-            trail.emitting = true;
-        }
-        else{
-            trail.emitting = false;
-        }
+        trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || infiniteDashForce != Vector2.zero);  
     }
 
     public void Dash(Vector2 dashDir, float speed, float duration, bool hyperDash=false, bool gravity=false){
-
 
         if(hyperDash || (coyoteTimeCounter < 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dashDir.x) == facing || Mathf.Abs(dashDir.x) < 0.3f) )){
             isDashing = true;
@@ -258,7 +252,7 @@ public class PlayerController : MonoBehaviour
         }
         else {
             if(transform.eulerAngles.z != 0){ 
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f); 
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f)); 
             }
             rb.freezeRotation = true; // freezes rotation when in the air
         }        

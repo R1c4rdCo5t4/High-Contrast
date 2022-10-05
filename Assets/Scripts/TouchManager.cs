@@ -232,6 +232,9 @@ public class TouchManager : MonoBehaviour
 
     void tap(){
         ps.activeMovespeed = 0f; 
+        ps.isJumping = false;
+        ps.isDashing = false;
+       
     }
 }
 
