@@ -83082,7 +83082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053959056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 579.73, y: 99.5356, z: -10}
+  m_LocalPosition: {x: 579.989, y: 99.6356, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1228127915}
@@ -83798,7 +83798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: groundCheckRadius
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: airBorneCheckRadius
@@ -83822,11 +83822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413516539787, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 74.7
+      value: 74.959015
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413516539787, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 87.1
+      value: 87.2
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413516539787, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_LocalPosition.z

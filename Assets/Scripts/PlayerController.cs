@@ -47,8 +47,7 @@ public class PlayerController : MonoBehaviour
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
 
-  
-    [Range(0,5F)]
+
     [SerializeField] float groundCheckRadius;
     [SerializeField] float wallCheckDistance = 0.4f;
     [SerializeField] float airBorneCheckRadius;
@@ -182,7 +181,7 @@ public class PlayerController : MonoBehaviour
             canWallHop = true;
             canDash = true;
             coyoteTimeCounter = coyoteTime;
-            rb.gravityScale = initialGravity;
+            // rb.gravityScale = initialGravity;
             if(rb.velocity.y <= 0){
                 isJumping = false;
             }
@@ -246,18 +245,27 @@ public class PlayerController : MonoBehaviour
     }
 
     public void handleRotation(){
-         
+ 
+        if(!isGrounded){
+            resetRotation(transform);
+        } 
+
         
         if(!isAirBorne){
             rb.freezeRotation = false; // unfreezes rotation when on ground
         }
         else {
             if(transform.eulerAngles.z != 0){ 
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f)); 
+                resetRotation(transform);
             }
             rb.freezeRotation = true; // freezes rotation when in the air
         }        
     }
+
+    void resetRotation(Transform transf){
+        transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f)); 
+    }
+   
 
 
     public void flip(){
