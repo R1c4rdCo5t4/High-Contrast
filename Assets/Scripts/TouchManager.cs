@@ -123,6 +123,7 @@ public class TouchManager : MonoBehaviour
         }
 
         else{
+            ps.rb.gravityScale = 0f;
             if(!ps.isAirBorne || rb.velocity == Vector2.zero){
                 ps.infiniteDashForce = force * ps.dashSpeed;
             }

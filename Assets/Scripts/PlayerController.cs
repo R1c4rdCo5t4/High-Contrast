@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     TimeManager tm;
     AnimationCurve trailWidth;
     GameManager gm;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public float dashCoolDown = 2f;
     public float dashDuration = 0.2f;
     private float dashCoolTimer, dashTimer;
-    public float gravity;
+    public float gravityMultiplier;
     public float initialGravity;
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
@@ -121,11 +121,14 @@ public class PlayerController : MonoBehaviour
             }
         }
         else{
-            
-            rb.velocity = infiniteDashForce;
-            if(Mathf.Sign(infiniteDashForce.x) != facing){
-                flip();
+             
+            if(infiniteDashForce != Vector2.zero){
+                rb.velocity = infiniteDashForce;
+                if(Mathf.Sign(infiniteDashForce.x) != facing){
+                    flip();
+                }
             }
+
         }
         
     }
@@ -179,12 +182,16 @@ public class PlayerController : MonoBehaviour
             canWallHop = true;
             canDash = true;
             coyoteTimeCounter = coyoteTime;
+            rb.gravityScale = initialGravity;
             if(rb.velocity.y <= 0){
                 isJumping = false;
             }
             
         }   
         else{
+            if(rb.velocity.y <= 0 && rb.gravityScale == initialGravity){
+                rb.gravityScale *= gravityMultiplier;
+            }
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
@@ -229,18 +236,12 @@ public class PlayerController : MonoBehaviour
 
     public void wallJump(float dirX,float dirY){
         if(!isGrounded && isTouchingWall && (hasWallJump || Mathf.Sign(dirX) == facing)){
-            isWallJumping = true;
+            isWallJumping = Mathf.Sign(dirX) != facing;
             rb.gravityScale = 0f;
-            Vector2 wallJump = new Vector2(wallJumpForce * dirX, wallJumpForce * dirY);
-            rb.AddForce(wallJump,ForceMode2D.Impulse);
+            Vector2 force = new Vector2(wallJumpForce * dirX, wallJumpForce * dirY);
+            rb.AddForce(force, ForceMode2D.Impulse);
             rb.gravityScale = initialGravity;
-            if(Mathf.Sign(dirX) == facing){
-                isWallJumping = false;
-            }
-            
-            else{
-                StartCoroutine(setWallJumpingFalse(.275f));
-            }
+            StartCoroutine(setWallJumpingFalse(.275f));
         }
     }
 

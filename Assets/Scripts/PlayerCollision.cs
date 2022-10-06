@@ -35,6 +35,12 @@ public class PlayerCollision : MonoBehaviour
 
     
     void OnCollisionEnter2D(Collision2D collision){
+
+        if(ps.inInfiniteDashZone){
+            ps.infiniteDashForce = Vector2.zero;
+            rb.velocity = Vector2.zero;
+        } 
+
         ProcessCollision(collision.gameObject);
     }
 
@@ -117,10 +123,12 @@ public class PlayerCollision : MonoBehaviour
                 }
 
                 rb.constraints = RigidbodyConstraints2D.FreezePositionX | 
-                                RigidbodyConstraints2D.FreezePositionY | 
-                                RigidbodyConstraints2D.FreezeRotation;
+                                 RigidbodyConstraints2D.FreezePositionY | 
+                                 RigidbodyConstraints2D.FreezeRotation;
             
                 ps.canMove = false;
+                ps.inInfiniteDashZone = false;
+                rb.gravityScale = ps.initialGravity;
                 ps.activeMovespeed = 0f;
                 rb.velocity = Vector2.zero;
                 particles.Play();
@@ -133,12 +141,13 @@ public class PlayerCollision : MonoBehaviour
 
             case "ZoneIn":
                 ps.inInfiniteDashZone = true;
-                rb.gravityScale = 0f;
                 break;
             case "ZoneOut":
                 ps.inInfiniteDashZone = false;
+                ps.infiniteDashForce = Vector2.zero;
                 rb.gravityScale = ps.initialGravity;
                 break;
+
             default: break;
 
         }
