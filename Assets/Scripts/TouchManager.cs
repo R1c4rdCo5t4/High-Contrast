@@ -84,7 +84,7 @@ public class TouchManager : MonoBehaviour
         // swipeDir = new Vector2(currentPosition.x-startTouchPosition.x,currentPosition.y-startTouchPosition.y);
         // print(Swipe.y);
         if (!stopTouch){
-   
+        
             if (Swipe.x < -swipeRange){ // left
                 if(!ps.inInfiniteDashZone) leftSwipe();
                 checkDash(swipeDir, Direction.Left);
@@ -184,7 +184,7 @@ public class TouchManager : MonoBehaviour
         
         // print(swipeForce);
         float jumpForce = swipeForce < Screen.height / 2 ? ps.minJumpForce : ps.maxJumpForce;
-        print(jumpForce);
+        // print(jumpForce);
         ps.jump(jumpForce);
         stopTouch = true;
     }

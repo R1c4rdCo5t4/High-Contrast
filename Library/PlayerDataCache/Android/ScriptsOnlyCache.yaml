@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CameraManager
     - CircularFloat
     - FloatScript
     - GameManager
@@ -9,6 +10,7 @@ ScriptsOnlyBuild:
     - PlatformDetector
     - PlayerCollision
     - PlayerController
+    - PostProcessing
     - SlowMoBar
     - TimeManager
     - TouchManager
@@ -66,7 +68,6 @@ ScriptsOnlyBuild:
     Unity.RenderPipelines.Universal.Runtime.dll:
     - UnityEngine.Rendering.Universal.Bloom
     - UnityEngine.Rendering.Universal.ChromaticAberration
-    - UnityEngine.Rendering.Universal.ColorAdjustments
     - UnityEngine.Rendering.Universal.ForwardRendererData
     - UnityEngine.Rendering.Universal.PostProcessData
     - UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
@@ -117,8 +118,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
-    - Class: 68
-      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 96
@@ -126,131 +125,133 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1590}
+      Script: {instanceID: 1644}
     - Class: 114
-      Script: {instanceID: 1592}
+      Script: {instanceID: 1646}
     - Class: 114
-      Script: {instanceID: 1594}
+      Script: {instanceID: 1648}
     - Class: 114
-      Script: {instanceID: 1596}
+      Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1604}
+      Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1746}
+      Script: {instanceID: 1800}
     - Class: 114
-      Script: {instanceID: 2346}
+      Script: {instanceID: 2400}
     - Class: 114
-      Script: {instanceID: 2436}
+      Script: {instanceID: 2490}
     - Class: 114
-      Script: {instanceID: 2598}
+      Script: {instanceID: 2652}
     - Class: 114
-      Script: {instanceID: 2658}
+      Script: {instanceID: 2712}
     - Class: 114
-      Script: {instanceID: 2722}
+      Script: {instanceID: 2776}
     - Class: 114
-      Script: {instanceID: 3126}
+      Script: {instanceID: 3180}
     - Class: 114
-      Script: {instanceID: 3194}
+      Script: {instanceID: 3248}
     - Class: 114
-      Script: {instanceID: 3258}
+      Script: {instanceID: 3312}
     - Class: 114
-      Script: {instanceID: 3284}
+      Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 3346}
+      Script: {instanceID: 3400}
     - Class: 114
-      Script: {instanceID: 3472}
+      Script: {instanceID: 3526}
     - Class: 114
-      Script: {instanceID: 3496}
+      Script: {instanceID: 3550}
     - Class: 114
-      Script: {instanceID: 3592}
+      Script: {instanceID: 3646}
     - Class: 114
-      Script: {instanceID: 3594}
+      Script: {instanceID: 3648}
     - Class: 114
-      Script: {instanceID: 3688}
+      Script: {instanceID: 3944}
     - Class: 114
-      Script: {instanceID: 3898}
+      Script: {instanceID: 3954}
     - Class: 114
-      Script: {instanceID: 4010}
+      Script: {instanceID: 4066}
     - Class: 114
-      Script: {instanceID: 4094}
+      Script: {instanceID: 4150}
     - Class: 114
-      Script: {instanceID: 4184}
+      Script: {instanceID: 4240}
     - Class: 114
-      Script: {instanceID: 4224}
+      Script: {instanceID: 4280}
     - Class: 114
-      Script: {instanceID: 4282}
+      Script: {instanceID: 4338}
     - Class: 114
-      Script: {instanceID: 4340}
+      Script: {instanceID: 4396}
     - Class: 114
-      Script: {instanceID: 4558}
+      Script: {instanceID: 4604}
     - Class: 114
-      Script: {instanceID: 4594}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 4970}
+      Script: {instanceID: 4652}
     - Class: 114
-      Script: {instanceID: 5160}
+      Script: {instanceID: 5028}
     - Class: 114
-      Script: {instanceID: 5174}
+      Script: {instanceID: 5218}
     - Class: 114
-      Script: {instanceID: 5234}
+      Script: {instanceID: 5232}
     - Class: 114
-      Script: {instanceID: 5258}
+      Script: {instanceID: 5292}
     - Class: 114
-      Script: {instanceID: 5426}
+      Script: {instanceID: 5316}
     - Class: 114
-      Script: {instanceID: 5428}
+      Script: {instanceID: 5484}
     - Class: 114
-      Script: {instanceID: 5452}
+      Script: {instanceID: 5486}
     - Class: 114
-      Script: {instanceID: 5724}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5808}
+      Script: {instanceID: 5782}
     - Class: 114
-      Script: {instanceID: 5848}
+      Script: {instanceID: 5866}
     - Class: 114
-      Script: {instanceID: 6000}
+      Script: {instanceID: 5906}
     - Class: 114
-      Script: {instanceID: 6072}
+      Script: {instanceID: 6058}
     - Class: 114
-      Script: {instanceID: 6078}
+      Script: {instanceID: 6130}
     - Class: 114
-      Script: {instanceID: 6178}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6212}
+      Script: {instanceID: 6236}
     - Class: 114
-      Script: {instanceID: 6258}
+      Script: {instanceID: 6270}
     - Class: 114
-      Script: {instanceID: 6324}
+      Script: {instanceID: 6316}
     - Class: 114
-      Script: {instanceID: 6332}
+      Script: {instanceID: 6382}
     - Class: 114
-      Script: {instanceID: 6440}
+      Script: {instanceID: 6390}
     - Class: 114
-      Script: {instanceID: 6576}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6614}
+      Script: {instanceID: 6634}
     - Class: 114
-      Script: {instanceID: 6690}
+      Script: {instanceID: 6672}
     - Class: 114
-      Script: {instanceID: 6744}
+      Script: {instanceID: 6748}
     - Class: 114
-      Script: {instanceID: 7300}
+      Script: {instanceID: 6802}
     - Class: 114
-      Script: {instanceID: 7318}
+      Script: {instanceID: 7358}
     - Class: 114
-      Script: {instanceID: 7348}
+      Script: {instanceID: 7376}
     - Class: 114
-      Script: {instanceID: 7672}
+      Script: {instanceID: 7406}
     - Class: 114
-      Script: {instanceID: 7800}
+      Script: {instanceID: 7730}
     - Class: 114
-      Script: {instanceID: 7820}
+      Script: {instanceID: 7858}
     - Class: 114
-      Script: {instanceID: 7872}
+      Script: {instanceID: 7878}
     - Class: 114
-      Script: {instanceID: 7912}
+      Script: {instanceID: 7930}
     - Class: 114
-      Script: {instanceID: 7958}
+      Script: {instanceID: 7970}
+    - Class: 114
+      Script: {instanceID: 8016}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -702,6 +703,12 @@ ScriptsOnlyBuild:
     className: CinemachineIndependentImpulseListener
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PostProcessing
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -822,7 +829,7 @@ ScriptsOnlyBuild:
     className: GroupWeightManipulator
   - hash:
       serializedVersion: 2
-      Hash: 967b6d32bed8c3cfec30e91572db4f04
+      Hash: f45cb2a4c1db039f9ac9cee4634c311b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HyperDash
@@ -876,7 +883,13 @@ ScriptsOnlyBuild:
     className: CinemachinePOV
   - hash:
       serializedVersion: 2
-      Hash: 37584ca275bfbbf4ab34fd3cf7cacfdd
+      Hash: a09f309e3d9dcb8c9a84f61eb487bd08
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71a1322d035fbb68bfd95906e769238e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeManager
@@ -1248,7 +1261,7 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerColor
   - hash:
       serializedVersion: 2
-      Hash: 86b6933c3177210a0c02c081062b2490
+      Hash: 9490b6231343fd75b6be58952d3166f7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -1386,7 +1399,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: cb0d5e09b128248608af608036e87bdd
+      Hash: 7090cc740e04d6de04895aeabe989239
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1543,4 +1556,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Unity Projects/High-Contrast/Builds/1.36/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.39/highcontrast.apk

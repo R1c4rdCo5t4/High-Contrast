@@ -27,7 +27,7 @@ public class PlatformDetector : MonoBehaviour
             }
            
         }
-        if(!ps.isGrounded && !ps.isTouchingWall){ // exit out of moving platform || (ps.inMovingPlatform && (ps.activeMovespeed > 0f || ps.isWallGrabbing))
+        if(ps.isAirBorne){ // exit out of moving platform
             player.SetParent(po, true);
             ps.inMovingPlatform = false;
             return;

@@ -67,6 +67,10 @@ public class PlayerCollision : MonoBehaviour
     void ProcessCollision(GameObject collider){
 
         switch(collider.tag){
+            case "Ground":
+                ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall;
+                break;
+
             case "Reverter":
                 ic.Invert();
                 collider.SetActive(false);

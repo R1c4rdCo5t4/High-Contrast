@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    public Rigidbody2D rb;
+    Rigidbody2D rb;
     TimeManager tm;
     AnimationCurve trailWidth;
     GameManager gm;
@@ -58,9 +58,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ints")]
     public int facing;
+    [SerializeField] int numOfDashes;
+    [SerializeField] int dashesLeft;
 
     [Header("Booleans")]
-    public bool isGrounded, isTouchingWall;
+    public bool isGrounded;
+    public bool isTouchingWall;
     public bool isJumping;
     public bool isWallSliding, isWallGrabbing, isWallJumping;
     public bool isAirBorne;
@@ -71,9 +74,11 @@ public class PlayerController : MonoBehaviour
     public bool inMovingPlatform = false;
     public bool inInfiniteDashZone;
     public bool isDead = false;
+    public bool isInSlope = false;
     [SerializeField] bool hasJump = true;
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
+
 
 
    
@@ -106,7 +111,7 @@ public class PlayerController : MonoBehaviour
         trailRenderer();
         dashController();
         handleRotation();
-        print(infiniteDashForce);
+       
     }
 
     void movePlayer(){
@@ -114,10 +119,10 @@ public class PlayerController : MonoBehaviour
         if(!inInfiniteDashZone){
             if(canMove && !isDashing && !isWallJumping){
                 if(activeMovespeed > 0){ 
-                    rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing*activeMovespeed, 0.5f),rb.velocity.y); 
+                    rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing*activeMovespeed, 0.5f), rb.velocity.y); 
                 }
                 else{
-                    rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
+                    rb.velocity = new Vector2(facing * Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
                 }
             }
            
@@ -139,20 +144,9 @@ public class PlayerController : MonoBehaviour
     void wallSlide(){
 
         if(isWallSliding && rb.velocity.y < -wallSlideSpeed){ 
-            if(!inMovingPlatform){
-                rb.isKinematic = false;
-                rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed); // wall slide
-               
-            }
-            else{
-                rb.isKinematic = true;
-                rb.velocity = Vector2.zero;
-            }
-                
+            rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed); // wall slide
         }
-        else{
-            rb.isKinematic = false;
-        }
+        
 
         
     }
@@ -185,6 +179,7 @@ public class PlayerController : MonoBehaviour
                 canDash = true;
                 coyoteTimeCounter = coyoteTime;
                 rb.gravityScale = initialGravity;
+                dashesLeft = numOfDashes;
             if(rb.velocity.y <= 0){
                 isJumping = false;
             }
@@ -209,12 +204,13 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(Dash dash){
 
-        if(dash.hyperDash || (coyoteTimeCounter < 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f))){
-            rb.velocity *= 0.20f;
+        if(dash.hyperDash || (coyoteTimeCounter < 0 && dashesLeft > 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f))){
+            // rb.velocity *= 0.20f;
             isDashing = true;
-            canDash = dash.hyperDash;
-            rb.AddForce(new Vector2(dash.dir.x, dash.dir.y) * dash.speed, ForceMode2D.Impulse); // dashSpeed = 55
-            // rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed;
+            dashesLeft--;
+            canDash = dash.hyperDash ? true : dashesLeft > 0;
+            // rb.AddForce(new Vector2(dash.dir.x, dash.dir.y) * dash.speed, ForceMode2D.Impulse); // dashSpeed = 55
+            rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed; // 30
             dashTimer = dash.duration;
     
             rb.gravityScale = 0f;   
@@ -254,9 +250,11 @@ public class PlayerController : MonoBehaviour
 
     public void handleRotation(){
  
-        if(!isGrounded){
+        if(!isGrounded && !isInSlope){
             resetRotation(transform);
         } 
+
+        
         
         if(!isAirBorne){
             rb.freezeRotation = false; // unfreezes rotation when on ground
@@ -281,6 +279,8 @@ public class PlayerController : MonoBehaviour
         Vector3 prevParticlePos = ps.gameObject.transform.position;
         transform.Rotate(0f, 180f, 0f);
         ps.gameObject.transform.position = prevParticlePos; // lock particle Z pos
+
+        if(transform.eulerAngles.z != 0 && !isTouchingWall) rb.velocity = Vector2.down;
 
     }
 

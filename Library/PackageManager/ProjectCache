@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637822785318636455
+      ticks: 638008385131155634
     m_Hash: 4040286607
   m_LockFileStatus:
     m_FilePath: C:/Users/Ricardo/Unity Projects/High-Contrast/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637822785318840506
+      ticks: 638008385131235434
     m_Hash: 1020428551
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Experimental.Rendering.Universal;
+
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera vcam;
@@ -22,10 +27,12 @@ public class CameraManager : MonoBehaviour
         var zoom = vcam.m_Lens.OrthographicSize;
 
         if(ps.inInfiniteDashZone){
+
             if(zoom != maxZoom ) vcam.m_Lens.OrthographicSize = Mathf.Lerp(zoom, maxZoom, 0.1f);
         }
         else{
             if(zoom != initialZoom) vcam.m_Lens.OrthographicSize = Mathf.Lerp(zoom, initialZoom, 0.1f);
+
         }
     }
 }
