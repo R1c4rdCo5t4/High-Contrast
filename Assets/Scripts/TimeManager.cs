@@ -15,9 +15,10 @@ public class TimeManager : MonoBehaviour
     float defaultTimeScale;
 
     Vignette vig;
-    [SerializeField] float vigValue;
+    float maxVigValue = 0.23f;
+    float minVigValue = 0.13f;
     [SerializeField] float particleSpeed;
-    public float vignetteMultiplier = 4f;
+    public float vignetteMultiplier = 10f;
 
     public bool isTryingToSlow = false;
     bool isSlowing = false;
@@ -30,7 +31,7 @@ public class TimeManager : MonoBehaviour
         defaultTimeScale = Time.timeScale;
         vig = GameObject.Find("LevelManager").GetComponent<InvertColor>().vignette;
         slowBar = GameObject.Find("SlowMoBar").GetComponent<SlowMoBar>();
-        vigValue = vig.intensity.value;
+        // vigValue = vig.intensity.value;
    
     }
 
@@ -61,13 +62,13 @@ public class TimeManager : MonoBehaviour
 
         if(isSlowing){ // slowing
             slowDownTimer -= Time.deltaTime;
-            if(applyVignette && vig.intensity.value < vigValue){
+            if(applyVignette && vig.intensity.value < maxVigValue){
                 vig.intensity.value += vignetteMultiplier * (Time.deltaTime*10); 
             }
             canRestoreSlow = false;
         }
         else{  // not slowing
-            if(vig.intensity.value > 0){
+            if(vig.intensity.value > minVigValue){
                 vig.intensity.value -= vignetteMultiplier * (Time.deltaTime*5); 
             }
             

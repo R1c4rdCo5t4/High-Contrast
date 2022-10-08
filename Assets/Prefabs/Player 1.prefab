@@ -4952,7 +4952,6 @@ GameObject:
   - component: {fileID: 2070891413201499688}
   - component: {fileID: 6679615733851480225}
   - component: {fileID: 682430610998803870}
-  - component: {fileID: 6374817915848512611}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -5070,6 +5069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6076a21540990d04aa955c6c909d173c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -5082,15 +5082,16 @@ MonoBehaviour:
   groundCheckPoint: {fileID: 6593404917469589365}
   wallCheckPoint: {fileID: 6894313166254604197}
   airBorneCheckPoint: {fileID: 9179551656487508519}
-  trail: {fileID: 4823907073339852267}
   movementInput: {x: 0, y: 0}
   wallJumpDir: {x: 1.5, y: 2}
   wallHopDir: {x: 10, y: 1.5}
   wallOutDir: {x: 2, y: 0}
+  currVelocity: {x: 0, y: 0}
+  infiniteDashForce: {x: 0, y: 0}
   movementSpeed: 14
+  activeMovespeed: 0
   minJumpForce: 45
   maxJumpForce: 60
-  bumpForce: 5
   wallJumpForce: 25
   wallSlideSpeed: 10
   defaultSlideSpeed: 10
@@ -5098,18 +5099,20 @@ MonoBehaviour:
   dashSpeed: 30
   dashCoolDown: 0.8
   dashDuration: 0.2
-  activeMovespeed: 0
-  gravity: 0
+  infiniteDashSpeed: 30
+  gravityMultiplier: 0
+  initialGravity: 0
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
   groundCheckRadius: 0.25
-  horizontalInput: 0
-  verticalInput: 0
   wallCheckDistance: 0.1
   airBorneCheckRadius: 0.55
+  stopGroundSpeed: 1
+  stopAirSpeed: 0.2
   facing: 1
   isGrounded: 0
-  isJumping: 0
-  isTryingToJump: 0
   isTouchingWall: 0
+  isJumping: 0
   isWallSliding: 0
   isWallGrabbing: 0
   isWallJumping: 0
@@ -5119,8 +5122,8 @@ MonoBehaviour:
   canWallHop: 1
   canDash: 1
   inMovingPlatform: 0
-  canGroundJump: 0
-  canWallJump: 0
+  inInfiniteDashZone: 0
+  isDead: 0
   hasJump: 1
   hasWallJump: 1
   hasAirDash: 1
@@ -5137,6 +5140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 0}
+  explosionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &682430610998803870
 Rigidbody2D:
   serializedVersion: 4
@@ -5158,23 +5164,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!1818360610 &6374817915848512611
-ScaleConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070891413008373633}
-  m_Enabled: 1
-  m_Weight: 1
-  m_ScaleAtRest: {x: 1, y: 1, z: 1}
-  m_ScaleOffset: {x: 1, y: 1, z: 1}
-  m_AffectScalingX: 1
-  m_AffectScalingY: 1
-  m_AffectScalingZ: 1
-  m_IsContraintActive: 0
-  m_IsLocked: 0
-  m_Sources: []
 --- !u!1 &2417197276648577150
 GameObject:
   m_ObjectHideFlags: 0

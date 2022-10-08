@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public float dashCoolDown = 2f;
     public float dashDuration = 0.2f;
     private float dashCoolTimer, dashTimer;
+    public float infiniteDashSpeed = 30f;
     public float gravityMultiplier;
     public float initialGravity;
     public float coyoteTime = 0.2f;
@@ -105,19 +106,21 @@ public class PlayerController : MonoBehaviour
         trailRenderer();
         dashController();
         handleRotation();
+        print(infiniteDashForce);
     }
 
     void movePlayer(){
 
         if(!inInfiniteDashZone){
-            if(activeMovespeed > 0){ 
-                if(canMove && !isDashing && !isWallJumping){
-                    rb.velocity = new Vector2( Mathf.Lerp(rb.velocity.x, facing*activeMovespeed, 0.5f),rb.velocity.y);
+            if(canMove && !isDashing && !isWallJumping){
+                if(activeMovespeed > 0){ 
+                    rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing*activeMovespeed, 0.5f),rb.velocity.y); 
+                }
+                else{
+                    rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
                 }
             }
-            else{
-                rb.velocity = new Vector2(facing*Mathf.Clamp(Mathf.Abs(rb.velocity.x)- (isGrounded ? stopGroundSpeed : stopAirSpeed),0f,movementSpeed), rb.velocity.y);
-            }
+           
         }
         else{
              
@@ -176,23 +179,26 @@ public class PlayerController : MonoBehaviour
         if(!inMovingPlatform){
             transform.localScale = new Vector3(1, 1, 1);
         }
-
-        if(isGrounded){
-            canWallHop = true;
-            canDash = true;
-            coyoteTimeCounter = coyoteTime;
-            // rb.gravityScale = initialGravity;
+        if(!inInfiniteDashZone){
+            if(isGrounded){
+                canWallHop = true;
+                canDash = true;
+                coyoteTimeCounter = coyoteTime;
+                rb.gravityScale = initialGravity;
             if(rb.velocity.y <= 0){
                 isJumping = false;
             }
             
         }   
-        else{
-            if(rb.velocity.y <= 0 && rb.gravityScale == initialGravity){
-                rb.gravityScale *= gravityMultiplier;
+            else{
+                if(rb.velocity.y <= 0 && rb.gravityScale == initialGravity){
+                    rb.gravityScale *= gravityMultiplier;
+                }
+                coyoteTimeCounter -= Time.deltaTime;
             }
-            coyoteTimeCounter -= Time.deltaTime;
         }
+
+        
     }
 
 
@@ -201,15 +207,17 @@ public class PlayerController : MonoBehaviour
         trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || infiniteDashForce != Vector2.zero);  
     }
 
-    public void Dash(Vector2 dashDir, float speed, float duration, bool hyperDash=false, bool gravity=false){
+    public void Dash(Dash dash){
 
-        if(hyperDash || (coyoteTimeCounter < 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dashDir.x) == facing || Mathf.Abs(dashDir.x) < 0.3f) )){
+        if(dash.hyperDash || (coyoteTimeCounter < 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f))){
+            rb.velocity *= 0.20f;
             isDashing = true;
-            canDash = hyperDash;
-            rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(dashDir.x, dashDir.y) * speed * 100);
-            dashTimer = duration;
-            rb.gravityScale *= gravity ? 1 : 0;   
+            canDash = dash.hyperDash;
+            rb.AddForce(new Vector2(dash.dir.x, dash.dir.y) * dash.speed, ForceMode2D.Impulse); // dashSpeed = 55
+            // rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed;
+            dashTimer = dash.duration;
+    
+            rb.gravityScale = 0f;   
             trail.startWidth = 0.65f;
             trail.endWidth = 0.65f;
         }
@@ -249,21 +257,21 @@ public class PlayerController : MonoBehaviour
         if(!isGrounded){
             resetRotation(transform);
         } 
-
         
         if(!isAirBorne){
             rb.freezeRotation = false; // unfreezes rotation when on ground
         }
         else {
-            if(transform.eulerAngles.z != 0){ 
-                resetRotation(transform);
-            }
+            resetRotation(transform);
             rb.freezeRotation = true; // freezes rotation when in the air
         }        
     }
 
     void resetRotation(Transform transf){
-        transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f)); 
+        if(transform.eulerAngles.z != 0){ 
+            transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f)); 
+        }
+
     }
    
 
@@ -291,4 +299,20 @@ public class PlayerController : MonoBehaviour
         isWallJumping = false;
     }
 
+}
+
+
+public class Dash {
+
+    public Vector2 dir;
+    public float speed;
+    public float duration;
+    public bool hyperDash;
+
+    public Dash(Vector2 dir, float speed, float duration, bool hyperDash = false){
+        this.dir = dir;
+        this.speed = speed;
+        this.duration = duration;
+        this.hyperDash = hyperDash;
+    }
 }

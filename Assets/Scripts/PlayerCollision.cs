@@ -39,6 +39,7 @@ public class PlayerCollision : MonoBehaviour
         if(ps.inInfiniteDashZone){
             ps.infiniteDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
+            rb.gravityScale = 0f;
         } 
 
         ProcessCollision(collision.gameObject);
@@ -76,15 +77,12 @@ public class PlayerCollision : MonoBehaviour
                 StartCoroutine(restoreObject(go,2f));
                 break;
             case "HyperDash":
-                HyperDash hyperDash = collider.gameObject.GetComponent<HyperDash>();
-                if((Mathf.Sign(hyperDash.dir.x) == ps.facing) || (hyperDash.dir.y > 0f)){
-                    ps.Dash(hyperDash.dir, hyperDash.speed, hyperDash.duration, true, hyperDash.gravity);
+                HyperDash hd = collider.gameObject.GetComponent<HyperDash>();
+        
+                if((Mathf.Sign(hd.dash.dir.x) == ps.facing)){
+                    ps.Dash(hd.dash);
                 }
-                
 
-                if(hyperDash.changeFacing){
-                    ps.flip();
-                }
                 break;
 
             case "CrystalDash":

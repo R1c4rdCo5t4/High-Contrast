@@ -73,35 +73,37 @@ public class TouchManager : MonoBehaviour
 
     void moveTouch(Touch touch){
 
-        if(touch.position.x < Screen.width / 3) return;
+        // https://answers.unity.com/questions/663784/is-it-the-way-to-find-swipe-speed.html
     
         currentPosition = touch.position;
         Vector2 Swipe = currentPosition - startTouchPosition;
-        // swipeDir = new Vector2(currentPosition.x-startTouchPosition.x,currentPosition.y-startTouchPosition.y);
+        Vector2 swipeDir = Swipe.normalized;
 
+        if(currentPosition.x < Screen.width / 3 || Swipe.magnitude < 100) return;
+
+        // swipeDir = new Vector2(currentPosition.x-startTouchPosition.x,currentPosition.y-startTouchPosition.y);
+        // print(Swipe.y);
         if (!stopTouch){
-            float screenDiagonal = Mathf.Sqrt(Mathf.Pow(Screen.width, 2) + Mathf.Pow(Screen.height, 2)); // pythagorean theorem
-            Vector2 dashForce = (Swipe.normalized * ps.dashSpeed) / screenDiagonal * 70f;
-            // print(dashForce);
+   
             if (Swipe.x < -swipeRange){ // left
                 if(!ps.inInfiniteDashZone) leftSwipe();
-                checkDash(dashForce, Direction.Left);
+                checkDash(swipeDir, Direction.Left);
                 
             }
 
             else if (Swipe.x > swipeRange){  // right
                 if(!ps.inInfiniteDashZone) rightSwipe();
-                checkDash(dashForce, Direction.Right);
+                checkDash(swipeDir, Direction.Right);
             }
 
             else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
                 if(!ps.inInfiniteDashZone) upSwipe(Swipe.y);
-                checkDash(dashForce, Direction.Up);
+                checkDash(swipeDir, Direction.Up);
             }
             
             else if (Swipe.y < -swipeRange){ // down
                 if(!ps.inInfiniteDashZone) downSwipe();
-                checkDash(dashForce, Direction.Down);
+                checkDash(swipeDir, Direction.Down);
             }
 
         }
@@ -109,7 +111,7 @@ public class TouchManager : MonoBehaviour
         
     }
 
-    void checkDash(Vector2 force, Direction dir){
+    void checkDash(Vector2 swipeDir, Direction dir){
         
 
         if(!ps.inInfiniteDashZone){
@@ -118,16 +120,15 @@ public class TouchManager : MonoBehaviour
                     ps.flip();
                     return;
                 }
-                ps.Dash(force, ps.dashSpeed, ps.dashDuration);  
+                Dash dash = new Dash(swipeDir, ps.dashSpeed, ps.dashDuration); 
+                ps.Dash(dash);  
             }
         }
 
         else{
-            ps.rb.gravityScale = 0f;
-            if(!ps.isAirBorne || rb.velocity == Vector2.zero){
-                ps.infiniteDashForce = force * ps.dashSpeed;
+            if(!ps.isAirBorne || ps.infiniteDashForce == Vector2.zero){
+                ps.infiniteDashForce = swipeDir * ps.infiniteDashSpeed; 
             }
-            
             
         }
 
@@ -158,6 +159,7 @@ public class TouchManager : MonoBehaviour
 
     void rightSwipe(){
         ps.activeMovespeed = ps.movementSpeed;
+        
         if(ps.facing > 0){
             if(ps.canWallHop){
                 ps.wallJump(ps.wallHopDir.x,ps.wallHopDir.y); // wall hop to right
@@ -181,7 +183,8 @@ public class TouchManager : MonoBehaviour
     void upSwipe(float swipeForce){
         
         // print(swipeForce);
-        float jumpForce = swipeForce < 200f ? ps.minJumpForce : ps.maxJumpForce;
+        float jumpForce = swipeForce < Screen.height / 2 ? ps.minJumpForce : ps.maxJumpForce;
+        print(jumpForce);
         ps.jump(jumpForce);
         stopTouch = true;
     }
@@ -190,7 +193,7 @@ public class TouchManager : MonoBehaviour
 
     void downSwipe(){
         if(ps.isTouchingWall && !ps.isGrounded){
-            ps.wallJump(-ps.wallOutDir.x,ps.wallOutDir.y);
+            ps.wallJump(ps.facing*ps.wallOutDir.x, ps.wallOutDir.y);
             ps.flip();
         }
         stopTouch = true;    
