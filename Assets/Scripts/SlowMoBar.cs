@@ -10,7 +10,7 @@ public class SlowMoBar : MonoBehaviour
     public float currentSlow, maxSlow = 100f;
     [SerializeField] float slowRate = 1f;
     float lerpSpeed;
- 
+
     void Start()
     {
         currentSlow = maxSlow;
@@ -25,18 +25,23 @@ public class SlowMoBar : MonoBehaviour
         lerpSpeed = 10f * Time.deltaTime;
     }
 
-    void slowMoBarFiller(){
+    void slowMoBarFiller()
+    {
         slowMoBar.fillAmount = Mathf.Lerp(slowMoBar.fillAmount, currentSlow / maxSlow, lerpSpeed);
     }
 
-    public void takeSlow(){
-        if(currentSlow > 0){
+    public void takeSlow()
+    {
+        if (currentSlow > 0)
+        {
             currentSlow -= slowRate;
         }
     }
 
-    public void restoreSlow(){
-        if(currentSlow < maxSlow){
+    public void restoreSlow()
+    {
+        if (currentSlow < maxSlow)
+        {
             currentSlow += slowRate / 2;
         }
     }

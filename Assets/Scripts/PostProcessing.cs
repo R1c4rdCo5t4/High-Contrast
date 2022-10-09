@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Experimental.Rendering.Universal;
- 
+
 public class PostProcessing : MonoBehaviour
 {
-   
+
     PlayerController ps;
     GameManager gm;
 
@@ -26,10 +21,6 @@ public class PostProcessing : MonoBehaviour
     Vignette vignette;
 
 
-
-
-
- 
     void Start()
     {
         ps = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -37,34 +28,15 @@ public class PostProcessing : MonoBehaviour
         UnityEngine.Rendering.VolumeProfile profile = GetComponent<UnityEngine.Rendering.Volume>().profile;
         profile.TryGet<ChromaticAberration>(out chromaticAberration);
         profile.TryGet<Vignette>(out vignette);
- 
+
     }
- 
+
     void Update()
-    {   
-       chromaticAberrationManager();
-       vignetteManager();
-       
-    }
-
-    void chromaticAberrationManager(){
-        chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inInfiniteDashZone); 
-    }
-
-    void vignetteManager(){
+    {
+        chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inInfiniteDashZone);
         vignette.intensity.value = valueChanger(vignetteMultiplier * Time.deltaTime, vignette.intensity.value, minVigValue, maxVigValue, gm.tm.isSlowing);
     }
 
-    float valueChanger(float mult, float value, float min, float max, bool cond){
-        if(cond){
-            if(value < max) return value + mult; else return max;
-        }  
-        else {
-            if (value > min) return value - mult; else return min;
-        }
+    float valueChanger(float mult, float value, float min, float max, bool cond) => (cond) ? value < max ? value + mult : max : (value > min) ? value - mult : min;
 
-     
-    }
- 
-   
 }

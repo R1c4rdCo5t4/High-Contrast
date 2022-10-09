@@ -24,52 +24,60 @@ public class TimeManager : MonoBehaviour
     {
         defaultTimeScale = Time.timeScale;
         slowBar = GameObject.Find("SlowMoBar").GetComponent<SlowMoBar>();
-   
+
     }
 
-    void FixedUpdate(){
-        
-        if(isSlowing){
+    void FixedUpdate()
+    {
+
+        if (isSlowing)
+        {
             slowBar.takeSlow();
         }
-        else{
-            if(canRestoreSlow && !isTryingToSlow){
+        else
+        {
+            if (canRestoreSlow && !isTryingToSlow)
+            {
                 slowBar.restoreSlow();
             }
-            else{
+            else
+            {
                 Invoke("restoreSlow", 2f);
             }
-            
+
         }
     }
 
-    
+
     void Update()
     {
         isSlowing = slowDownTimer > 0 && isTryingToSlow && slowBar.currentSlow > 0;
         var slowDownScale = isSlowing ? slowDownLength : 0.5f;
-        Time.timeScale += (1f/slowDownScale) * Time.unscaledDeltaTime; 
-        Time.timeScale = Mathf.Clamp(Time.timeScale,0,1f);
+        Time.timeScale += (1f / slowDownScale) * Time.unscaledDeltaTime;
+        Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1f);
 
-        if(isSlowing){ 
+        if (isSlowing)
+        {
             slowDownTimer -= Time.deltaTime;
             canRestoreSlow = false;
         }
-        
-    }
-    
 
-    public void SlowMotion(float slowDownStrength, float slowDownLen){
+    }
+
+
+    public void SlowMotion(float slowDownStrength, float slowDownLen)
+    {
         isTryingToSlow = true;
-        if(slowBar.currentSlow <= 0) return;
+        if (slowBar.currentSlow <= 0) return;
         Time.timeScale = slowDownStrength;
         slowDownLength = slowDownLen;
         slowDownTimer = slowDownLen;
-            
+
     }
 
 
-    void restoreSlow(){
+    void restoreSlow()
+    {
         canRestoreSlow = true;
     }
 
