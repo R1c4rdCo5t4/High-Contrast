@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638008385131155634
-    m_Hash: 4040286607
+      ticks: 638009360306666069
+    m_Hash: 2786016741
   m_LockFileStatus:
     m_FilePath: C:/Users/Ricardo/Unity Projects/High-Contrast/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638008385131235434
-    m_Hash: 1020428551
+      ticks: 638009360306725910
+    m_Hash: 2006126200
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -1232,12 +1232,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.visualstudio.git
         revision: 680e06d94ffca728223ae2cb14bb919cd354e2c1
         path: 
-    - packageId: com.unity.ide.vscode@1.2.3
+    - packageId: com.unity.ide.vscode@1.2.5
       testable: 0
       isDirectDependency: 1
-      version: 1.2.3
+      version: 1.2.5
       source: 1
-      resolvedPath: C:\Users\Ricardo\Unity Projects\High-Contrast\Library\PackageCache\com.unity.ide.vscode@1.2.3
+      resolvedPath: C:\Users\Ricardo\Unity Projects\High-Contrast\Library\PackageCache\com.unity.ide.vscode@1.2.5
       assetPath: Packages/com.unity.ide.vscode
       name: com.unity.ide.vscode
       displayName: Visual Studio Code Editor
@@ -1297,13 +1297,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637394922300000000
+      datePublishedTicks: 637800255360000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
-        url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.vscode.git
-        revision: b5ec9b38109e52b1b26597d521e4df75e042ebb9
+        url: https://github.com/Unity-Technologies/com.unity.ide.vscode.git
+        revision: b0740c80bfc2440527c317109f7c3d9100132722
         path: 
     - packageId: com.unity.render-pipelines.universal@10.6.0
       testable: 0

@@ -7,13 +7,11 @@ public class PlayerCollision : MonoBehaviour
 {
     PlayerController ps;
     GameManager gm;
-    InvertColor ic;
 
     GameObject go;
     Vector3 defaultRotation;
     Rigidbody2D rb;
     ParticleSystem particles;
-    TimeManager tm;
     SpriteRenderer[] sprites;
 
     
@@ -27,8 +25,6 @@ public class PlayerCollision : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprites = GetComponentsInChildren<SpriteRenderer>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
-        ic = GameObject.Find("LevelManager").GetComponent<InvertColor>();
         particles = GameObject.Find("Explosion").GetComponent<ParticleSystem>();
         defaultRotation = transform.eulerAngles;
     }
@@ -72,7 +68,7 @@ public class PlayerCollision : MonoBehaviour
                 break;
 
             case "Reverter":
-                ic.Invert();
+                gm.ic.Invert();
                 collider.SetActive(false);
                 
                 gm.darkMode = !gm.darkMode;
@@ -96,7 +92,7 @@ public class PlayerCollision : MonoBehaviour
                 ParticleSystem partSystem = collider.gameObject.GetComponent<ParticleSystem>();
    
                 var main = partSystem.main;
-                main.startSpeed = tm.isTryingToSlow ? 5f : 20f; // set speed to slow-mo manually 
+                main.startSpeed = gm.tm.isTryingToSlow ? 5f : 20f; // set speed to slow-mo manually 
                
                 partSystem.Stop();
                 partSystem.Play();
@@ -136,7 +132,7 @@ public class PlayerCollision : MonoBehaviour
                 particles.Play();
                 ps.isDead = true;
                 
-                // tm.SlowMotion(0.1f,1.5f);
+                // gm.tm.SlowMotion(0.1f,1.5f);
                 StartCoroutine(newGame());   
                 break;
 

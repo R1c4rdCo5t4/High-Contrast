@@ -6,10 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
     Rigidbody2D rb;
-    TimeManager tm;
+    // TimeManager tm;
     AnimationCurve trailWidth;
-    GameManager gm;
-    GameObject otherComponents;
+    // GameManager gm;
+
     TrailRenderer trail;
     ParticleSystem ps;
     [SerializeField] LayerMask groundLayer;
@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        // gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+       
         ps = GameObject.Find("Explosion").GetComponent<ParticleSystem>();
         trail = GameObject.Find("Trail").GetComponent<TrailRenderer>();
         activeMovespeed = 0f;
@@ -180,16 +180,18 @@ public class PlayerController : MonoBehaviour
                 coyoteTimeCounter = coyoteTime;
                 rb.gravityScale = initialGravity;
                 dashesLeft = numOfDashes;
-            if(rb.velocity.y <= 0){
-                isJumping = false;
-            }
-            
-        }   
+                
+                
+            }   
             else{
                 if(rb.velocity.y <= 0 && rb.gravityScale == initialGravity){
+                    isJumping = false;
                     rb.gravityScale *= gravityMultiplier;
                 }
                 coyoteTimeCounter -= Time.deltaTime;
+                isInSlope = false;
+
+
             }
         }
 
@@ -224,7 +226,7 @@ public class PlayerController : MonoBehaviour
         if(dashTimer > 0){
             dashTimer -= Time.deltaTime;
 
-            if(dashTimer <= 0 || isTouchingWall){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
+            if(dashTimer <= 0 || isTouchingWall || !isDashing){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
                 isDashing = false;
                 activeMovespeed = movementSpeed;
                 dashCoolTimer = dashCoolDown;
@@ -280,7 +282,12 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
         ps.gameObject.transform.position = prevParticlePos; // lock particle Z pos
 
-        if(transform.eulerAngles.z != 0 && !isTouchingWall) rb.velocity = Vector2.down;
+        if(transform.eulerAngles.z != 0 && !isTouchingWall && isInSlope) rb.velocity = Vector2.down;
+
+        if(isDashing) isDashing = false;
+
+
+
 
     }
 

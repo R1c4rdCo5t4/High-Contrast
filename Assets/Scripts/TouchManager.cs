@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class TouchManager : MonoBehaviour
 {
     [SerializeField] PlayerController ps;
-    [SerializeField] InvertColor ic;
+    // [SerializeField] InvertColor ic;
     PlayerCollision pc;
-    TimeManager tm;
+    GameManager gm;
     Rigidbody2D rb;
     
     Vector2 startTouchPosition;
@@ -33,7 +33,7 @@ public class TouchManager : MonoBehaviour
     {
         swipeRange = Screen.height * swipeRangeMultiplier / 100;
         pc = GameObject.Find("Player").GetComponent<PlayerCollision>();
-        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = GameObject.Find("Player").GetComponent<Rigidbody2D>();
     }
 
@@ -210,7 +210,7 @@ public class TouchManager : MonoBehaviour
 
 
         if(touch.position.x < Screen.width / 3){ // Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer <= 0
-            tm.SlowMotion(0.25f,4f,true);
+            gm.tm.SlowMotion(0.25f,4f);
            
         }
         
@@ -223,8 +223,8 @@ public class TouchManager : MonoBehaviour
         endTouchPosition = touch.position;
         Vector2 movedDist = endTouchPosition - startTouchPosition;
 
-        if((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && tm.isTryingToSlow){
-            tm.isTryingToSlow = false;
+        if((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && gm.tm.isTryingToSlow){
+            gm.tm.isTryingToSlow = false;
           
         }
         else{

@@ -2,31 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Experimental.Rendering.Universal;
+
+
+
 
 public class InvertColor : MonoBehaviour
 {
     Transform[] objects;
-    public Volume volume;
-    Bloom bloom;
-    public Vignette vignette; 
-    GameManager gm;
-   
 
     void Start()
     {
         objects = GetComponentsInChildren<Transform>();
-        volume.profile.TryGet<Bloom>(out bloom);
-        bloom.tint.Override(Color.white);
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        volume = GameObject.Find("Volume").GetComponent<Volume>();
-        volume.profile.TryGet<Vignette>(out vignette);
-        
     }
 
+
     Color getCurrentColor(Color prevColor, float alpha=1f) => new Color(1f-prevColor.r, 1f-prevColor.g, 1f-prevColor.b, prevColor.a);
+
+
 
     public void Invert(){
         foreach(Transform obj in objects){
