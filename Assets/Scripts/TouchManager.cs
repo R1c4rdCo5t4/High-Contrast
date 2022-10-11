@@ -9,7 +9,7 @@ public class TouchManager : MonoBehaviour
     // [SerializeField] InvertColor ic;
     PlayerCollision pc;
     GameManager gm;
-    Rigidbody2D rb;
+   
 
     Vector2 startTouchPosition;
     Vector2 currentPosition;
@@ -34,7 +34,7 @@ public class TouchManager : MonoBehaviour
         swipeRange = Screen.height * swipeRangeMultiplier / 100;
         pc = GameObject.Find("Player").GetComponent<PlayerCollision>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        rb = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+       
     }
 
 
@@ -126,6 +126,8 @@ public class TouchManager : MonoBehaviour
     {
 
 
+
+
         if (!ps.inInfiniteDashZone)
         {
             if (!ps.isTouchingWall && !ps.isGrounded)
@@ -142,15 +144,25 @@ public class TouchManager : MonoBehaviour
 
         else
         {
-            if (!ps.isAirBorne || ps.infiniteDashForce == Vector2.zero)
+            print(Mathf.Abs(ps.rb.velocity.x));
+            if (!ps.isAirBorne || (Mathf.Abs(ps.rb.velocity.x) < 15f && Mathf.Abs(ps.rb.velocity.y) < 15f))
             {
-                ps.infiniteDashForce = swipeDir * ps.infiniteDashSpeed;
+                ps.infiniteDashForce = swipeDir.normalized * ps.infiniteDashSpeed;
+                if (ps.infiniteDashForce != Vector2.zero ){
+                    ps.rb.AddForce(ps.infiniteDashForce, ForceMode2D.Impulse);
+                    if (Mathf.Sign(ps.infiniteDashForce.x) != ps.facing){
+                        ps.flip();
+                    }
+                ps.rb.gravityScale = 0f;
+                // infiniteDashForce = Vector2.zero;
+                }
+                
             }
 
         }
 
 
-
+        stopTouch = true;
 
 
     }
@@ -233,9 +245,13 @@ public class TouchManager : MonoBehaviour
     void stationaryTouch(Touch touch)
     {
 
-        if ((touch.position.x > Screen.width / 3) && ps.isWallSliding)
+        if ((touch.position.x > Screen.width / 3))
         {
-            ps.wallSlideSpeed = ps.wallGrabSpeed;
+            if(ps.isWallSliding) ps.wallSlideSpeed = ps.wallGrabSpeed;
+
+            if(ps.inInfiniteDashZone && ps.isAirBorne){
+                ps.rb.gravityScale = Mathf.Lerp(ps.rb.gravityScale, ps.initialGravity*1.5f, 0.1f);
+            } 
         }
 
         Vector2 movedDist = touch.position - startTouchPosition;
@@ -252,7 +268,7 @@ public class TouchManager : MonoBehaviour
     void endTouch(Touch touch)
     {
 
-        stopTouch = false;
+        
         ps.wallSlideSpeed = ps.defaultSlideSpeed;
         endTouchPosition = touch.position;
         Vector2 movedDist = endTouchPosition - startTouchPosition;
@@ -260,11 +276,20 @@ public class TouchManager : MonoBehaviour
         if ((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && gm.tm.isTryingToSlow)
         {
             gm.tm.isTryingToSlow = false;
+            
 
         }
         else
         {
+            stopTouch = false;
             if (Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer > 0) tap();
+        }
+
+        if(touch.position.x > Screen.width / 3){
+            if(ps.inInfiniteDashZone){
+                ps.rb.gravityScale = 0f;
+                ps.infiniteDashForce = Vector2.zero;
+            }
         }
 
     }
@@ -272,9 +297,14 @@ public class TouchManager : MonoBehaviour
 
     void tap()
     {
-        ps.activeMovespeed = 0f;
-        ps.isJumping = false;
-        ps.isDashing = false;
+        
+
+        if(!ps.inInfiniteDashZone){
+            ps.activeMovespeed = 0f;
+            ps.isJumping = false;
+            ps.isDashing = false;
+        }
+        
 
     }
 }

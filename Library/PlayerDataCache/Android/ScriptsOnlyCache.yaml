@@ -1401,7 +1401,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: 8e5a257a099b6d624f22697bac3be121
+      Hash: 648d1bc14bf3241f6ed98a5fe2865cd0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1558,4 +1558,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.40/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.41/highcontrast.apk

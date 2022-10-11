@@ -27,13 +27,14 @@ public class PlayerCollision : MonoBehaviour
     }
 
 
+
     void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (ps.inInfiniteDashZone){
             ps.infiniteDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
-            rb.gravityScale = 0f;
+            
         }
 
         ProcessCollision(collision.gameObject);
@@ -143,11 +144,11 @@ public class PlayerCollision : MonoBehaviour
 
             case "ZoneIn":
                 ps.inInfiniteDashZone = true;
+                ps.enterInfiniteDashZone();
                 break;
             case "ZoneOut":
                 ps.inInfiniteDashZone = false;
-                ps.infiniteDashForce = Vector2.zero;
-                rb.gravityScale = ps.initialGravity;
+                ps.exitInfiniteDashZone();
                 break;
 
             default: break;

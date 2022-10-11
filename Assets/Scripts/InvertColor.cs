@@ -36,8 +36,8 @@ public class InvertColor : MonoBehaviour
 
             BoxCollider2D bc_ = obj.GetComponent<BoxCollider2D>();
             bc_.enabled = !bc_.enabled;
-
             return;
+            
         }
 
        

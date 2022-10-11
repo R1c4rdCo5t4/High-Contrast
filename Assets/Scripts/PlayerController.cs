@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     AnimationCurve trailWidth;
     TrailRenderer trail;
     ParticleSystem ps;
@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool hasAirDash = true;
 
 
+    // enum State{Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, InInfiniteDashZone, Dead}
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -100,7 +102,10 @@ public class PlayerController : MonoBehaviour
         dashController();
         handleRotation();
 
+      
+
     }
+
 
     void movePlayer()
     {
@@ -115,14 +120,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else { 
-            if (infiniteDashForce != Vector2.zero){
-                rb.velocity = infiniteDashForce;
-                if (Mathf.Sign(infiniteDashForce.x) != facing){
-                    flip();
-                }
-            }
-        }
+        
     }
 
 
@@ -178,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
 
     void trailRenderer(){
-        trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || infiniteDashForce != Vector2.zero);
+        trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || inInfiniteDashZone);
     }
 
     public void Dash(Dash dash){
@@ -260,6 +258,15 @@ public class PlayerController : MonoBehaviour
 
         if (isDashing) isDashing = false;
 
+    }
+
+    public void enterInfiniteDashZone(){
+ 
+    }
+
+    public void exitInfiniteDashZone(){
+        infiniteDashForce = Vector2.zero;
+        rb.gravityScale = initialGravity;
     }
 
     private void OnDrawGizmos()
