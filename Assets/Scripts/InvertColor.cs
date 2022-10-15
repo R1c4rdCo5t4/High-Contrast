@@ -39,7 +39,6 @@ public class InvertColor : MonoBehaviour
             return;
             
         }
-
        
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         if(sr != null) sr.color = getCurrentColor(sr.color);

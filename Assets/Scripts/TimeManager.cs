@@ -30,21 +30,10 @@ public class TimeManager : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (isSlowing)
-        {
-            slowBar.takeSlow();
-        }
-        else
-        {
-            if (canRestoreSlow && !isTryingToSlow)
-            {
-                slowBar.restoreSlow();
-            }
-            else
-            {
-                Invoke("restoreSlow", 2f);
-            }
-
+        if (isSlowing) slowBar.takeSlow();
+        
+        else{
+            if (canRestoreSlow && !isTryingToSlow) slowBar.restoreSlow(); else Invoke("restoreSlow", 2f);
         }
     }
 

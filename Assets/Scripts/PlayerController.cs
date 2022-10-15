@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    public Rigidbody2D rb;
+    Rigidbody2D rb;
     AnimationCurve trailWidth;
     TrailRenderer trail;
     ParticleSystem ps;
@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
         dashController();
         handleRotation();
 
-      
 
     }
 
@@ -145,12 +144,12 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         isTouchingWall = Physics2D.Raycast(wallCheckPoint.position, facing == 1 ? Vector2.right : Vector2.left, wallCheckDistance, wallLayer);
         isWallSliding = isTouchingWall && !isGrounded && (rb.velocity.y < 0 || isDashing);
-        isWallGrabbing = (wallSlideSpeed == wallGrabSpeed);
+        isWallGrabbing = wallSlideSpeed == wallGrabSpeed;
         isAirBorne = !Physics2D.OverlapCircle(airBorneCheckPoint.position, airBorneCheckRadius, airBorneLayer);
 
 
         if (!inMovingPlatform){
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = Vector3.one;
         }
         if (!inInfiniteDashZone){
             if (isGrounded){
@@ -190,8 +189,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed; // 30
             dashTimer = dash.duration;
             rb.gravityScale = 0f;
-            trail.startWidth = 0.65f;
-            trail.endWidth = 0.65f;
+            // trail.startWidth = 0.65f;
+            // trail.endWidth = 0.65f;
         }
     }
 
@@ -214,6 +213,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void infiniteDash(Vector2 force){
+
+        if (isAirBorne && !(Mathf.Abs(rb.velocity.x) < 15f && Mathf.Abs(rb.velocity.y) < 15f)) return;
+
+        rb.AddForce(force, ForceMode2D.Impulse);
+        if (Mathf.Sign(force.x) != facing){
+            flip();
+        }
+        rb.gravityScale = 0f;
+    }
+
     public void wallJump(float dirX, float dirY){
         if (!isGrounded && isTouchingWall && (hasWallJump || Mathf.Sign(dirX) == facing)){
             isWallJumping = Mathf.Sign(dirX) != facing;
@@ -221,8 +231,13 @@ public class PlayerController : MonoBehaviour
             Vector2 force = new Vector2(dirX, dirY) * wallJumpForce;
             rb.AddForce(force, ForceMode2D.Impulse);
             // rb.gravityScale = initialGravity;
-            StartCoroutine(setWallJumpingFalse(.275f));
+            Invoke("setWallJumpingFalse", .275f);
         }
+    }
+
+    public void gravityController(float gravityModifier, float lerpSpeed){
+        
+        rb.gravityScale = Mathf.Lerp(rb.gravityScale, initialGravity * gravityModifier, lerpSpeed);
     }
 
     public void handleRotation(){
@@ -243,7 +258,6 @@ public class PlayerController : MonoBehaviour
         if (transform.eulerAngles.z != 0){
             transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f));
         }
-
     }
 
 
@@ -276,16 +290,13 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(wallCheckPoint.position, new Vector3(facing == 1 ? 0.1f : 0.1f, 0f, 0f), Color.blue);
     }
 
-    IEnumerator setWallJumpingFalse(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        isWallJumping = false;
-    }
+    void setWallJumpingFalse() => isWallJumping = false;
+    
 
 }
 
 
-public class Dash{
+public class Dash {
     public Vector2 dir;
     public float speed;
     public float duration;
@@ -298,4 +309,6 @@ public class Dash{
         this.duration = duration;
         this.hyperDash = hyperDash;
     }
+
 }
+
