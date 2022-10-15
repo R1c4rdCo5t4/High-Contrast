@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     void movePlayer()
     {
         if (!inInfiniteDashZone){
-            if (canMove && !isDashing && !isWallJumping){
+            if (canMove && !isDashing && !isWallJumping && !isWallSliding){
                 if (activeMovespeed > 0){
                     rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing * activeMovespeed, 0.5f), rb.velocity.y);
                 }
@@ -131,11 +131,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void jump(float force){
+    public void jump(float force, Vector2 dir){
         if (coyoteTimeCounter > 0 && !isWallSliding && hasJump){
             isJumping = true;
             coyoteTimeCounter = 0f;
-            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            rb.AddForce(dir * force, ForceMode2D.Impulse);
         }
     }
 
@@ -217,16 +217,16 @@ public class PlayerController : MonoBehaviour
     public void wallJump(float dirX, float dirY){
         if (!isGrounded && isTouchingWall && (hasWallJump || Mathf.Sign(dirX) == facing)){
             isWallJumping = Mathf.Sign(dirX) != facing;
-            rb.gravityScale = 0f;
-            Vector2 force = new Vector2(wallJumpForce * dirX, wallJumpForce * dirY);
+            // rb.gravityScale = 0f;
+            Vector2 force = new Vector2(dirX, dirY) * wallJumpForce;
             rb.AddForce(force, ForceMode2D.Impulse);
-            rb.gravityScale = initialGravity;
+            // rb.gravityScale = initialGravity;
             StartCoroutine(setWallJumpingFalse(.275f));
         }
     }
 
     public void handleRotation(){
-        if (!isGrounded && !isInSlope){
+        if (!isGrounded && !isInSlope && !isTouchingWall){
             resetRotation(transform);
         }
 

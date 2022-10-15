@@ -89,30 +89,24 @@ public class TouchManager : MonoBehaviour
 
         // swipeDir = new Vector2(currentPosition.x-startTouchPosition.x,currentPosition.y-startTouchPosition.y);
         // print(Swipe.y);
-        if (!stopTouch)
-        {
+        if (!stopTouch){
 
-            if (Swipe.x < -swipeRange)
-            { // left
+            if (Swipe.x < -swipeRange){ // left
                 if (!ps.inInfiniteDashZone) leftSwipe();
                 checkDash(swipeDir, Direction.Left);
-
             }
 
-            else if (Swipe.x > swipeRange)
-            {  // right
+            else if (Swipe.x > swipeRange){  // right
                 if (!ps.inInfiniteDashZone) rightSwipe();
                 checkDash(swipeDir, Direction.Right);
             }
 
-            else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/)
-            { // up
-                if (!ps.inInfiniteDashZone) upSwipe(Swipe.y);
+            else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
+                // if (!ps.inInfiniteDashZone) //upSwipe(swipeDir);
                 checkDash(swipeDir, Direction.Up);
             }
 
-            else if (Swipe.y < -swipeRange)
-            { // down
+            else if (Swipe.y < -swipeRange){ // down
                 if (!ps.inInfiniteDashZone) downSwipe();
                 checkDash(swipeDir, Direction.Down);
             }
@@ -126,8 +120,6 @@ public class TouchManager : MonoBehaviour
     {
 
 
-
-
         if (!ps.inInfiniteDashZone)
         {
             if (!ps.isTouchingWall && !ps.isGrounded)
@@ -139,6 +131,13 @@ public class TouchManager : MonoBehaviour
                 }
                 Dash dash = new Dash(swipeDir, ps.dashSpeed, ps.dashDuration);
                 ps.Dash(dash);
+            }
+            else{
+
+                Vector2 jumpDir = new Vector2(0f, swipeDir.y);
+                if(jumpDir.y < 0.5f) return;
+                ps.jump(ps.maxJumpForce, jumpDir);
+                stopTouch = true;
             }
         }
 
@@ -219,13 +218,14 @@ public class TouchManager : MonoBehaviour
 
 
 
-    void upSwipe(float swipeForce)
+    void upSwipe(Vector2 swipeDir)
     {
 
         // print(swipeForce);
-        float jumpForce = swipeForce < Screen.height / 2 ? ps.minJumpForce : ps.maxJumpForce;
+        float jumpForce = /*swipeForce < Screen.height / 2 ? ps.minJumpForce :*/ ps.maxJumpForce;
+        
         // print(jumpForce);
-        ps.jump(jumpForce);
+        ps.jump(jumpForce, swipeDir);
         stopTouch = true;
     }
 
@@ -235,7 +235,7 @@ public class TouchManager : MonoBehaviour
     {
         if (ps.isTouchingWall && !ps.isGrounded)
         {
-            ps.wallJump(ps.facing * ps.wallOutDir.x, ps.wallOutDir.y);
+            ps.wallJump(-ps.facing * ps.wallOutDir.x, -ps.wallOutDir.y);
             ps.flip();
         }
         stopTouch = true;
@@ -250,7 +250,8 @@ public class TouchManager : MonoBehaviour
             if(ps.isWallSliding) ps.wallSlideSpeed = ps.wallGrabSpeed;
 
             if(ps.inInfiniteDashZone && ps.isAirBorne){
-                ps.rb.gravityScale = Mathf.Lerp(ps.rb.gravityScale, ps.initialGravity*1.5f, 0.1f);
+                var gravitySign = touch.position.y > Screen.height / 2 ? -1 : 1;
+                ps.rb.gravityScale = Mathf.Lerp(ps.rb.gravityScale, ps.initialGravity*gravitySign, 1f);
             } 
         }
 
@@ -298,7 +299,6 @@ public class TouchManager : MonoBehaviour
     void tap()
     {
         
-
         if(!ps.inInfiniteDashZone){
             ps.activeMovespeed = 0f;
             ps.isJumping = false;
