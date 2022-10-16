@@ -1,20 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Experimental.Rendering.Universal;
 
 public class TimeManager : MonoBehaviour
 {
 
     float slowDownLength = 2f;
-    float slowDownFactor;
     float slowDownTimer = 0f;
     float defaultTimeScale;
 
-    [SerializeField] float particleSpeed;
+    public float minParticleSpeed = 5f;
+    public float maxParticleSpeed = 20f;
     public bool isTryingToSlow = false;
     public bool isSlowing = false;
     bool canRestoreSlow;
@@ -45,8 +41,7 @@ public class TimeManager : MonoBehaviour
         Time.timeScale += (1f / slowDownScale) * Time.unscaledDeltaTime;
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1f);
 
-        if (isSlowing)
-        {
+        if (isSlowing){
             slowDownTimer -= Time.deltaTime;
             canRestoreSlow = false;
         }
@@ -65,8 +60,7 @@ public class TimeManager : MonoBehaviour
     }
 
 
-    void restoreSlow()
-    {
+    void restoreSlow(){
         canRestoreSlow = true;
     }
 

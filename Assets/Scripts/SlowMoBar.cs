@@ -32,17 +32,11 @@ public class SlowMoBar : MonoBehaviour
 
     public void takeSlow()
     {
-        if (currentSlow > 0)
-        {
-            currentSlow -= slowRate;
-        }
+        if (currentSlow > 0) currentSlow -= slowRate;   
     }
 
     public void restoreSlow()
     {
-        if (currentSlow < maxSlow)
-        {
-            currentSlow += slowRate / 2;
-        }
+        if (currentSlow < maxSlow) currentSlow += slowRate / 2;
     }
 }

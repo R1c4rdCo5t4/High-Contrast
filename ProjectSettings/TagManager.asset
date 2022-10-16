@@ -18,6 +18,8 @@ TagManager:
   - CrystalDash
   - ZoneOut
   - ZoneIn
+  - Booster
+  - BoosterZone
   layers:
   - Default
   - TransparentFX

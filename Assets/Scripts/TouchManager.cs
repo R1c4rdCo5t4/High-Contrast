@@ -76,18 +76,20 @@ public class TouchManager : MonoBehaviour
         Vector2 Swipe = currentPosition - startTouchPosition;
         Vector2 swipeDir = Swipe.normalized;
 
+        // print(swipeDir);
+
         if (currentPosition.x < Screen.width / 3 || Swipe.magnitude < 100) return;
 
 
         if (!stopTouch){
 
             if (Swipe.x < -swipeRange){ // left
-                if (!ps.inInfiniteDashZone) leftSwipe();
+                if (!ps.inInfiniteDashZone) leftSwipe(swipeDir);
                 swipeController(swipeDir, Direction.Left);
             }
 
             else if (Swipe.x > swipeRange){  // right
-                if (!ps.inInfiniteDashZone) rightSwipe();
+                if (!ps.inInfiniteDashZone) rightSwipe(swipeDir);
                 swipeController(swipeDir, Direction.Right);
             }
 
@@ -107,64 +109,62 @@ public class TouchManager : MonoBehaviour
     }
 
     void swipeController(Vector2 swipeDir, Direction dir){
-
+        // print(swipeDir);
 
         if (!ps.inInfiniteDashZone)
         {
             if (!ps.isTouchingWall && !ps.isGrounded){ // dash
-                if ((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1))
-                {
+                if ((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
                     ps.flip();
-                    return;
-                }
+                    if(Mathf.Abs(swipeDir.y) < 0.5f) return;
+                } 
             
                 ps.Dash(new Dash(swipeDir, ps.dashSpeed, ps.dashDuration));
             }
-            else{ // jump
-
+            else { // jump
                 if(swipeDir.y < 0.5f) return;
                 ps.jump(ps.maxJumpForce, new Vector2(0f, swipeDir.y));
             }
         }
 
         else ps.infiniteDash(swipeDir * ps.infiniteDashSpeed);
-                
-        stopTouch = true;
 
+        stopTouch = true;
     }
 
-    void leftSwipe()
+    void leftSwipe(Vector2 swipeDir)
     {
         ps.activeMovespeed = ps.movementSpeed;
 
         if (ps.facing < 0){
             if (ps.canWallHop){
-                ps.wallJump(-ps.wallHopDir.x, ps.wallHopDir.y); // wall hop to left
+                ps.wallJump(-ps.wallHopDir.x, ps.wallHopDir.y); // wall hop
                 ps.canWallHop = false;
             }
         }
 
         else{
-            ps.wallJump(-ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump to right
+            ps.wallJump(-ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
             if (ps.isGrounded || ps.isTouchingWall) ps.flip();
         }
 
         stopTouch = true;
     }
 
-    void rightSwipe()
+
+    void rightSwipe(Vector2 swipeDir)
     {
         ps.activeMovespeed = ps.movementSpeed;
 
         if (ps.facing > 0){
             if (ps.canWallHop){
-                ps.wallJump(ps.wallHopDir.x, ps.wallHopDir.y); // wall hop to right
+                ps.wallJump(ps.wallHopDir.x, ps.wallHopDir.y); // wall hop 
                 ps.canWallHop = false;
             }
         }
 
         else{
-            ps.wallJump(ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump to left
+            ps.wallJump(ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
             if (ps.isGrounded || ps.isTouchingWall) ps.flip();
         }
 
@@ -181,6 +181,7 @@ public class TouchManager : MonoBehaviour
         // // print(jumpForce);
         // ps.jump(jumpForce, swipeDir);
         // stopTouch = true;
+
     }
 
 
@@ -196,13 +197,11 @@ public class TouchManager : MonoBehaviour
     }
 
 
-    void stationaryTouch(Touch touch)
-    {
+    void stationaryTouch(Touch touch){
 
-        if ((touch.position.x > Screen.width / 3))
-        {
+        if ((touch.position.x > Screen.width / 3)){
+
             if(ps.isWallSliding) ps.wallSlideSpeed = ps.wallGrabSpeed;
-
             if(ps.inInfiniteDashZone && ps.isAirBorne){
                 var gravitySign = touch.position.y > Screen.height / 2 ? -1 : 1;
                 ps.gravityController(gravitySign, 1f);
@@ -220,22 +219,17 @@ public class TouchManager : MonoBehaviour
 
     }
 
-    void endTouch(Touch touch)
-    {
+    void endTouch(Touch touch) {
 
-        
         ps.wallSlideSpeed = ps.defaultSlideSpeed;
         endTouchPosition = touch.position;
         Vector2 movedDist = endTouchPosition - startTouchPosition;
 
-        if ((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && gm.tm.isTryingToSlow)
-        {
+        if ((Input.touchCount == 1 || (Input.touchCount > 1 && touch.position.x < Screen.width / 3)) && gm.tm.isTryingToSlow){
             gm.tm.isTryingToSlow = false;
-            
-
         }
-        else
-        {
+
+        else{
             stopTouch = false;
             if (Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer > 0) tap();
         }
@@ -246,20 +240,15 @@ public class TouchManager : MonoBehaviour
                 ps.infiniteDashForce = Vector2.zero;
             }
         }
-
     }
 
 
-    void tap()
-    {
-        
-        if(!ps.inInfiniteDashZone){
+    void tap(){
+        if (!ps.inInfiniteDashZone) {
             ps.activeMovespeed = 0f;
             ps.isJumping = false;
             ps.isDashing = false;
         }
-        
-
     }
 }
 

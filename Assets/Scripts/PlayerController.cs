@@ -37,10 +37,13 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.2f;
     private float dashCoolTimer, dashTimer;
     public float infiniteDashSpeed = 30f;
+    public float crystalDashSpeed = 35f;
+    public float boosterSpeed = 30f;
     public float gravityMultiplier;
     public float initialGravity;
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
+
 
 
     [SerializeField] float groundCheckRadius;
@@ -69,12 +72,15 @@ public class PlayerController : MonoBehaviour
     public bool inInfiniteDashZone;
     public bool isDead = false;
     public bool isInSlope = false;
+    public bool isBoosting;
     [SerializeField] bool hasJump = true;
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
 
+    State currState;
 
-    // enum State{Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, InInfiniteDashZone, Dead}
+
+    enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, InInfiniteDashZone, Dead, Boosting, Undefined }
 
     void Start()
     {
@@ -101,6 +107,7 @@ public class PlayerController : MonoBehaviour
         trailRenderer();
         dashController();
         handleRotation();
+        checkStates();
 
 
     }
@@ -125,7 +132,8 @@ public class PlayerController : MonoBehaviour
 
     void wallSlide(){
         if (isWallSliding && rb.velocity.y < -wallSlideSpeed){
-            rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed); // wall slide
+            float wallSlideLerp =  Mathf.Lerp(rb.velocity.y, -wallSlideSpeed, 0.5f); // wall slide
+            rb.velocity = new Vector2(rb.velocity.x, wallSlideLerp);
         }
     }
 
@@ -136,6 +144,25 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter = 0f;
             rb.AddForce(dir * force, ForceMode2D.Impulse);
         }
+    }
+
+    void checkStates(){
+
+        currState =
+            isDead ? State.Dead :
+            inInfiniteDashZone ? State.InInfiniteDashZone :
+            isBoosting ? State.Boosting :
+            isGrounded && activeMovespeed == 0 ? State.Idle :
+            isGrounded && activeMovespeed != 0 ? State.Moving :
+            isGrounded && isInSlope ? State.InSlope :
+            isDashing ? State.Dashing :
+            !isGrounded && isJumping ? State.Jumping :
+            isWallJumping ? State.WallJumping :
+            isWallSliding ? State.WallSliding :
+            State.Undefined;
+
+
+        // print(currState);
     }
 
 
