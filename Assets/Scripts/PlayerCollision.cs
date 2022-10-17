@@ -165,15 +165,13 @@ public class PlayerCollision : MonoBehaviour
     }
 
 
-    enum Way { Enter, Exit}
+    enum Way { Enter, Exit }
 
     void processBooster(GameObject booster){
         float rotation = booster.transform.eulerAngles.z;
         Vector2 dir = new Vector2(Mathf.Cos(rotation), Mathf.Sin(rotation));
-        
         if(Mathf.Sign(dir.x) != ps.facing) return;
-        print("!!!!!!!!!!!!");
-        // rb.gravityScale = 0f;
+
         rb.AddForce(dir * ps.boosterSpeed * 2, ForceMode2D.Impulse);
         changeBoosterOpacity(booster, Way.Enter);
         ps.isDashing = true;

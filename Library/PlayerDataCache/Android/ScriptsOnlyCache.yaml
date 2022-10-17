@@ -118,8 +118,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 62
       Script: {instanceID: 0}
-    - Class: 65
-      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 96
@@ -135,125 +133,125 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1658}
+      Script: {instanceID: 1660}
     - Class: 114
-      Script: {instanceID: 1800}
+      Script: {instanceID: 1802}
     - Class: 114
-      Script: {instanceID: 2400}
+      Script: {instanceID: 2402}
     - Class: 114
-      Script: {instanceID: 2490}
+      Script: {instanceID: 2492}
     - Class: 114
-      Script: {instanceID: 2652}
+      Script: {instanceID: 2654}
     - Class: 114
-      Script: {instanceID: 2712}
+      Script: {instanceID: 2714}
     - Class: 114
-      Script: {instanceID: 2778}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 3182}
+      Script: {instanceID: 3184}
     - Class: 114
-      Script: {instanceID: 3250}
+      Script: {instanceID: 3252}
     - Class: 114
-      Script: {instanceID: 3314}
+      Script: {instanceID: 3316}
     - Class: 114
-      Script: {instanceID: 3340}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3402}
+      Script: {instanceID: 3404}
     - Class: 114
-      Script: {instanceID: 3528}
+      Script: {instanceID: 3530}
     - Class: 114
-      Script: {instanceID: 3552}
-    - Class: 114
-      Script: {instanceID: 3648}
+      Script: {instanceID: 3554}
     - Class: 114
       Script: {instanceID: 3650}
     - Class: 114
-      Script: {instanceID: 3946}
+      Script: {instanceID: 3652}
     - Class: 114
-      Script: {instanceID: 3956}
+      Script: {instanceID: 3948}
     - Class: 114
-      Script: {instanceID: 4068}
+      Script: {instanceID: 3958}
     - Class: 114
-      Script: {instanceID: 4152}
+      Script: {instanceID: 4070}
     - Class: 114
-      Script: {instanceID: 4242}
+      Script: {instanceID: 4154}
     - Class: 114
-      Script: {instanceID: 4282}
+      Script: {instanceID: 4244}
     - Class: 114
-      Script: {instanceID: 4340}
+      Script: {instanceID: 4284}
     - Class: 114
-      Script: {instanceID: 4398}
+      Script: {instanceID: 4342}
     - Class: 114
-      Script: {instanceID: 4606}
+      Script: {instanceID: 4400}
     - Class: 114
-      Script: {instanceID: 4618}
+      Script: {instanceID: 4608}
     - Class: 114
-      Script: {instanceID: 4654}
+      Script: {instanceID: 4620}
     - Class: 114
-      Script: {instanceID: 5030}
+      Script: {instanceID: 4656}
     - Class: 114
-      Script: {instanceID: 5220}
+      Script: {instanceID: 5032}
     - Class: 114
-      Script: {instanceID: 5234}
+      Script: {instanceID: 5222}
     - Class: 114
-      Script: {instanceID: 5294}
+      Script: {instanceID: 5236}
     - Class: 114
-      Script: {instanceID: 5318}
+      Script: {instanceID: 5296}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5320}
     - Class: 114
       Script: {instanceID: 5488}
     - Class: 114
-      Script: {instanceID: 5512}
+      Script: {instanceID: 5490}
     - Class: 114
-      Script: {instanceID: 5784}
+      Script: {instanceID: 5514}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5786}
     - Class: 114
-      Script: {instanceID: 5908}
+      Script: {instanceID: 5870}
     - Class: 114
-      Script: {instanceID: 6060}
+      Script: {instanceID: 5910}
     - Class: 114
-      Script: {instanceID: 6132}
+      Script: {instanceID: 6062}
     - Class: 114
-      Script: {instanceID: 6138}
+      Script: {instanceID: 6134}
     - Class: 114
-      Script: {instanceID: 6238}
+      Script: {instanceID: 6140}
     - Class: 114
-      Script: {instanceID: 6272}
+      Script: {instanceID: 6240}
     - Class: 114
-      Script: {instanceID: 6318}
+      Script: {instanceID: 6274}
     - Class: 114
-      Script: {instanceID: 6384}
+      Script: {instanceID: 6320}
     - Class: 114
-      Script: {instanceID: 6392}
+      Script: {instanceID: 6386}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6394}
     - Class: 114
-      Script: {instanceID: 6636}
+      Script: {instanceID: 6502}
     - Class: 114
-      Script: {instanceID: 6674}
+      Script: {instanceID: 6638}
     - Class: 114
-      Script: {instanceID: 6750}
+      Script: {instanceID: 6676}
     - Class: 114
-      Script: {instanceID: 6804}
+      Script: {instanceID: 6752}
     - Class: 114
-      Script: {instanceID: 7360}
+      Script: {instanceID: 6806}
     - Class: 114
-      Script: {instanceID: 7378}
+      Script: {instanceID: 7364}
     - Class: 114
-      Script: {instanceID: 7408}
+      Script: {instanceID: 7382}
     - Class: 114
-      Script: {instanceID: 7732}
+      Script: {instanceID: 7412}
     - Class: 114
-      Script: {instanceID: 7860}
+      Script: {instanceID: 7736}
     - Class: 114
-      Script: {instanceID: 7880}
+      Script: {instanceID: 7864}
     - Class: 114
-      Script: {instanceID: 7932}
+      Script: {instanceID: 7884}
     - Class: 114
-      Script: {instanceID: 7972}
+      Script: {instanceID: 7936}
     - Class: 114
-      Script: {instanceID: 8018}
+      Script: {instanceID: 7976}
+    - Class: 114
+      Script: {instanceID: 8022}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -891,7 +889,7 @@ ScriptsOnlyBuild:
     className: CameraManager
   - hash:
       serializedVersion: 2
-      Hash: 4a517c64765328b44df3c9962d6ffd08
+      Hash: 2ec97c140f2a87a8f3765e90b1bdd056
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeManager
@@ -1335,6 +1333,12 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ColorManager
+  - hash:
+      serializedVersion: 2
       Hash: 7c792393fb82488bd20139dcc5ba26d8
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -1401,7 +1405,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: 648d1bc14bf3241f6ed98a5fe2865cd0
+      Hash: a1ff3c33b87e5c4200af890ae86c3ee1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1558,4 +1562,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.41/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.42/highcontrast.apk
