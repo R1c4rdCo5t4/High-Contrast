@@ -84,22 +84,22 @@ public class TouchManager : MonoBehaviour
         if (!stopTouch){
 
             if (Swipe.x < -swipeRange){ // left
-                if (!ps.inInfiniteDashZone) leftSwipe(swipeDir);
+                if (!ps.inhyperDashZone) leftSwipe(swipeDir);
                 swipeController(swipeDir, Direction.Left);
             }
 
             else if (Swipe.x > swipeRange){  // right
-                if (!ps.inInfiniteDashZone) rightSwipe(swipeDir);
+                if (!ps.inhyperDashZone) rightSwipe(swipeDir);
                 swipeController(swipeDir, Direction.Right);
             }
 
             else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
-                // if (!ps.inInfiniteDashZone) //upSwipe(swipeDir);
+                // if (!ps.inhyperDashZone) //upSwipe(swipeDir);
                 swipeController(swipeDir, Direction.Up);
             }
 
             else if (Swipe.y < -swipeRange){ // down
-                if (!ps.inInfiniteDashZone) downSwipe();
+                if (!ps.inhyperDashZone) downSwipe();
                 swipeController(swipeDir, Direction.Down);
             }
 
@@ -111,7 +111,7 @@ public class TouchManager : MonoBehaviour
     void swipeController(Vector2 swipeDir, Direction dir){
         // print(swipeDir);
 
-        if (!ps.inInfiniteDashZone)
+        if (!ps.inhyperDashZone)
         {
             if (!ps.isTouchingWall && !ps.isGrounded){ // dash
                 if ((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
@@ -127,7 +127,7 @@ public class TouchManager : MonoBehaviour
             }
         }
 
-        else ps.infiniteDash(swipeDir * ps.infiniteDashSpeed);
+        else ps.hyperDash(swipeDir * ps.hyperDashSpeed);
 
         stopTouch = true;
     }
@@ -202,7 +202,7 @@ public class TouchManager : MonoBehaviour
         if ((touch.position.x > Screen.width / 3)){
 
             if(ps.isWallSliding) ps.wallSlideSpeed = ps.wallGrabSpeed;
-            if(ps.inInfiniteDashZone && ps.isAirBorne){
+            if(ps.inhyperDashZone && ps.isAirBorne){
                 var gravitySign = touch.position.y > Screen.height / 2 ? -1 : 1;
                 ps.gravityController(gravitySign, 1f);
             } 
@@ -235,16 +235,16 @@ public class TouchManager : MonoBehaviour
         }
 
         if(touch.position.x > Screen.width / 3){
-            if(ps.inInfiniteDashZone){
+            if(ps.inhyperDashZone){
                 ps.gravityController(0f, 2f);
-                ps.infiniteDashForce = Vector2.zero;
+                ps.hyperDashForce = Vector2.zero;
             }
         }
     }
 
 
     void tap(){
-        if (!ps.inInfiniteDashZone) {
+        if (!ps.inhyperDashZone) {
             ps.activeMovespeed = 0f;
             ps.isJumping = false;
             ps.isDashing = false;

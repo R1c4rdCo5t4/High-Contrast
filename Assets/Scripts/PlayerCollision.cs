@@ -26,15 +26,13 @@ public class PlayerCollision : MonoBehaviour
         defaultRotation = transform.eulerAngles;
     }
 
-    void Update() => print(rb.velocity.y);
-
 
 
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (ps.inInfiniteDashZone){
-            ps.infiniteDashForce = Vector2.zero;
+        if (ps.inhyperDashZone){
+            ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
         }
 
@@ -61,7 +59,7 @@ public class PlayerCollision : MonoBehaviour
             case "Booster":
                 
                 StartCoroutine(executeAfterSeconds(0.5f, () => { 
-                    changeBoosterOpacity(collider.gameObject, Way.Exit);}));
+                    changeBoosterOpacity(collider.gameObject, 0.4f);}));
                 break;
             
             case "BoosterZone": StartCoroutine(executeAfterSeconds(0.5f, () => ps.isBoosting = false)); break;
@@ -76,17 +74,16 @@ public class PlayerCollision : MonoBehaviour
         switch (collider.tag){
             case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
             case "Reverter": processReverter(collider); break;
-            case "HyperDash": processHyperDash(collider); break;
             case "CrystalDash": processCrystalDash(collider); break;
             case "Spike":
             case "Death": processDeath(); break;
             case "ZoneIn":
-                ps.inInfiniteDashZone = true;
-                ps.enterInfiniteDashZone();
+                ps.inhyperDashZone = true;
+                ps.enterhyperDashZone();
                 break;
             case "ZoneOut":
-                ps.inInfiniteDashZone = false;
-                ps.exitInfiniteDashZone();
+                ps.inhyperDashZone = false;
+                ps.exithyperDashZone();
                 break;
 
 
@@ -110,10 +107,7 @@ public class PlayerCollision : MonoBehaviour
         StartCoroutine(executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true)));
     }
 
-    void processHyperDash(GameObject hyperDash){
-        HyperDash hd = hyperDash.gameObject.GetComponent<HyperDash>();
-        if ((Mathf.Sign(hd.dash.dir.x) == ps.facing)) ps.Dash(hd.dash);
-    }
+
 
     void processCrystalDash(GameObject crystalDash){
         SpriteRenderer sprite = crystalDash.gameObject.GetComponent<SpriteRenderer>();
@@ -138,7 +132,7 @@ public class PlayerCollision : MonoBehaviour
             ps.wallSlideSpeed = ps.defaultSlideSpeed;
         }));
 
-        StartCoroutine(executeAfterSeconds(2f, () => sprite.gameObject.SetActive(true)));
+        StartCoroutine(executeAfterSeconds(2f, () => sprite.enabled = true));
 
     }
 
@@ -152,7 +146,7 @@ public class PlayerCollision : MonoBehaviour
                          RigidbodyConstraints2D.FreezeRotation;
 
         ps.canMove = false;
-        ps.inInfiniteDashZone = false;
+        ps.inhyperDashZone = false;
         rb.gravityScale = ps.initialGravity;
         ps.activeMovespeed = 0f;
         rb.velocity = Vector2.zero;
@@ -165,22 +159,24 @@ public class PlayerCollision : MonoBehaviour
     }
 
 
-    enum Way { Enter, Exit }
+  
 
     void processBooster(GameObject booster){
+
+        changeBoosterOpacity(booster, 1f);
         float rotation = booster.transform.eulerAngles.z;
         Vector2 dir = new Vector2(Mathf.Cos(rotation), Mathf.Sin(rotation));
+        
         if(Mathf.Sign(dir.x) != ps.facing) return;
 
-        rb.AddForce(dir * ps.boosterSpeed * 2, ForceMode2D.Impulse);
-        changeBoosterOpacity(booster, Way.Enter);
+        rb.AddForce(dir * ps.boosterSpeed * (dir.y > 0.8f ? 1.75f : 1) , ForceMode2D.Impulse);
+        
         ps.isDashing = true;
     }
 
-    void changeBoosterOpacity(GameObject booster, Way way){
+    void changeBoosterOpacity(GameObject booster, float opacity){
         SpriteRenderer boostSprite = booster.GetComponent<SpriteRenderer>();
-        boostSprite.color = ColorManager.changeOpacity(boostSprite.color, way == Way.Enter ? 1f : 0.5f);
-       
+        if(boostSprite.color.a != opacity) boostSprite.color = ColorManager.changeOpacity(boostSprite.color, opacity);
     }
 
 
@@ -192,7 +188,7 @@ public class PlayerCollision : MonoBehaviour
         foreach (SpriteRenderer sr in playerSprites) sr.enabled = true;
         
         ps.isDead = false;
-        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         particles.Stop();
     }
 

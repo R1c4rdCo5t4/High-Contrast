@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
 
         var zoom = vcam.m_Lens.OrthographicSize;
 
-        if (ps.inInfiniteDashZone){
+        if (ps.inhyperDashZone){
             if (zoom != maxZoom) vcam.m_Lens.OrthographicSize = Mathf.Lerp(zoom, maxZoom, 0.1f);
         }
         else{

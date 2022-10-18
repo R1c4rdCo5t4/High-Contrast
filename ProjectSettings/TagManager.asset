@@ -10,7 +10,6 @@ TagManager:
   - Enemy
   - Spike
   - Platform
-  - HyperDash
   - Death
   - Slope
   - Wall
@@ -20,6 +19,7 @@ TagManager:
   - ZoneIn
   - Booster
   - BoosterZone
+  - HyperDash
   layers:
   - Default
   - TransparentFX
