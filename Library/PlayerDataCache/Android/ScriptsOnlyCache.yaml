@@ -5,7 +5,6 @@ ScriptsOnlyBuild:
     - CircularFloat
     - FloatScript
     - GameManager
-    - HyperDash
     - InvertColor
     - PlatformDetector
     - PlayerCollision
@@ -133,125 +132,123 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1660}
+      Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1802}
+      Script: {instanceID: 1800}
     - Class: 114
-      Script: {instanceID: 2402}
+      Script: {instanceID: 2400}
     - Class: 114
-      Script: {instanceID: 2492}
+      Script: {instanceID: 2490}
     - Class: 114
-      Script: {instanceID: 2654}
+      Script: {instanceID: 2652}
     - Class: 114
-      Script: {instanceID: 2714}
+      Script: {instanceID: 2712}
     - Class: 114
-      Script: {instanceID: 2780}
+      Script: {instanceID: 2778}
     - Class: 114
-      Script: {instanceID: 3184}
+      Script: {instanceID: 3182}
     - Class: 114
-      Script: {instanceID: 3252}
+      Script: {instanceID: 3250}
     - Class: 114
-      Script: {instanceID: 3316}
+      Script: {instanceID: 3314}
     - Class: 114
-      Script: {instanceID: 3342}
+      Script: {instanceID: 3340}
     - Class: 114
-      Script: {instanceID: 3404}
+      Script: {instanceID: 3402}
     - Class: 114
-      Script: {instanceID: 3530}
+      Script: {instanceID: 3528}
     - Class: 114
-      Script: {instanceID: 3554}
+      Script: {instanceID: 3552}
+    - Class: 114
+      Script: {instanceID: 3648}
     - Class: 114
       Script: {instanceID: 3650}
     - Class: 114
-      Script: {instanceID: 3652}
+      Script: {instanceID: 3946}
     - Class: 114
-      Script: {instanceID: 3948}
+      Script: {instanceID: 3956}
     - Class: 114
-      Script: {instanceID: 3958}
+      Script: {instanceID: 4068}
     - Class: 114
-      Script: {instanceID: 4070}
+      Script: {instanceID: 4152}
     - Class: 114
-      Script: {instanceID: 4154}
+      Script: {instanceID: 4242}
     - Class: 114
-      Script: {instanceID: 4244}
+      Script: {instanceID: 4282}
     - Class: 114
-      Script: {instanceID: 4284}
+      Script: {instanceID: 4396}
     - Class: 114
-      Script: {instanceID: 4342}
+      Script: {instanceID: 4604}
     - Class: 114
-      Script: {instanceID: 4400}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 4608}
+      Script: {instanceID: 4652}
     - Class: 114
-      Script: {instanceID: 4620}
+      Script: {instanceID: 5028}
     - Class: 114
-      Script: {instanceID: 4656}
+      Script: {instanceID: 5218}
     - Class: 114
-      Script: {instanceID: 5032}
+      Script: {instanceID: 5232}
     - Class: 114
-      Script: {instanceID: 5222}
+      Script: {instanceID: 5292}
     - Class: 114
-      Script: {instanceID: 5236}
+      Script: {instanceID: 5316}
     - Class: 114
-      Script: {instanceID: 5296}
+      Script: {instanceID: 5484}
     - Class: 114
-      Script: {instanceID: 5320}
+      Script: {instanceID: 5486}
     - Class: 114
-      Script: {instanceID: 5488}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5490}
+      Script: {instanceID: 5782}
     - Class: 114
-      Script: {instanceID: 5514}
+      Script: {instanceID: 5866}
     - Class: 114
-      Script: {instanceID: 5786}
+      Script: {instanceID: 5906}
     - Class: 114
-      Script: {instanceID: 5870}
+      Script: {instanceID: 6058}
     - Class: 114
-      Script: {instanceID: 5910}
+      Script: {instanceID: 6130}
     - Class: 114
-      Script: {instanceID: 6062}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6134}
+      Script: {instanceID: 6236}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 6270}
     - Class: 114
-      Script: {instanceID: 6240}
+      Script: {instanceID: 6316}
     - Class: 114
-      Script: {instanceID: 6274}
+      Script: {instanceID: 6382}
     - Class: 114
-      Script: {instanceID: 6320}
+      Script: {instanceID: 6390}
     - Class: 114
-      Script: {instanceID: 6386}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6394}
+      Script: {instanceID: 6634}
     - Class: 114
-      Script: {instanceID: 6502}
+      Script: {instanceID: 6672}
     - Class: 114
-      Script: {instanceID: 6638}
+      Script: {instanceID: 6748}
     - Class: 114
-      Script: {instanceID: 6676}
+      Script: {instanceID: 6802}
     - Class: 114
-      Script: {instanceID: 6752}
+      Script: {instanceID: 7360}
     - Class: 114
-      Script: {instanceID: 6806}
+      Script: {instanceID: 7378}
     - Class: 114
-      Script: {instanceID: 7364}
+      Script: {instanceID: 7408}
     - Class: 114
-      Script: {instanceID: 7382}
+      Script: {instanceID: 7732}
     - Class: 114
-      Script: {instanceID: 7412}
+      Script: {instanceID: 7860}
     - Class: 114
-      Script: {instanceID: 7736}
+      Script: {instanceID: 7880}
     - Class: 114
-      Script: {instanceID: 7864}
+      Script: {instanceID: 7932}
     - Class: 114
-      Script: {instanceID: 7884}
+      Script: {instanceID: 7972}
     - Class: 114
-      Script: {instanceID: 7936}
-    - Class: 114
-      Script: {instanceID: 7976}
-    - Class: 114
-      Script: {instanceID: 8022}
+      Script: {instanceID: 8018}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -829,12 +826,6 @@ ScriptsOnlyBuild:
     className: GroupWeightManipulator
   - hash:
       serializedVersion: 2
-      Hash: f45cb2a4c1db039f9ac9cee4634c311b
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: HyperDash
-  - hash:
-      serializedVersion: 2
       Hash: 91c66736e3507bbd3c15a9b02abea21b
     assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
     namespaceName: UnityEngine.Rendering.Universal
@@ -1405,7 +1396,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: a1ff3c33b87e5c4200af890ae86c3ee1
+      Hash: 0a54e64bd0f5008469de41b9c738d073
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1562,4 +1553,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.42/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.44/highcontrast.apk

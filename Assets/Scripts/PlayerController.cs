@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     public bool canWallHop = true;
     public bool canDash = true;
     public bool inMovingPlatform = false;
-    public bool inhyperDashZone;
+    public bool inHyperDashZone;
     public bool isDead = false;
     public bool isInSlope = false;
     public bool isBoosting;
@@ -77,13 +77,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
 
-
-     bool hitEnd = false;
-
     State currState;
 
 
-    enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, InhyperDashZone, Dead, Boosting, Undefined }
+    enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, Undefined }
 
     void Start()
     {
@@ -118,8 +115,8 @@ public class PlayerController : MonoBehaviour
 
     void movePlayer()
     {
-        if (!inhyperDashZone){
-            if (canMove && !isDashing && !isWallJumping && !isWallSliding){
+        if (!inHyperDashZone){
+            if (canMove && !isDashing && !isWallJumping && !isBoosting){
                 if (activeMovespeed > 0){
                     rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing * activeMovespeed, 0.5f), rb.velocity.y);
                 }
@@ -134,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
 
     void wallSlide(){
-        if (isWallSliding && rb.velocity.y < -wallSlideSpeed){
+        if (isWallSliding && rb.velocity.y < -wallSlideSpeed && !isBoosting){
             float wallSlideLerp =  Mathf.Lerp(rb.velocity.y, -wallSlideSpeed, 0.5f); // wall slide
             rb.velocity = new Vector2(rb.velocity.x, wallSlideLerp);
         }
@@ -153,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
         currState =
             isDead ? State.Dead :
-            inhyperDashZone ? State.InhyperDashZone :
+            inHyperDashZone ? State.inHyperDashZone :
             isBoosting ? State.Boosting :
             isGrounded && activeMovespeed == 0 ? State.Idle :
             isGrounded && activeMovespeed != 0 ? State.Moving :
@@ -181,7 +178,7 @@ public class PlayerController : MonoBehaviour
         if (!inMovingPlatform){
             transform.localScale = Vector3.one;
         }
-        if (!inhyperDashZone){
+        if (!inHyperDashZone){
             if (isGrounded){
                 canWallHop = true;
                 canDash = true;
@@ -198,6 +195,7 @@ public class PlayerController : MonoBehaviour
                 coyoteTimeCounter -= Time.deltaTime;
                 isInSlope = false;
             }
+            if(Mathf.Abs(rb.velocity.x) < movementSpeed / 1.75f) isBoosting = false;
         }
 
 
@@ -205,7 +203,7 @@ public class PlayerController : MonoBehaviour
 
 
     void trailRenderer(){
-        trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || inhyperDashZone);
+        trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || inHyperDashZone);
     }
 
     public void Dash(Dash dash){
@@ -274,8 +272,9 @@ public class PlayerController : MonoBehaviour
     
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 10f, groundLayer);
         Quaternion slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal);
-
-        if (hit) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
+        float angle = slopeRotation.eulerAngles.z;
+        print(Mathf.Abs(slopeRotation.eulerAngles.z));
+        if (hit && (angle>180 ? angle-360 : angle) < 50f) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
         
         else resetRotation(transform);
         
@@ -283,7 +282,7 @@ public class PlayerController : MonoBehaviour
 
     void resetRotation(Transform transf){
         if (transform.eulerAngles.z != 0){
-            transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 0.5f));
+            transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f));
         }
     }
 
@@ -298,7 +297,8 @@ public class PlayerController : MonoBehaviour
 
         // if (transform.eulerAngles.z != 0 && !isTouchingWall && isInSlope) rb.velocity = Vector2.down;
 
-        if (isDashing) isDashing = false;
+        isDashing = false;
+        isBoosting = false;
 
     }
 

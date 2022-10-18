@@ -31,7 +31,7 @@ public class PlayerCollision : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (ps.inhyperDashZone){
+        if (ps.inHyperDashZone){
             ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
         }
@@ -59,10 +59,12 @@ public class PlayerCollision : MonoBehaviour
             case "Booster":
                 
                 StartCoroutine(executeAfterSeconds(0.5f, () => { 
-                    changeBoosterOpacity(collider.gameObject, 0.4f);}));
+                    changeBoosterOpacity(collider.gameObject, 0.4f);
+                    rb.gravityScale = ps.initialGravity;
+                    }));
                 break;
             
-            case "BoosterZone": StartCoroutine(executeAfterSeconds(0.5f, () => ps.isBoosting = false)); break;
+            case "BoosterZone": StartCoroutine(executeAfterSeconds(2.5f, () => ps.isBoosting = false)); break;
 
             default: break;
         }
@@ -78,11 +80,11 @@ public class PlayerCollision : MonoBehaviour
             case "Spike":
             case "Death": processDeath(); break;
             case "ZoneIn":
-                ps.inhyperDashZone = true;
+                ps.inHyperDashZone = true;
                 ps.enterhyperDashZone();
                 break;
             case "ZoneOut":
-                ps.inhyperDashZone = false;
+                ps.inHyperDashZone = false;
                 ps.exithyperDashZone();
                 break;
 
@@ -91,7 +93,10 @@ public class PlayerCollision : MonoBehaviour
                 processBooster(collider);
                 break;
 
-            case "BoosterZone": ps.isBoosting = true; break;
+            case "BoosterZone":
+                ps.isBoosting = true; 
+                rb.gravityScale *= 0.5f;
+                break;
 
             default: break;
 
@@ -146,7 +151,7 @@ public class PlayerCollision : MonoBehaviour
                          RigidbodyConstraints2D.FreezeRotation;
 
         ps.canMove = false;
-        ps.inhyperDashZone = false;
+        ps.inHyperDashZone = false;
         rb.gravityScale = ps.initialGravity;
         ps.activeMovespeed = 0f;
         rb.velocity = Vector2.zero;
@@ -169,9 +174,10 @@ public class PlayerCollision : MonoBehaviour
         
         if(Mathf.Sign(dir.x) != ps.facing) return;
 
-        rb.AddForce(dir * ps.boosterSpeed * (dir.y > 0.8f ? 1.75f : 1) , ForceMode2D.Impulse);
+
+        rb.AddForce(dir * ps.boosterSpeed * (dir.y != 0 ? 2 : 1) , ForceMode2D.Impulse);
         
-        ps.isDashing = true;
+        
     }
 
     void changeBoosterOpacity(GameObject booster, float opacity){

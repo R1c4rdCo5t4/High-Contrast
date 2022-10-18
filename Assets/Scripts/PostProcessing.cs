@@ -33,7 +33,7 @@ public class PostProcessing : MonoBehaviour
 
     void Update()
     {
-        chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inhyperDashZone);
+        chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inHyperDashZone);
         vignette.intensity.value = valueChanger(vignetteMultiplier * Time.deltaTime, vignette.intensity.value, minVigValue, maxVigValue, gm.tm.isSlowing);
     }
 
