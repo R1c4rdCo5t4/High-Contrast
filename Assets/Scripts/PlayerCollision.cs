@@ -6,6 +6,7 @@ using System.Threading;
 public class PlayerCollision : MonoBehaviour
 {
     PlayerController ps;
+    GameObject po;
     GameManager gm;
     GameObject go;
     Vector3 defaultRotation;
@@ -27,6 +28,10 @@ public class PlayerCollision : MonoBehaviour
     }
 
 
+    void FixedUpdate(){
+      
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,6 +40,12 @@ public class PlayerCollision : MonoBehaviour
             ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
         }
+
+        if (ps.isGrounded && ps.isTouchingTop){    
+            processDeath();
+        }
+
+        
 
         ProcessCollision(collision.gameObject);
     }
@@ -141,27 +152,32 @@ public class PlayerCollision : MonoBehaviour
     void processDeath(){
 
         if (ps.isDead) return;
-        foreach (SpriteRenderer sr in playerSprites) sr.enabled = false;
 
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX |
-                         RigidbodyConstraints2D.FreezePositionY |
-                         RigidbodyConstraints2D.FreezeRotation;
-
-        ps.canMove = false;
-        ps.inHyperDashZone = false;
-        rb.gravityScale = ps.initialGravity;
         ps.activeMovespeed = 0f;
         rb.velocity = Vector2.zero;
-        particles.Play();
+        rb.gravityScale = ps.initialGravity;
+        ps.inHyperDashZone = false;
         ps.isDead = true;
-
-        // gm.tm.SlowMotion(0.1f,1.5f);
-        TimeManager.executeAfterSeconds(1.5f, () => newGame());
+        ps.canMove = false;
+        particles.Play();
         
+
+        TimeManager.executeAfterSeconds(1.5f, newGame);
+        
+        gameObject.SetActive(false);
     }
 
 
-  
+    void newGame() {
+        gameObject.SetActive(true);
+
+        transform.position = respawnPoint.position;
+        ps.canMove = true;
+        ps.isDead = false;
+        SlowMoBar.restoreAllSlow();
+    }
+
+
 
     void processBooster(GameObject booster){
 
@@ -170,7 +186,6 @@ public class PlayerCollision : MonoBehaviour
         Vector2 dir = new Vector2(Mathf.Cos(rotation), Mathf.Sin(rotation));
         
         if(Mathf.Sign(dir.x) != ps.facing) return;
-
 
         rb.AddForce(dir * ps.boosterSpeed * (dir.y != 0 ? 2 : 1) , ForceMode2D.Impulse);
         
@@ -184,16 +199,6 @@ public class PlayerCollision : MonoBehaviour
 
 
 
-
-    void newGame() {
-        transform.position = respawnPoint.position;
-        ps.canMove = true;
-        foreach (SpriteRenderer sr in playerSprites) sr.enabled = true;
-        
-        ps.isDead = false;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        particles.Stop();
-        SlowMoBar.restoreAllSlow();
-    }
+   
   
 }

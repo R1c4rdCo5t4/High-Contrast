@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform groundCheckPoint;
     [SerializeField] Transform wallCheckPoint;
     [SerializeField] Transform airBorneCheckPoint;
+    [SerializeField] Transform topCheckPoint;
 
 
     [Header("Vectors")]
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    [SerializeField] float groundCheckRadius;
+    [SerializeField] float groundCheckRadius, topCheckRadius;
     [SerializeField] float wallCheckDistance = 0.4f;
     [SerializeField] float airBorneCheckRadius;
     [SerializeField] float stopGroundSpeed = 1f;
@@ -68,11 +69,12 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     public bool canWallHop = true;
     public bool canDash = true;
-    public bool inMovingPlatform = false;
+    public bool inMovingPlatform;
     public bool inHyperDashZone;
-    public bool isDead = false;
-    public bool isInSlope = false;
+    public bool isDead;
+    public bool isInSlope;
     public bool isBoosting;
+    public bool isTouchingTop;
     [SerializeField] bool hasJump = true;
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
@@ -171,7 +173,7 @@ public class PlayerController : MonoBehaviour
         isWallSliding = isTouchingWall && !isGrounded && (rb.velocity.y < 0 || isDashing);
         isWallGrabbing = wallSlideSpeed == wallGrabSpeed;
         isAirBorne = !Physics2D.OverlapCircle(airBorneCheckPoint.position, airBorneCheckRadius, airBorneLayer);
-
+        isTouchingTop = Physics2D.OverlapCircle(topCheckPoint.position, topCheckRadius, groundLayer);
 
         if (!inMovingPlatform){
             transform.localScale = Vector3.one;
@@ -271,7 +273,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 10f, groundLayer);
         Quaternion slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal);
         float angle = (slopeRotation.eulerAngles.z > 180 ? slopeRotation.eulerAngles.z - 360 : slopeRotation.eulerAngles.z);
-        print(angle);
+        // print(angle);
         if (hit && (Mathf.Sign(angle) == 1 ? angle < 50f : angle > -50f)) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
         
         else resetRotation(transform);
@@ -309,13 +311,11 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(topCheckPoint.position, topCheckRadius);
         Gizmos.DrawWireSphere(airBorneCheckPoint.position, airBorneCheckRadius);
         Debug.DrawRay(wallCheckPoint.position, new Vector3(facing == 1 ? 0.1f : 0.1f, 0f, 0f), Color.blue);
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red);
     }
-
- 
-    
 
 }
 

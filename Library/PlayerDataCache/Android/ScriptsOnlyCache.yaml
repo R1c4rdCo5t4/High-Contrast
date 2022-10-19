@@ -132,123 +132,123 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1676}
+      Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1818}
+      Script: {instanceID: 1800}
     - Class: 114
-      Script: {instanceID: 2418}
+      Script: {instanceID: 2400}
     - Class: 114
-      Script: {instanceID: 2508}
+      Script: {instanceID: 2490}
     - Class: 114
-      Script: {instanceID: 2670}
+      Script: {instanceID: 2652}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2712}
     - Class: 114
-      Script: {instanceID: 2796}
+      Script: {instanceID: 2778}
     - Class: 114
-      Script: {instanceID: 3200}
+      Script: {instanceID: 3182}
     - Class: 114
-      Script: {instanceID: 3268}
+      Script: {instanceID: 3250}
     - Class: 114
-      Script: {instanceID: 3332}
+      Script: {instanceID: 3314}
     - Class: 114
-      Script: {instanceID: 3358}
+      Script: {instanceID: 3340}
     - Class: 114
-      Script: {instanceID: 3420}
+      Script: {instanceID: 3402}
     - Class: 114
-      Script: {instanceID: 3546}
+      Script: {instanceID: 3528}
     - Class: 114
-      Script: {instanceID: 3570}
+      Script: {instanceID: 3552}
     - Class: 114
-      Script: {instanceID: 3666}
+      Script: {instanceID: 3648}
     - Class: 114
-      Script: {instanceID: 3668}
+      Script: {instanceID: 3650}
     - Class: 114
-      Script: {instanceID: 3964}
+      Script: {instanceID: 3946}
     - Class: 114
-      Script: {instanceID: 3974}
+      Script: {instanceID: 3956}
     - Class: 114
-      Script: {instanceID: 4086}
+      Script: {instanceID: 4068}
     - Class: 114
-      Script: {instanceID: 4170}
+      Script: {instanceID: 4152}
     - Class: 114
-      Script: {instanceID: 4260}
+      Script: {instanceID: 4242}
     - Class: 114
-      Script: {instanceID: 4300}
+      Script: {instanceID: 4282}
     - Class: 114
-      Script: {instanceID: 4414}
+      Script: {instanceID: 4396}
     - Class: 114
-      Script: {instanceID: 4622}
+      Script: {instanceID: 4604}
     - Class: 114
-      Script: {instanceID: 4634}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 4670}
+      Script: {instanceID: 4652}
     - Class: 114
-      Script: {instanceID: 5046}
+      Script: {instanceID: 5028}
     - Class: 114
-      Script: {instanceID: 5236}
+      Script: {instanceID: 5218}
     - Class: 114
-      Script: {instanceID: 5250}
+      Script: {instanceID: 5232}
     - Class: 114
-      Script: {instanceID: 5310}
+      Script: {instanceID: 5292}
     - Class: 114
-      Script: {instanceID: 5334}
+      Script: {instanceID: 5316}
     - Class: 114
-      Script: {instanceID: 5502}
+      Script: {instanceID: 5486}
     - Class: 114
-      Script: {instanceID: 5504}
+      Script: {instanceID: 5488}
     - Class: 114
-      Script: {instanceID: 5528}
+      Script: {instanceID: 5512}
     - Class: 114
-      Script: {instanceID: 5800}
+      Script: {instanceID: 5784}
     - Class: 114
-      Script: {instanceID: 5884}
+      Script: {instanceID: 5868}
     - Class: 114
-      Script: {instanceID: 5924}
+      Script: {instanceID: 5908}
     - Class: 114
-      Script: {instanceID: 6076}
+      Script: {instanceID: 6060}
     - Class: 114
-      Script: {instanceID: 6148}
+      Script: {instanceID: 6132}
     - Class: 114
-      Script: {instanceID: 6154}
+      Script: {instanceID: 6138}
     - Class: 114
-      Script: {instanceID: 6254}
+      Script: {instanceID: 6238}
     - Class: 114
-      Script: {instanceID: 6288}
+      Script: {instanceID: 6272}
     - Class: 114
-      Script: {instanceID: 6334}
+      Script: {instanceID: 6318}
     - Class: 114
-      Script: {instanceID: 6400}
+      Script: {instanceID: 6384}
     - Class: 114
-      Script: {instanceID: 6408}
+      Script: {instanceID: 6392}
     - Class: 114
-      Script: {instanceID: 6516}
+      Script: {instanceID: 6500}
     - Class: 114
-      Script: {instanceID: 6652}
+      Script: {instanceID: 6636}
     - Class: 114
-      Script: {instanceID: 6690}
+      Script: {instanceID: 6674}
     - Class: 114
-      Script: {instanceID: 6768}
+      Script: {instanceID: 6752}
     - Class: 114
-      Script: {instanceID: 6822}
+      Script: {instanceID: 6806}
     - Class: 114
-      Script: {instanceID: 7380}
+      Script: {instanceID: 7364}
     - Class: 114
-      Script: {instanceID: 7398}
+      Script: {instanceID: 7382}
     - Class: 114
-      Script: {instanceID: 7428}
+      Script: {instanceID: 7412}
     - Class: 114
-      Script: {instanceID: 7752}
+      Script: {instanceID: 7736}
     - Class: 114
-      Script: {instanceID: 7880}
+      Script: {instanceID: 7864}
     - Class: 114
-      Script: {instanceID: 7900}
+      Script: {instanceID: 7884}
     - Class: 114
-      Script: {instanceID: 7952}
+      Script: {instanceID: 7936}
     - Class: 114
-      Script: {instanceID: 7992}
+      Script: {instanceID: 7976}
     - Class: 114
-      Script: {instanceID: 8038}
+      Script: {instanceID: 8022}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1030,6 +1030,12 @@ ScriptsOnlyBuild:
     className: CircularFloat
   - hash:
       serializedVersion: 2
+      Hash: 1bfd9a84d1c375078b5d6a0a839c685d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemyFollow
+  - hash:
+      serializedVersion: 2
       Hash: 8d35f16c5022311c6f4d9432be73bfcf
     assemblyName: Unity.RenderPipelines.Core.Runtime.dll
     namespaceName: UnityEngine.Rendering.UI
@@ -1402,7 +1408,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: 0a54e64bd0f5008469de41b9c738d073
+      Hash: 7612cb839568091ab6a40d1c74110ff9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1559,4 +1565,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.45/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.46/highcontrast.apk
