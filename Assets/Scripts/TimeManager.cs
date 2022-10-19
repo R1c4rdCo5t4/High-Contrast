@@ -5,6 +5,8 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
 
+
+    static TimeManager instance;
     float slowDownLength = 2f;
     float slowDownTimer = 0f;
     float defaultTimeScale;
@@ -14,29 +16,34 @@ public class TimeManager : MonoBehaviour
     public bool isTryingToSlow = false;
     public bool isSlowing = false;
     bool canRestoreSlow;
-    SlowMoBar slowBar;
+
+
+    void Awake(){
+        instance = this;
+    }
 
     void Start()
     {
         defaultTimeScale = Time.timeScale;
-        slowBar = GameObject.Find("SlowMoBar").GetComponent<SlowMoBar>();
+
 
     }
 
     void FixedUpdate()
     {
 
-        if (isSlowing) slowBar.takeSlow();
+        if (isSlowing) SlowMoBar.takeSlow();
         
         else{
-            if (canRestoreSlow && !isTryingToSlow) slowBar.restoreSlow(); else Invoke("restoreSlow", 2f);
+            if (canRestoreSlow && !isTryingToSlow) SlowMoBar.restoreSlow(); 
+            else TimeManager.executeAfterSeconds(2f, () => canRestoreSlow = true);
         }
     }
 
 
     void Update()
     {
-        isSlowing = slowDownTimer > 0 && isTryingToSlow && slowBar.currentSlow > 0;
+        isSlowing = slowDownTimer > 0 && isTryingToSlow && SlowMoBar.currentSlow > 0;
         var slowDownScale = isSlowing ? slowDownLength : 0.5f;
         Time.timeScale += (1f / slowDownScale) * Time.unscaledDeltaTime;
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1f);
@@ -52,7 +59,7 @@ public class TimeManager : MonoBehaviour
     public void SlowMotion(float slowDownStrength, float slowDownLen)
     {
         isTryingToSlow = true;
-        if (slowBar.currentSlow <= 0) return;
+        if (SlowMoBar.currentSlow <= 0) return;
         Time.timeScale = slowDownStrength;
         slowDownLength = slowDownLen;
         slowDownTimer = slowDownLen;
@@ -60,12 +67,19 @@ public class TimeManager : MonoBehaviour
     }
 
 
-    void restoreSlow(){
-        canRestoreSlow = true;
+    public delegate void Function();
+
+    public static void executeAfterSeconds(float duration, Function func){
+        instance.StartCoroutine(execute(duration, func));
     }
 
+    static IEnumerator execute(float duration, Function functionToExecute){
+        yield return new WaitForSeconds(duration);
+        functionToExecute();
+    }
 
 }
+
 
 
 

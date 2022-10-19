@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class PostProcessing : MonoBehaviour
-{
-
+public class PostProcessing : MonoBehaviour {
     PlayerController ps;
     GameManager gm;
 

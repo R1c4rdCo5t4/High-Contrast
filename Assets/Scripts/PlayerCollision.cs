@@ -57,14 +57,13 @@ public class PlayerCollision : MonoBehaviour
 
         switch (collider.tag){
             case "Booster":
-                
-                StartCoroutine(executeAfterSeconds(0.5f, () => { 
+                TimeManager.executeAfterSeconds(0.5f, () => { 
                     changeBoosterOpacity(collider.gameObject, 0.4f);
                     rb.gravityScale = ps.initialGravity;
-                    }));
+                    });
                 break;
             
-            case "BoosterZone": StartCoroutine(executeAfterSeconds(2.5f, () => ps.isBoosting = false)); break;
+            case "BoosterZone": TimeManager.executeAfterSeconds(2.5f, () => ps.isBoosting = false); break;
 
             default: break;
         }
@@ -72,7 +71,6 @@ public class PlayerCollision : MonoBehaviour
 
     void ProcessCollision(GameObject collider)
     {
-        
         switch (collider.tag){
             case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
             case "Reverter": processReverter(collider); break;
@@ -87,7 +85,6 @@ public class PlayerCollision : MonoBehaviour
                 ps.inHyperDashZone = false;
                 ps.exithyperDashZone();
                 break;
-
 
             case "Booster": 
                 processBooster(collider);
@@ -109,7 +106,7 @@ public class PlayerCollision : MonoBehaviour
         gm.ic.Invert();
         inverter.SetActive(false);
         gm.darkMode = !gm.darkMode;
-        StartCoroutine(executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true)));
+        TimeManager.executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true));
     }
 
 
@@ -131,13 +128,13 @@ public class PlayerCollision : MonoBehaviour
         rb.AddForce(direction * ps.crystalDashSpeed, ForceMode2D.Impulse);
 
     
-        StartCoroutine(executeAfterSeconds(0.25f, () => {
+        TimeManager.executeAfterSeconds(0.25f, () => {
             ps.canMove = true;
             rb.gravityScale = ps.initialGravity;
             ps.wallSlideSpeed = ps.defaultSlideSpeed;
-        }));
+        });
 
-        StartCoroutine(executeAfterSeconds(2f, () => sprite.enabled = true));
+        TimeManager.executeAfterSeconds(2f, () => sprite.enabled = true);
 
     }
 
@@ -159,8 +156,8 @@ public class PlayerCollision : MonoBehaviour
         ps.isDead = true;
 
         // gm.tm.SlowMotion(0.1f,1.5f);
-        StartCoroutine(executeAfterSeconds(1.5f, () => newGame()));
-
+        TimeManager.executeAfterSeconds(1.5f, () => newGame());
+        
     }
 
 
@@ -196,16 +193,7 @@ public class PlayerCollision : MonoBehaviour
         ps.isDead = false;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         particles.Stop();
+        SlowMoBar.restoreAllSlow();
     }
-
-
-    public delegate void Function();
-
-    IEnumerator executeAfterSeconds(float duration, Function functionToExecute){
-        yield return new WaitForSeconds(duration);
-        functionToExecute();
-    }
-
-
   
 }

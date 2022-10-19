@@ -19,17 +19,14 @@ public class PlatformDetector : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (ps.inMovingPlatform)
-        {
-            if (player.transform.eulerAngles.z != 0)
-            {
+        if (ps.inMovingPlatform){
+            if (player.transform.eulerAngles.z != 0){
                 player.transform.eulerAngles = new Vector3(player.transform.eulerAngles.x, player.transform.eulerAngles.y, 0f);
             }
-
         }
+
         if (ps.isAirBorne){ // exit out of moving platform
             player.SetParent(po, true);
             ps.inMovingPlatform = false;
@@ -44,7 +41,7 @@ public class PlatformDetector : MonoBehaviour
             if (groundHit.collider != null && ps.activeMovespeed == 0f){
                 checkParent(groundHit, PlatformType.Ground);
             }
-            else if (wallHit.collider != null){
+            else if (wallHit.collider != null && ps.isWallGrabbing){
                 checkParent(wallHit, PlatformType.Wall);
             }
         }

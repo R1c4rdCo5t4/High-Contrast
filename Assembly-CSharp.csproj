@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\TimeManager.cs" />
      <Compile Include="Assets\Scripts\CircularFloat.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\ColorManager.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\TouchManager.cs" />

@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     State currState;
 
 
-    enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, Undefined }
+    enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, inMovingPlatform, Undefined }
 
     void Start()
     {
@@ -108,25 +108,25 @@ public class PlayerController : MonoBehaviour
         trailRenderer();
         dashController();
         checkStates();
-
-
     }
 
 
     void movePlayer()
     {
-        if (!inHyperDashZone){
-            if (canMove && !isDashing && !isWallJumping && !isBoosting){
-                if (activeMovespeed > 0){
+        if (!inHyperDashZone)
+        {
+            if (canMove && !isDashing && !isWallJumping && !isBoosting)
+            {
+                if (activeMovespeed > 0)
+                {
                     rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, facing * activeMovespeed, 0.5f), rb.velocity.y);
                 }
-                else{
+                else
+                {
                     rb.velocity = new Vector2(facing * Mathf.Clamp(Mathf.Abs(rb.velocity.x) - (isGrounded ? stopGroundSpeed : stopAirSpeed), 0f, movementSpeed), rb.velocity.y);
                 }
             }
-
         }
-        
     }
 
 
@@ -151,6 +151,7 @@ public class PlayerController : MonoBehaviour
         currState =
             isDead ? State.Dead :
             inHyperDashZone ? State.inHyperDashZone :
+            inMovingPlatform ? State.inMovingPlatform :
             isBoosting ? State.Boosting :
             isGrounded && activeMovespeed == 0 ? State.Idle :
             isGrounded && activeMovespeed != 0 ? State.Moving :
@@ -160,9 +161,6 @@ public class PlayerController : MonoBehaviour
             isWallJumping ? State.WallJumping :
             isWallSliding ? State.WallSliding :
             State.Undefined;
-
-
-        // print(currState);
     }
 
 
@@ -259,7 +257,7 @@ public class PlayerController : MonoBehaviour
             Vector2 force = new Vector2(dirX, dirY) * wallJumpForce;
             rb.AddForce(force, ForceMode2D.Impulse);
             // rb.gravityScale = initialGravity;
-            Invoke("setWallJumpingFalse", .275f);
+            TimeManager.executeAfterSeconds(.275f, () => isWallJumping = false);
         }
     }
 
@@ -272,9 +270,9 @@ public class PlayerController : MonoBehaviour
     
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 10f, groundLayer);
         Quaternion slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal);
-        float angle = slopeRotation.eulerAngles.z;
-        print(Mathf.Abs(slopeRotation.eulerAngles.z));
-        if (hit && (angle>180 ? angle-360 : angle) < 50f) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
+        float angle = (slopeRotation.eulerAngles.z > 180 ? slopeRotation.eulerAngles.z - 360 : slopeRotation.eulerAngles.z);
+        print(angle);
+        if (hit && (Mathf.Sign(angle) == 1 ? angle < 50f : angle > -50f)) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
         
         else resetRotation(transform);
         
@@ -294,9 +292,6 @@ public class PlayerController : MonoBehaviour
         Vector3 prevParticlePos = ps.gameObject.transform.position;
         transform.Rotate(0f, 180f, 0f);
         ps.gameObject.transform.position = prevParticlePos; // lock particle Z pos
-
-        // if (transform.eulerAngles.z != 0 && !isTouchingWall && isInSlope) rb.velocity = Vector2.down;
-
         isDashing = false;
         isBoosting = false;
 
@@ -319,7 +314,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red);
     }
 
-    void setWallJumpingFalse() => isWallJumping = false;
+ 
     
 
 }

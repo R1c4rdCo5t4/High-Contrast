@@ -132,123 +132,123 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1658}
+      Script: {instanceID: 1676}
     - Class: 114
-      Script: {instanceID: 1800}
+      Script: {instanceID: 1818}
     - Class: 114
-      Script: {instanceID: 2400}
+      Script: {instanceID: 2418}
     - Class: 114
-      Script: {instanceID: 2490}
+      Script: {instanceID: 2508}
     - Class: 114
-      Script: {instanceID: 2652}
+      Script: {instanceID: 2670}
     - Class: 114
-      Script: {instanceID: 2712}
+      Script: {instanceID: 2730}
     - Class: 114
-      Script: {instanceID: 2778}
+      Script: {instanceID: 2796}
     - Class: 114
-      Script: {instanceID: 3182}
+      Script: {instanceID: 3200}
     - Class: 114
-      Script: {instanceID: 3250}
+      Script: {instanceID: 3268}
     - Class: 114
-      Script: {instanceID: 3314}
+      Script: {instanceID: 3332}
     - Class: 114
-      Script: {instanceID: 3340}
+      Script: {instanceID: 3358}
     - Class: 114
-      Script: {instanceID: 3402}
+      Script: {instanceID: 3420}
     - Class: 114
-      Script: {instanceID: 3528}
+      Script: {instanceID: 3546}
     - Class: 114
-      Script: {instanceID: 3552}
+      Script: {instanceID: 3570}
     - Class: 114
-      Script: {instanceID: 3648}
+      Script: {instanceID: 3666}
     - Class: 114
-      Script: {instanceID: 3650}
+      Script: {instanceID: 3668}
     - Class: 114
-      Script: {instanceID: 3946}
+      Script: {instanceID: 3964}
     - Class: 114
-      Script: {instanceID: 3956}
+      Script: {instanceID: 3974}
     - Class: 114
-      Script: {instanceID: 4068}
+      Script: {instanceID: 4086}
     - Class: 114
-      Script: {instanceID: 4152}
+      Script: {instanceID: 4170}
     - Class: 114
-      Script: {instanceID: 4242}
+      Script: {instanceID: 4260}
     - Class: 114
-      Script: {instanceID: 4282}
+      Script: {instanceID: 4300}
     - Class: 114
-      Script: {instanceID: 4396}
+      Script: {instanceID: 4414}
     - Class: 114
-      Script: {instanceID: 4604}
+      Script: {instanceID: 4622}
     - Class: 114
-      Script: {instanceID: 4616}
+      Script: {instanceID: 4634}
     - Class: 114
-      Script: {instanceID: 4652}
+      Script: {instanceID: 4670}
     - Class: 114
-      Script: {instanceID: 5028}
+      Script: {instanceID: 5046}
     - Class: 114
-      Script: {instanceID: 5218}
+      Script: {instanceID: 5236}
     - Class: 114
-      Script: {instanceID: 5232}
+      Script: {instanceID: 5250}
     - Class: 114
-      Script: {instanceID: 5292}
+      Script: {instanceID: 5310}
     - Class: 114
-      Script: {instanceID: 5316}
+      Script: {instanceID: 5334}
     - Class: 114
-      Script: {instanceID: 5484}
+      Script: {instanceID: 5502}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5504}
     - Class: 114
-      Script: {instanceID: 5510}
+      Script: {instanceID: 5528}
     - Class: 114
-      Script: {instanceID: 5782}
+      Script: {instanceID: 5800}
     - Class: 114
-      Script: {instanceID: 5866}
+      Script: {instanceID: 5884}
     - Class: 114
-      Script: {instanceID: 5906}
+      Script: {instanceID: 5924}
     - Class: 114
-      Script: {instanceID: 6058}
+      Script: {instanceID: 6076}
     - Class: 114
-      Script: {instanceID: 6130}
+      Script: {instanceID: 6148}
     - Class: 114
-      Script: {instanceID: 6136}
+      Script: {instanceID: 6154}
     - Class: 114
-      Script: {instanceID: 6236}
+      Script: {instanceID: 6254}
     - Class: 114
-      Script: {instanceID: 6270}
+      Script: {instanceID: 6288}
     - Class: 114
-      Script: {instanceID: 6316}
+      Script: {instanceID: 6334}
     - Class: 114
-      Script: {instanceID: 6382}
+      Script: {instanceID: 6400}
     - Class: 114
-      Script: {instanceID: 6390}
+      Script: {instanceID: 6408}
     - Class: 114
-      Script: {instanceID: 6498}
+      Script: {instanceID: 6516}
     - Class: 114
-      Script: {instanceID: 6634}
+      Script: {instanceID: 6652}
     - Class: 114
-      Script: {instanceID: 6672}
+      Script: {instanceID: 6690}
     - Class: 114
-      Script: {instanceID: 6748}
+      Script: {instanceID: 6768}
     - Class: 114
-      Script: {instanceID: 6802}
+      Script: {instanceID: 6822}
     - Class: 114
-      Script: {instanceID: 7360}
+      Script: {instanceID: 7380}
     - Class: 114
-      Script: {instanceID: 7378}
+      Script: {instanceID: 7398}
     - Class: 114
-      Script: {instanceID: 7408}
+      Script: {instanceID: 7428}
     - Class: 114
-      Script: {instanceID: 7732}
-    - Class: 114
-      Script: {instanceID: 7860}
+      Script: {instanceID: 7752}
     - Class: 114
       Script: {instanceID: 7880}
     - Class: 114
-      Script: {instanceID: 7932}
+      Script: {instanceID: 7900}
     - Class: 114
-      Script: {instanceID: 7972}
+      Script: {instanceID: 7952}
     - Class: 114
-      Script: {instanceID: 8018}
+      Script: {instanceID: 7992}
+    - Class: 114
+      Script: {instanceID: 8038}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -754,7 +754,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 251d0150d8fbbc393ee2dce692b6b7ff
+      Hash: 900f148a60c398dcfd1a1ddb808a6848
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SlowMoBar
@@ -1264,6 +1264,12 @@ ScriptsOnlyBuild:
     className: FilmGrain
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EventManager
+  - hash:
+      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -1553,4 +1559,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.44/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.45/highcontrast.apk

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CircularFloat : MonoBehaviour
 {
-
     [SerializeField] float angularSpeed = 1f;
     [SerializeField] float circleRad = 1f;
     [SerializeField] float rotationSpeed = 1f;
