@@ -36,16 +36,12 @@ public class PlayerCollision : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
+
+        print(collision);
         if (ps.inHyperDashZone){
             ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
-        }
-
-        if (ps.isGrounded && ps.isTouchingTop){    
-            processDeath();
-        }
-
-        
+        }        
 
         ProcessCollision(collision.gameObject);
     }
@@ -82,7 +78,8 @@ public class PlayerCollision : MonoBehaviour
 
     void ProcessCollision(GameObject collider)
     {
-        switch (collider.tag){
+        switch (collider.tag)
+        {
             case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
             case "Reverter": processReverter(collider); break;
             case "CrystalDash": processCrystalDash(collider); break;
@@ -97,15 +94,19 @@ public class PlayerCollision : MonoBehaviour
                 ps.exithyperDashZone();
                 break;
 
-            case "Booster": 
+            case "Booster":
                 processBooster(collider);
                 break;
 
             case "BoosterZone":
-                ps.isBoosting = true; 
+                ps.isBoosting = true;
                 rb.gravityScale *= 0.5f;
                 break;
 
+            case "Crusher":
+                if (ps.isGrounded && ps.isTouchingTop) processDeath();
+                break;
+    
             default: break;
 
         }
@@ -159,21 +160,24 @@ public class PlayerCollision : MonoBehaviour
         ps.inHyperDashZone = false;
         ps.isDead = true;
         ps.canMove = false;
-        particles.Play();
-        
-
-        TimeManager.executeAfterSeconds(1.5f, newGame);
+        var p = Instantiate(particles, transform.position, Quaternion.identity);
+        p.Play();
+     
+        TimeManager.executeAfterSeconds(1.5f, () => newGame(p.gameObject));
         
         gameObject.SetActive(false);
     }
 
 
-    void newGame() {
+    void newGame(GameObject p) {
         gameObject.SetActive(true);
-
         transform.position = respawnPoint.position;
         ps.canMove = true;
         ps.isDead = false;
+        
+        Destroy(p);
+
+
         SlowMoBar.restoreAllSlow();
     }
 

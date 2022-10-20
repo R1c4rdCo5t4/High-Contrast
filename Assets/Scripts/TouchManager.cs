@@ -118,8 +118,8 @@ public class TouchManager : MonoBehaviour
                     ps.flip();
                     if(Mathf.Abs(swipeDir.y) < 0.5f) return;
                 } 
-            
-                ps.Dash(new Dash(swipeDir, ps.dashSpeed, ps.dashDuration));
+                Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(ps.facing,0f,0f), swipeDir);
+                ps.Dash(new Dash(swipeDir, ps.dashSpeed, ps.dashDuration, dashRotation));
             }
             else { // jump
                 if(swipeDir.y < 0.5f) return;

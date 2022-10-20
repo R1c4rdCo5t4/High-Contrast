@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
     Rigidbody2D rb;
+    SpriteRenderer sr;
     AnimationCurve trailWidth;
     TrailRenderer trail;
     ParticleSystem ps;
@@ -17,12 +18,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform airBorneCheckPoint;
     [SerializeField] Transform topCheckPoint;
 
+    GameObject rotatable;
+    State currState;
+
 
     [Header("Vectors")]
     public Vector2 wallJumpDir;
     public Vector2 wallHopDir;
     public Vector2 wallOutDir;
     public Vector2 hyperDashForce = Vector2.zero;
+    Quaternion initialRotation;
 
     [Header("Floats")]
     public float movementSpeed;
@@ -79,7 +84,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool hasWallJump = true;
     [SerializeField] bool hasAirDash = true;
 
-    State currState;
+
+
 
 
     enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, inMovingPlatform, Undefined }
@@ -87,12 +93,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         ps = GameObject.Find("Explosion").GetComponent<ParticleSystem>();
         trail = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        rotatable = GameObject.Find("Rotate");
         activeMovespeed = 0f;
         initialGravity = rb.gravityScale;
         trailWidth = trail.widthCurve;
         wallSlideSpeed = defaultSlideSpeed;
+        initialRotation = transform.rotation;
     }
 
 
@@ -168,13 +177,15 @@ public class PlayerController : MonoBehaviour
 
     void checkSurroundings(){
 
-        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+        isGrounded = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckRadius, groundLayer);
         isTouchingWall = Physics2D.Raycast(wallCheckPoint.position, facing == 1 ? Vector2.right : Vector2.left, wallCheckDistance, wallLayer);
         isWallSliding = isTouchingWall && !isGrounded && (rb.velocity.y < 0 || isDashing);
         isWallGrabbing = wallSlideSpeed == wallGrabSpeed;
         isAirBorne = !Physics2D.OverlapCircle(airBorneCheckPoint.position, airBorneCheckRadius, airBorneLayer);
-        isTouchingTop = Physics2D.OverlapCircle(topCheckPoint.position, topCheckRadius, groundLayer);
+        isTouchingTop = Physics2D.Raycast(topCheckPoint.position, Vector2.right, topCheckRadius, groundLayer);
 
+
+        
         if (!inMovingPlatform){
             transform.localScale = Vector3.one;
         }
@@ -185,6 +196,8 @@ public class PlayerController : MonoBehaviour
                 coyoteTimeCounter = coyoteTime;
                 rb.gravityScale = initialGravity;
                 dashesLeft = numOfDashes;
+
+                print("!!!");
             }
             
             else{
@@ -219,14 +232,40 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 0f;
             // trail.startWidth = 0.65f;
             // trail.endWidth = 0.65f;
+
+            // Vector3 newDirection = Vector3.RotateTowards(transform.forward, dash.dir * 100, 5f * Time.deltaTime, 0.0f);
+
+            // // Draw a ray pointing at our target in
+            // Debug.DrawRay(transform.position, newDirection, Color.red);
+
+            // Calculate a rotation a step closer to the target and applies rotation to this object
+
+            // print(dir);
+            // Vector3 dir = new Vector3(0f, Mathf.Sin(Mathf.Deg2Rad * angle), Mathf.Cos(Mathf.Deg2Rad * angle));
+
+            // transform.rotation = Quaternion.LookRotation(dir);
+
+            // transform.rotation = initialRotation;
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, dash.rotation * transform.rotation, 0.5f);
+
+
         }
     }
 
 
+
     void dashController()
     {
+
+        // if(isDashing){
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation * transform.rotation, 0.5f);
+        // }
+
+
         if (dashTimer > 0){
             dashTimer -= Time.deltaTime;
+
 
             if (dashTimer <= 0 || isTouchingWall || !isDashing){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
                 isDashing = false;
@@ -239,6 +278,7 @@ public class PlayerController : MonoBehaviour
         if (dashCoolTimer > 0){
             dashCoolTimer -= Time.deltaTime;
         }
+        
     }
 
     public void hyperDash(Vector2 force){
@@ -250,6 +290,8 @@ public class PlayerController : MonoBehaviour
             flip();
         }
         rb.gravityScale = 0f;
+        Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(facing,0f,0f), force);
+        transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation * transform.rotation, 0.5f);
     }
 
     public void wallJump(float dirX, float dirY){
@@ -270,20 +312,29 @@ public class PlayerController : MonoBehaviour
 
     public void handleRotation(){
     
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 10f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 5f, groundLayer);
         Quaternion slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal);
         float angle = (slopeRotation.eulerAngles.z > 180 ? slopeRotation.eulerAngles.z - 360 : slopeRotation.eulerAngles.z);
         // print(angle);
         if (hit && (Mathf.Sign(angle) == 1 ? angle < 50f : angle > -50f)) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
-        
-        else resetRotation(transform);
-        
+
+        else
+        {
+            resetRotation(transform);
+        }
     }
 
     void resetRotation(Transform transf){
-        if (transform.eulerAngles.z != 0){
-            transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 1f));
+        if (!isDashing && !inHyperDashZone){
+            // transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 0.2f));
+            // Quaternion resetRotation = Quaternion.FromToRotation(transform.rotation.eulerAngles, Vector3.zero);
+            //  Quaternion.Slerp(transform.rotation, resetRotation  * transform.rotation, 1f);
+
+            // transf.eulerAngles = new Vector3(0f, 0f, Mathf.Lerp(transform.eulerAngles.z - (facing == 1 ? 0 : 180f), 0f, 0.5f));
+            transf.eulerAngles = Vector3.zero;
         }
+
+        // if(!isDashing) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0f,facing,0f)) * transform.rotation, 0.2f);
     }
 
 
@@ -291,10 +342,11 @@ public class PlayerController : MonoBehaviour
 
     public void flip(){
         facing = -facing;
-        Vector3 prevParticlePos = ps.gameObject.transform.position;
-        transform.Rotate(0f, 180f, 0f);
-        ps.gameObject.transform.position = prevParticlePos; // lock particle Z pos
-        isDashing = false;
+        sr.flipX = !sr.flipX;
+        rotatable.transform.Rotate(0f, 180f, 0f);
+        
+        // transform.Rotate(0f, 180f, 0f);
+        // nonRotatable.transform.Rotate(0f, 180f, 0f); // keep rotation
         isBoosting = false;
 
     }
@@ -310,12 +362,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
-        Gizmos.DrawWireSphere(topCheckPoint.position, topCheckRadius);
+        // Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+        Debug.DrawRay(topCheckPoint.position, new Vector3(topCheckRadius, 0f, 0f), Color.red);
         Gizmos.DrawWireSphere(airBorneCheckPoint.position, airBorneCheckRadius);
+        Debug.DrawRay(groundCheckPoint.position, new Vector3(0f, -groundCheckRadius, 0f), Color.blue);
         Debug.DrawRay(wallCheckPoint.position, new Vector3(facing == 1 ? 0.1f : 0.1f, 0f, 0f), Color.blue);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red);
+        // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red);
     }
+
 
 }
 
@@ -324,13 +378,15 @@ public class Dash {
     public Vector2 dir;
     public float speed;
     public float duration;
+    public Quaternion rotation;
 
-    public Dash(Vector2 dir, float speed, float duration)
+    public Dash(Vector2 dir, float speed, float duration, Quaternion rotation)
     {
         this.dir = dir;
         this.speed = speed;
         this.duration = duration;
-        
+        this.rotation = rotation;
+
     }
 
 }

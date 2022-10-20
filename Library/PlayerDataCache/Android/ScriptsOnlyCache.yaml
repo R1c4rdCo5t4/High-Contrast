@@ -1565,4 +1565,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.46/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.47/highcontrast.apk

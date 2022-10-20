@@ -33,6 +33,7 @@ public class PostProcessing : MonoBehaviour {
     {
         chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inHyperDashZone);
         vignette.intensity.value = valueChanger(vignetteMultiplier * Time.deltaTime, vignette.intensity.value, minVigValue, maxVigValue, gm.tm.isSlowing);
+        
     }
 
     float valueChanger(float mult, float value, float min, float max, bool cond) => (cond) ? value < max ? value + mult : max : (value > min) ? value - mult : min;

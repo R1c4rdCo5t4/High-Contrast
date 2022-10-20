@@ -18,6 +18,7 @@ public class TimeManager : MonoBehaviour
     bool canRestoreSlow;
 
 
+
     void Awake(){
         instance = this;
     }
@@ -26,11 +27,11 @@ public class TimeManager : MonoBehaviour
     {
         defaultTimeScale = Time.timeScale;
 
-
     }
 
     void FixedUpdate()
     {
+        if(instance == null) instance = this;
 
         if (isSlowing) SlowMoBar.takeSlow();
         
