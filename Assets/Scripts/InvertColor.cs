@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+
 public class InvertColor : MonoBehaviour
 {
     Transform[] objects;
@@ -18,6 +19,7 @@ public class InvertColor : MonoBehaviour
             invertObject(obj.gameObject);
         }
     }
+
 
 
     public void invertObject(GameObject obj){

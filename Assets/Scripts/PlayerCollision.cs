@@ -35,9 +35,6 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
-
-        print(collision);
         if (ps.inHyperDashZone){
             ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;

@@ -36,21 +36,33 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\PlayerStates\MovingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\HyperDashingState.cs" />
      <Compile Include="Assets\Scripts\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\PostProcessing.cs" />
      <Compile Include="Assets\Scripts\SlowMoBar.cs" />
-     <Compile Include="Assets\Scripts\CameraManager.cs" />
-     <Compile Include="Assets\Scripts\TimeManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\TimeManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\JumpingState.cs" />
      <Compile Include="Assets\Scripts\CircularFloat.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\WallSlidingState.cs" />
      <Compile Include="Assets\Scripts\EnemyFollow.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\EventManager.cs" />
-     <Compile Include="Assets\Scripts\ColorManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\InSlopeState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\MovingPlatformState.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\EventManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\IdleState.cs" />
+     <Compile Include="Assets\Scripts\Managers\ColorManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\DeadState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\DashingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\WallJumpingState.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\TouchManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\TouchManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\PlayerState.cs" />
      <Compile Include="Assets\Scripts\FloatScript.cs" />
      <Compile Include="Assets\Scripts\PlatformDetector.cs" />
      <Compile Include="Assets\Scripts\InvertColor.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\BoostingState.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

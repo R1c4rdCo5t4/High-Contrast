@@ -196,8 +196,6 @@ public class PlayerController : MonoBehaviour
                 coyoteTimeCounter = coyoteTime;
                 rb.gravityScale = initialGravity;
                 dashesLeft = numOfDashes;
-
-                print("!!!");
             }
             
             else{
@@ -240,7 +238,6 @@ public class PlayerController : MonoBehaviour
 
             // Calculate a rotation a step closer to the target and applies rotation to this object
 
-            // print(dir);
             // Vector3 dir = new Vector3(0f, Mathf.Sin(Mathf.Deg2Rad * angle), Mathf.Cos(Mathf.Deg2Rad * angle));
 
             // transform.rotation = Quaternion.LookRotation(dir);
@@ -315,7 +312,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector3.down), 5f, groundLayer);
         Quaternion slopeRotation = Quaternion.FromToRotation(transform.up, hit.normal);
         float angle = (slopeRotation.eulerAngles.z > 180 ? slopeRotation.eulerAngles.z - 360 : slopeRotation.eulerAngles.z);
-        // print(angle);
+   
         if (hit && (Mathf.Sign(angle) == 1 ? angle < 50f : angle > -50f)) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
 
         else
