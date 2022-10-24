@@ -36,35 +36,34 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\PlayerStates\MovingState.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\HyperDashingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\MovingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\HyperDashingState.cs" />
      <Compile Include="Assets\Scripts\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\PostProcessing.cs" />
      <Compile Include="Assets\Scripts\SlowMoBar.cs" />
      <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TimeManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\JumpingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\JumpingState.cs" />
      <Compile Include="Assets\Scripts\CircularFloat.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\WallSlidingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\WallSlidingState.cs" />
      <Compile Include="Assets\Scripts\EnemyFollow.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\InSlopeState.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\MovingPlatformState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\InSlopeState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\MovingPlatformState.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\EventManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\IdleState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\IdleState.cs" />
      <Compile Include="Assets\Scripts\Managers\ColorManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\DeadState.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\DashingState.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\WallJumpingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\DeadState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\DashingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\WallJumpingState.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Managers\TouchManager.cs" />
      <Compile Include="Assets\Scripts\PlayerStates\SuperStates\PlayerState.cs" />
      <Compile Include="Assets\Scripts\FloatScript.cs" />
      <Compile Include="Assets\Scripts\PlatformDetector.cs" />
      <Compile Include="Assets\Scripts\InvertColor.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\BoostingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SubStates\BoostingState.cs" />
      <Compile Include="Assets\Scripts\PlayerStates\SuperStates\GroundedState.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\AirBorneState.cs" />
      <Compile Include="Assets\Scripts\PlayerStates\SuperStates\TouchingWallState.cs" />
      <Compile Include="Assets\Scripts\PlayerStates\SuperStates\AbilityState.cs" />
     <Reference Include="UnityEngine">

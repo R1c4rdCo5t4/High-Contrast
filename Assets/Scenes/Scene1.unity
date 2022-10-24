@@ -100125,11 +100125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 873422839, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.263
+      value: -0.246
       objectReference: {fileID: 0}
     - target: {fileID: 873422839, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.494
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 1355082146, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: m_IsActive
@@ -100173,7 +100173,7 @@ PrefabInstance:
       objectReference: {fileID: 1463243837}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: topCheckRadius
-      value: 0.5
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 2070891413201499688, guid: e6b87474e046319479bf8bd53a4d8bdf, type: 3}
       propertyPath: groundCheckRadius
