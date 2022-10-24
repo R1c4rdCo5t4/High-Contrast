@@ -58,11 +58,15 @@
      <Compile Include="Assets\Scripts\PlayerStates\WallJumpingState.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Managers\TouchManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerStates\PlayerState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\PlayerState.cs" />
      <Compile Include="Assets\Scripts\FloatScript.cs" />
      <Compile Include="Assets\Scripts\PlatformDetector.cs" />
      <Compile Include="Assets\Scripts\InvertColor.cs" />
      <Compile Include="Assets\Scripts\PlayerStates\BoostingState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\GroundedState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\AirBorneState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\TouchingWallState.cs" />
+     <Compile Include="Assets\Scripts\PlayerStates\SuperStates\AbilityState.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

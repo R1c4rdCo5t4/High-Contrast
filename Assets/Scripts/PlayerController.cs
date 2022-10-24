@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, inMovingPlatform, Undefined }
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -219,8 +220,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(Dash dash){
         if (coyoteTimeCounter < 0 && dashesLeft > 0 && !isTouchingWall && canDash && hasAirDash && 
-           (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f)){
-
+        (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f)){
             isDashing = true;
             dashesLeft--;
             canDash = dashesLeft > 0;
@@ -228,43 +228,18 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed; // 30
             dashTimer = dash.duration;
             rb.gravityScale = 0f;
-            // trail.startWidth = 0.65f;
-            // trail.endWidth = 0.65f;
-
-            // Vector3 newDirection = Vector3.RotateTowards(transform.forward, dash.dir * 100, 5f * Time.deltaTime, 0.0f);
-
-            // // Draw a ray pointing at our target in
-            // Debug.DrawRay(transform.position, newDirection, Color.red);
-
-            // Calculate a rotation a step closer to the target and applies rotation to this object
-
-            // Vector3 dir = new Vector3(0f, Mathf.Sin(Mathf.Deg2Rad * angle), Mathf.Cos(Mathf.Deg2Rad * angle));
-
-            // transform.rotation = Quaternion.LookRotation(dir);
-
-            // transform.rotation = initialRotation;
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, dash.rotation * transform.rotation, 0.5f);
-
-
+            // transform.rotation = Quaternion.Slerp(transform.rotation, dash.rotation * transform.rotation, 0.5f);
         }
     }
 
 
 
-    void dashController()
-    {
-
-        // if(isDashing){
-        //     transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation * transform.rotation, 0.5f);
-        // }
-
+    void dashController(){
 
         if (dashTimer > 0){
             dashTimer -= Time.deltaTime;
 
-
-            if (dashTimer <= 0 || isTouchingWall || !isDashing){  //(Mathf.Abs(rb.velocity.x) > 0.5 && Mathf.Sign(rb.velocity.x) != facing))
+            if (dashTimer <= 0 || isTouchingWall || !isDashing){  
                 isDashing = false;
                 activeMovespeed = movementSpeed;
                 dashCoolTimer = dashCoolDown;
@@ -303,7 +278,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public void gravityController(float gravityModifier, float lerpSpeed){
-        
         rb.gravityScale = Mathf.Lerp(rb.gravityScale, initialGravity * gravityModifier, lerpSpeed);
     }
 
@@ -315,37 +289,21 @@ public class PlayerController : MonoBehaviour
    
         if (hit && (Mathf.Sign(angle) == 1 ? angle < 50f : angle > -50f)) transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation * transform.rotation, 0.5f);
 
-        else
-        {
-            resetRotation(transform);
-        }
+        else resetRotation(transform);
+        
     }
 
     void resetRotation(Transform transf){
         if (!isDashing && !inHyperDashZone){
-            // transf.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Lerp(transform.eulerAngles.z, 0f, 0.2f));
-            // Quaternion resetRotation = Quaternion.FromToRotation(transform.rotation.eulerAngles, Vector3.zero);
-            //  Quaternion.Slerp(transform.rotation, resetRotation  * transform.rotation, 1f);
-
-            // transf.eulerAngles = new Vector3(0f, 0f, Mathf.Lerp(transform.eulerAngles.z - (facing == 1 ? 0 : 180f), 0f, 0.5f));
             transf.eulerAngles = Vector3.zero;
         }
-
-        // if(!isDashing) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0f,facing,0f)) * transform.rotation, 0.2f);
     }
-
-
-
 
     public void flip(){
         facing = -facing;
         sr.flipX = !sr.flipX;
         rotatable.transform.Rotate(0f, 180f, 0f);
-        
-        // transform.Rotate(0f, 180f, 0f);
-        // nonRotatable.transform.Rotate(0f, 180f, 0f); // keep rotation
         isBoosting = false;
-
     }
 
     public void enterhyperDashZone(){
@@ -359,12 +317,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         Debug.DrawRay(topCheckPoint.position, new Vector3(topCheckRadius, 0f, 0f), Color.red);
         Gizmos.DrawWireSphere(airBorneCheckPoint.position, airBorneCheckRadius);
         Debug.DrawRay(groundCheckPoint.position, new Vector3(0f, -groundCheckRadius, 0f), Color.blue);
         Debug.DrawRay(wallCheckPoint.position, new Vector3(facing == 1 ? 0.1f : 0.1f, 0f, 0f), Color.blue);
-        // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red);
     }
 
 
@@ -385,6 +341,5 @@ public class Dash {
         this.rotation = rotation;
 
     }
-
 }
 
