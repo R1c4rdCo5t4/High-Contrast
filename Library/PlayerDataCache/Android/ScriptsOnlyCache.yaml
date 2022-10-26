@@ -134,121 +134,121 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1800}
+      Script: {instanceID: 1802}
     - Class: 114
-      Script: {instanceID: 2400}
+      Script: {instanceID: 2402}
     - Class: 114
-      Script: {instanceID: 2490}
+      Script: {instanceID: 2492}
     - Class: 114
-      Script: {instanceID: 2652}
+      Script: {instanceID: 2654}
     - Class: 114
-      Script: {instanceID: 2712}
+      Script: {instanceID: 2714}
     - Class: 114
-      Script: {instanceID: 2778}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 3182}
+      Script: {instanceID: 3186}
     - Class: 114
-      Script: {instanceID: 3250}
+      Script: {instanceID: 3254}
     - Class: 114
-      Script: {instanceID: 3314}
+      Script: {instanceID: 3320}
     - Class: 114
-      Script: {instanceID: 3340}
+      Script: {instanceID: 3348}
     - Class: 114
-      Script: {instanceID: 3402}
+      Script: {instanceID: 3410}
     - Class: 114
-      Script: {instanceID: 3528}
+      Script: {instanceID: 3536}
     - Class: 114
-      Script: {instanceID: 3552}
+      Script: {instanceID: 3560}
     - Class: 114
-      Script: {instanceID: 3648}
+      Script: {instanceID: 3656}
     - Class: 114
-      Script: {instanceID: 3650}
+      Script: {instanceID: 3658}
     - Class: 114
-      Script: {instanceID: 3946}
+      Script: {instanceID: 3954}
     - Class: 114
-      Script: {instanceID: 3956}
+      Script: {instanceID: 3964}
     - Class: 114
-      Script: {instanceID: 4068}
+      Script: {instanceID: 4076}
     - Class: 114
-      Script: {instanceID: 4152}
+      Script: {instanceID: 4160}
     - Class: 114
-      Script: {instanceID: 4242}
+      Script: {instanceID: 4250}
     - Class: 114
-      Script: {instanceID: 4282}
+      Script: {instanceID: 4290}
     - Class: 114
-      Script: {instanceID: 4396}
+      Script: {instanceID: 4406}
     - Class: 114
-      Script: {instanceID: 4604}
+      Script: {instanceID: 4614}
     - Class: 114
-      Script: {instanceID: 4616}
+      Script: {instanceID: 4626}
     - Class: 114
-      Script: {instanceID: 4652}
+      Script: {instanceID: 4662}
     - Class: 114
-      Script: {instanceID: 5028}
+      Script: {instanceID: 5040}
     - Class: 114
-      Script: {instanceID: 5218}
+      Script: {instanceID: 5230}
     - Class: 114
-      Script: {instanceID: 5232}
+      Script: {instanceID: 5244}
     - Class: 114
-      Script: {instanceID: 5292}
+      Script: {instanceID: 5304}
     - Class: 114
-      Script: {instanceID: 5316}
+      Script: {instanceID: 5328}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5500}
     - Class: 114
-      Script: {instanceID: 5488}
+      Script: {instanceID: 5502}
     - Class: 114
-      Script: {instanceID: 5512}
+      Script: {instanceID: 5526}
     - Class: 114
-      Script: {instanceID: 5784}
+      Script: {instanceID: 5798}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5882}
     - Class: 114
-      Script: {instanceID: 5908}
+      Script: {instanceID: 5922}
     - Class: 114
-      Script: {instanceID: 6060}
+      Script: {instanceID: 6074}
     - Class: 114
-      Script: {instanceID: 6132}
+      Script: {instanceID: 6146}
     - Class: 114
-      Script: {instanceID: 6138}
+      Script: {instanceID: 6152}
     - Class: 114
-      Script: {instanceID: 6238}
+      Script: {instanceID: 6254}
     - Class: 114
-      Script: {instanceID: 6272}
+      Script: {instanceID: 6288}
     - Class: 114
-      Script: {instanceID: 6318}
+      Script: {instanceID: 6336}
     - Class: 114
-      Script: {instanceID: 6384}
+      Script: {instanceID: 6402}
     - Class: 114
-      Script: {instanceID: 6392}
+      Script: {instanceID: 6410}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6518}
     - Class: 114
-      Script: {instanceID: 6636}
+      Script: {instanceID: 6654}
     - Class: 114
-      Script: {instanceID: 6674}
+      Script: {instanceID: 6692}
     - Class: 114
-      Script: {instanceID: 6752}
+      Script: {instanceID: 6770}
     - Class: 114
-      Script: {instanceID: 6806}
+      Script: {instanceID: 6824}
     - Class: 114
-      Script: {instanceID: 7364}
+      Script: {instanceID: 7388}
     - Class: 114
-      Script: {instanceID: 7382}
+      Script: {instanceID: 7406}
     - Class: 114
-      Script: {instanceID: 7412}
+      Script: {instanceID: 7438}
     - Class: 114
-      Script: {instanceID: 7736}
+      Script: {instanceID: 7762}
     - Class: 114
-      Script: {instanceID: 7864}
+      Script: {instanceID: 7890}
     - Class: 114
-      Script: {instanceID: 7884}
+      Script: {instanceID: 7910}
     - Class: 114
-      Script: {instanceID: 7936}
+      Script: {instanceID: 7962}
     - Class: 114
-      Script: {instanceID: 7976}
+      Script: {instanceID: 8002}
     - Class: 114
-      Script: {instanceID: 8022}
+      Script: {instanceID: 8048}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1270,12 +1270,6 @@ ScriptsOnlyBuild:
     className: FilmGrain
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: EventManager
-  - hash:
-      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -1408,7 +1402,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: 7612cb839568091ab6a40d1c74110ff9
+      Hash: adeae6c2a93fcae9f9b7e24a877bf25f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1565,4 +1559,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.47/highcontrast.apk
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.48/highcontrast.apk
