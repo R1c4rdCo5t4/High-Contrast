@@ -24,9 +24,6 @@ public class TouchManager : MonoBehaviour
     // float holdMinDuration = .0005f;
     // int taps = 0;
 
-    enum Direction { Up, Down, Left, Right }
-
-
     void Start()
     {
         swipeRange = Screen.height * swipeRangeMultiplier / 100;
@@ -35,7 +32,6 @@ public class TouchManager : MonoBehaviour
        
     }
 
-
     void Update()
     {
 
@@ -43,9 +39,7 @@ public class TouchManager : MonoBehaviour
 
         if (tapTimer > 0) tapTimer -= Time.deltaTime;
         
-
         if (Input.touchCount > 0){
-
             foreach (Touch touch in Input.touches){
                 switch (touch.phase){
                     case TouchPhase.Began: startTouch(touch); break;
@@ -65,131 +59,31 @@ public class TouchManager : MonoBehaviour
         tapTimer = tapMaxDuration;
         // holdTimer = holdMinDuration;
 
+        EventManager.OnStartTouch();
+
     }
 
     void moveTouch(Touch touch)
     {
-
         // https://answers.unity.com/questions/663784/is-it-the-way-to-find-swipe-speed.html
 
         currentPosition = touch.position;
         Vector2 Swipe = currentPosition - startTouchPosition;
         Vector2 swipeDir = Swipe.normalized;
 
-
         if (currentPosition.x < Screen.width / 3 || Swipe.magnitude < 100) return;
 
 
         if (!stopTouch){
-
-            if (Swipe.x < -swipeRange){ // left
-                if (!ps.inHyperDashZone) leftSwipe(swipeDir);
-                swipeController(swipeDir, Direction.Left);
-            }
-
-            else if (Swipe.x > swipeRange){  // right
-                if (!ps.inHyperDashZone) rightSwipe(swipeDir);
-                swipeController(swipeDir, Direction.Right);
-            }
-
-            else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
-                // if (!ps.inHyperDashZone) //upSwipe(swipeDir);
-                swipeController(swipeDir, Direction.Up);
-            }
-
-            else if (Swipe.y < -swipeRange){ // down
-                if (!ps.inHyperDashZone) downSwipe();
-                swipeController(swipeDir, Direction.Down);
-            }
-
+            EventManager.OnMoveTouch(swipeDir);
         }
 
 
     }
 
-    void swipeController(Vector2 swipeDir, Direction dir){
-
-        if (!ps.inHyperDashZone)
-        {
-            if (!ps.isTouchingWall && !ps.isGrounded){ // dash
-                if ((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
-                    ps.flip();
-                    if(Mathf.Abs(swipeDir.y) < 0.5f) return;
-                } 
-                Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(ps.facing,0f,0f), swipeDir);
-                ps.Dash(new Dash(swipeDir, ps.dashSpeed, ps.dashDuration, dashRotation));
-            }
-            else { // jump
-                if(swipeDir.y < 0.5f) return;
-                ps.jump(ps.maxJumpForce, new Vector2(0f, swipeDir.y));
-            }
-        }
-
-        else ps.hyperDash(swipeDir * ps.hyperDashSpeed);
-
-        stopTouch = true;
-    }
-
-    void leftSwipe(Vector2 swipeDir)
-    {
-        ps.activeMovespeed = ps.movementSpeed;
-
-        if (ps.facing < 0){
-            if (ps.canWallHop){
-                ps.wallJump(-ps.wallHopDir.x, ps.wallHopDir.y); // wall hop
-                ps.canWallHop = false;
-            }
-        }
-
-        else{
-            ps.wallJump(-ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
-            if (ps.isGrounded || ps.isTouchingWall) ps.flip();
-        }
-
-        stopTouch = true;
-    }
-
-
-    void rightSwipe(Vector2 swipeDir)
-    {
-        ps.activeMovespeed = ps.movementSpeed;
-
-        if (ps.facing > 0){
-            if (ps.canWallHop){
-                ps.wallJump(ps.wallHopDir.x, ps.wallHopDir.y); // wall hop 
-                ps.canWallHop = false;
-            }
-        }
-
-        else{
-            ps.wallJump(ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
-            if (ps.isGrounded || ps.isTouchingWall) ps.flip();
-        }
-
-        stopTouch = true;
-    }
 
 
 
-    void upSwipe(Vector2 swipeDir){
-
-        // float jumpForce = /*swipeForce < Screen.height / 2 ? ps.minJumpForce :*/ ps.maxJumpForce;
-        // ps.jump(jumpForce, swipeDir);
-        // stopTouch = true;
-
-    }
-
-
-
-    void downSwipe()
-    {
-        if (ps.isTouchingWall && !ps.isGrounded){
-            ps.wallJump(-ps.facing * ps.wallOutDir.x, -ps.wallOutDir.y);
-            ps.flip();
-        }
-
-        stopTouch = true;
-    }
 
 
     void stationaryTouch(Touch touch){
@@ -211,6 +105,8 @@ public class TouchManager : MonoBehaviour
             gm.tm.SlowMotion(0.25f, 4f);
 
         }
+
+        EventManager.OnStationaryTouch();
 
     }
 
@@ -235,6 +131,7 @@ public class TouchManager : MonoBehaviour
                 ps.hyperDashForce = Vector2.zero;
             }
         }
+        EventManager.OnEndTouch();
     }
 
 
