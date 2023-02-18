@@ -47,10 +47,18 @@ public class TouchManager : MonoBehaviour
         if (tapped && tapTimer <= 0){
             tapped = false;
             tap();
-            print("tap");
         }
 
         if (Input.touchCount > 0){
+
+            Touch t = Input.GetTouch(0);
+            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(t.position);
+            Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition);
+
+            if (hitCollider != null && hitCollider.CompareTag("NoTouchZone"))
+            {
+                return;
+            }
 
             foreach (Touch touch in Input.touches){
                 switch (touch.phase){
@@ -69,7 +77,6 @@ public class TouchManager : MonoBehaviour
     {
         startTouchPosition = touch.position;
         tapTimer = tapMaxDuration;
-
     }
 
     void moveTouch(Touch touch)
@@ -212,17 +219,9 @@ public class TouchManager : MonoBehaviour
         else{
             stopTouch = false;
             if (Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer > 0){
-                if (tapped){
-                    doubleTap();
-                    print("double tap");
-                    tapped = false;
-
-                }
-                else{
-                    tapped = true;
-                    tapTimer = doubleTapMaxDuration;
-                }
-            
+                if (tapped) doubleTap();
+                else tapTimer = doubleTapMaxDuration;
+                tapped = !tapped;
             }
         }
 

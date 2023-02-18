@@ -23,6 +23,8 @@ TagManager:
   - Crusher
   - Transition
   - Logo
+  - Swipe
+  - NoTouchZone
   layers:
   - Default
   - TransparentFX
