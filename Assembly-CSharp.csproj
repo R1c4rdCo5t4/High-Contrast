@@ -41,6 +41,7 @@
      <Compile Include="Assets\Scripts\UI\SlowMoBar.cs" />
      <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TimeManager.cs" />
+     <Compile Include="Assets\Scripts\Environment\PlatformDetector.cs" />
      <Compile Include="Assets\Scripts\Environment\CircularFloat.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyFollow.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
@@ -50,7 +51,7 @@
      <Compile Include="Assets\Scripts\Managers\TouchManager.cs" />
      <Compile Include="Assets\Scripts\Environment\FloatScript.cs" />
      <Compile Include="Assets\Scripts\Environment\InvertColor.cs" />
-     <Compile Include="Assets\Scripts\Environment\PlatformDetector.cs" />
+     <Compile Include="Assets\Scripts\Managers\TransitionManager.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -669,8 +670,8 @@
     <Reference Include="Unity.2D.Path.Editor">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-        <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    <Reference Include="Unity.Postprocessing.Editor">
+        <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -686,6 +687,9 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+        <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
@@ -704,6 +708,9 @@
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+        <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
         <HintPath>C:\Users\Ricardo\Unity Projects\High-Contrast\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>

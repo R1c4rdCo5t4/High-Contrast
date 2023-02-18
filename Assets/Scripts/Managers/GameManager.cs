@@ -8,18 +8,27 @@ public class GameManager : MonoBehaviour
     public bool darkMode = false;
     public GameManager gm;
     public TimeManager tm;
-    public InvertColor ic;
+    public GameState gameState;
+
+    public enum GameState { Menu, Playing, Paused, GameOver }
+    Transform[] objects;
 
     void Start()
     {
         gm = GetComponent<GameManager>();
         tm = GetComponent<TimeManager>();
-        ic = GetComponent<InvertColor>();
+        gameState = GameState.Menu;
+        objects = GetComponentsInChildren<Transform>();
     }
 
-    void Update()
-    {
 
+    public bool playing(){
+        return gameState == GameState.Playing;
+    }
 
+    public void invert(){
+        foreach (Transform obj in objects){
+            Inverter.invertGameObject(obj.gameObject);
+        }
     }
 }

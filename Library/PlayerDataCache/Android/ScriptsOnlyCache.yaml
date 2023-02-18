@@ -80,8 +80,6 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
@@ -96,7 +94,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Scene1.unity:
+    Assets/Scenes/Level1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -132,7 +130,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 1658}
+      Script: {instanceID: 1660}
     - Class: 114
       Script: {instanceID: 1802}
     - Class: 114
@@ -142,113 +140,109 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2654}
     - Class: 114
-      Script: {instanceID: 2714}
-    - Class: 114
       Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 3186}
+      Script: {instanceID: 3184}
     - Class: 114
-      Script: {instanceID: 3254}
+      Script: {instanceID: 3252}
     - Class: 114
-      Script: {instanceID: 3320}
+      Script: {instanceID: 3316}
     - Class: 114
-      Script: {instanceID: 3348}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3410}
+      Script: {instanceID: 3404}
     - Class: 114
-      Script: {instanceID: 3536}
+      Script: {instanceID: 3530}
     - Class: 114
-      Script: {instanceID: 3560}
+      Script: {instanceID: 3554}
     - Class: 114
-      Script: {instanceID: 3656}
+      Script: {instanceID: 3650}
     - Class: 114
-      Script: {instanceID: 3658}
+      Script: {instanceID: 3652}
     - Class: 114
-      Script: {instanceID: 3954}
+      Script: {instanceID: 3948}
     - Class: 114
-      Script: {instanceID: 3964}
+      Script: {instanceID: 3958}
     - Class: 114
-      Script: {instanceID: 4076}
+      Script: {instanceID: 4070}
     - Class: 114
-      Script: {instanceID: 4160}
+      Script: {instanceID: 4154}
     - Class: 114
-      Script: {instanceID: 4250}
+      Script: {instanceID: 4244}
     - Class: 114
-      Script: {instanceID: 4290}
+      Script: {instanceID: 4284}
     - Class: 114
-      Script: {instanceID: 4406}
+      Script: {instanceID: 4398}
     - Class: 114
-      Script: {instanceID: 4614}
+      Script: {instanceID: 4606}
     - Class: 114
-      Script: {instanceID: 4626}
+      Script: {instanceID: 4618}
     - Class: 114
-      Script: {instanceID: 4662}
+      Script: {instanceID: 4654}
     - Class: 114
-      Script: {instanceID: 5040}
+      Script: {instanceID: 5030}
     - Class: 114
-      Script: {instanceID: 5230}
+      Script: {instanceID: 5070}
     - Class: 114
-      Script: {instanceID: 5244}
+      Script: {instanceID: 5222}
     - Class: 114
-      Script: {instanceID: 5304}
+      Script: {instanceID: 5236}
     - Class: 114
-      Script: {instanceID: 5328}
+      Script: {instanceID: 5296}
     - Class: 114
-      Script: {instanceID: 5500}
+      Script: {instanceID: 5320}
     - Class: 114
-      Script: {instanceID: 5502}
+      Script: {instanceID: 5490}
     - Class: 114
-      Script: {instanceID: 5526}
+      Script: {instanceID: 5492}
     - Class: 114
-      Script: {instanceID: 5798}
+      Script: {instanceID: 5516}
     - Class: 114
-      Script: {instanceID: 5882}
+      Script: {instanceID: 5788}
     - Class: 114
-      Script: {instanceID: 5922}
+      Script: {instanceID: 5872}
     - Class: 114
-      Script: {instanceID: 6074}
+      Script: {instanceID: 5912}
     - Class: 114
-      Script: {instanceID: 6146}
+      Script: {instanceID: 6064}
     - Class: 114
-      Script: {instanceID: 6152}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6254}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6288}
+      Script: {instanceID: 6242}
     - Class: 114
-      Script: {instanceID: 6336}
+      Script: {instanceID: 6276}
     - Class: 114
-      Script: {instanceID: 6402}
+      Script: {instanceID: 6322}
     - Class: 114
-      Script: {instanceID: 6410}
+      Script: {instanceID: 6396}
     - Class: 114
-      Script: {instanceID: 6518}
+      Script: {instanceID: 6504}
     - Class: 114
-      Script: {instanceID: 6654}
+      Script: {instanceID: 6640}
     - Class: 114
-      Script: {instanceID: 6692}
+      Script: {instanceID: 6678}
     - Class: 114
-      Script: {instanceID: 6770}
+      Script: {instanceID: 6756}
     - Class: 114
-      Script: {instanceID: 6824}
+      Script: {instanceID: 6810}
     - Class: 114
-      Script: {instanceID: 7388}
+      Script: {instanceID: 7368}
     - Class: 114
-      Script: {instanceID: 7406}
+      Script: {instanceID: 7386}
     - Class: 114
-      Script: {instanceID: 7438}
+      Script: {instanceID: 7416}
     - Class: 114
-      Script: {instanceID: 7762}
+      Script: {instanceID: 7740}
     - Class: 114
-      Script: {instanceID: 7890}
+      Script: {instanceID: 7868}
     - Class: 114
-      Script: {instanceID: 7910}
+      Script: {instanceID: 7888}
     - Class: 114
-      Script: {instanceID: 7962}
+      Script: {instanceID: 7978}
     - Class: 114
-      Script: {instanceID: 8002}
-    - Class: 114
-      Script: {instanceID: 8048}
+      Script: {instanceID: 8024}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -958,6 +952,12 @@ ScriptsOnlyBuild:
     className: CinemachineVolumeSettings
   - hash:
       serializedVersion: 2
+      Hash: 4ccdec6b80c617f0c9877cee8e68b362
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlatformDetector
+  - hash:
+      serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1420,7 +1420,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 76da3c2114ba03ec7912a7a6ddc84f74
+      Hash: ed4d4ce95d2d9d8ca6b280f8f267be33
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TouchManager
@@ -1510,12 +1510,6 @@ ScriptsOnlyBuild:
     className: CinemachineRecomposer
   - hash:
       serializedVersion: 2
-      Hash: 4ccdec6b80c617f0c9877cee8e68b362
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlatformDetector
-  - hash:
-      serializedVersion: 2
       Hash: b5c3dbcb94925c8b595ad16a62b44788
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
@@ -1558,5 +1552,5 @@ ScriptsOnlyBuild:
     className: FabrikSolver2D
   platform: 13
   scenePathNames:
-  - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.48/highcontrast.apk
+  - Assets/Scenes/Level1.unity
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.49/highcontrast.apk

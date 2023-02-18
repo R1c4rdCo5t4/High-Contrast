@@ -8,17 +8,19 @@ public class TouchManager : MonoBehaviour
     [SerializeField] PlayerController ps;
     PlayerCollision pc;
     GameManager gm;
-   
+    [SerializeField] GameObject cam;
+
     Vector2 startTouchPosition;
     Vector2 currentPosition;
     Vector2 endTouchPosition;
     bool stopTouch = false;
-
-    [SerializeField] float swipeRangeMultiplier;
-    [SerializeField] float tapRange;
+    float swipeRangeMultiplier = 15;
+    float tapRange = 20;
     float swipeRange;
     float tapTimer = 0f;
     float tapMaxDuration = .5f;
+    float doubleTapMaxDuration = .1f;
+    bool tapped;
 
     // float holdTimer = 0f;
     // float holdMinDuration = .0005f;
@@ -39,8 +41,15 @@ public class TouchManager : MonoBehaviour
     void Update()
     {
         if (ps.isDead) return;
+
         if (tapTimer > 0) tapTimer -= Time.deltaTime;
-        
+
+        if (tapped && tapTimer <= 0){
+            tapped = false;
+            tap();
+            print("tap");
+        }
+
         if (Input.touchCount > 0){
 
             foreach (Touch touch in Input.touches){
@@ -60,7 +69,6 @@ public class TouchManager : MonoBehaviour
     {
         startTouchPosition = touch.position;
         tapTimer = tapMaxDuration;
-        // holdTimer = holdMinDuration;
 
     }
 
@@ -73,26 +81,21 @@ public class TouchManager : MonoBehaviour
         Vector2 Swipe = currentPosition - startTouchPosition;
         Vector2 swipeDir = Swipe.normalized;
 
-
         if (currentPosition.x < Screen.width / 3 || Swipe.magnitude < 100 || stopTouch) return;
 
+        Quaternion levelOrientation = cam.transform.rotation;
+        swipeDir = levelOrientation * swipeDir;
       
-        if (Swipe.x < -swipeRange){ // left
+        if (swipeDir.x < -Mathf.Abs(swipeDir.y)) { // left
             if (!ps.inHyperDashZone) leftSwipe(swipeDir);
             swipeController(swipeDir, Direction.Left);
-        }
-
-        else if (Swipe.x > swipeRange){  // right
+        } else if (swipeDir.x > Mathf.Abs(swipeDir.y)) {  // right
             if (!ps.inHyperDashZone) rightSwipe(swipeDir);
             swipeController(swipeDir, Direction.Right);
-        }
-
-        else if (Swipe.y > swipeRange /* && Input.touchCount == 1*/){ // up
+        } else if (swipeDir.y > Mathf.Abs(swipeDir.x)) { // up
             // if (!ps.inHyperDashZone) //upSwipe(swipeDir);
             swipeController(swipeDir, Direction.Up);
-        }
-
-        else if (Swipe.y < -swipeRange){ // down
+        } else if (swipeDir.y < -Mathf.Abs(swipeDir.x)) { // down
             if (!ps.inHyperDashZone) downSwipe();
             swipeController(swipeDir, Direction.Down);
         }
@@ -173,7 +176,6 @@ public class TouchManager : MonoBehaviour
         if (ps.isTouchingWall && !ps.isGrounded){
             ps.wallJump(-ps.facing * ps.wallOutDir.x, -ps.wallOutDir.y);
             ps.flip();
-            ps.activeMovespeed = 0f;
         }
         stopTouch = true;
     }
@@ -209,7 +211,19 @@ public class TouchManager : MonoBehaviour
 
         else{
             stopTouch = false;
-            if (Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer > 0) tap();
+            if (Mathf.Abs(movedDist.x) < tapRange && Mathf.Abs(movedDist.y) < tapRange && tapTimer > 0){
+                if (tapped){
+                    doubleTap();
+                    print("double tap");
+                    tapped = false;
+
+                }
+                else{
+                    tapped = true;
+                    tapTimer = doubleTapMaxDuration;
+                }
+            
+            }
         }
 
         if(touch.position.x > Screen.width / 3){
@@ -227,5 +241,9 @@ public class TouchManager : MonoBehaviour
             ps.isJumping = false;
             ps.isDashing = false;
         }
+    }
+
+    void doubleTap(){
+        gm.invert();
     }
 }

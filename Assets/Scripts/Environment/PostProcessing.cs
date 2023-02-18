@@ -29,9 +29,16 @@ public class PostProcessing : MonoBehaviour {
 
     }
 
+    void FixedUpdate(){
+        chromaticAberration.intensity.value = Mathf.Sin(Mathf.Abs(chromaticMultiplier * Time.time));
+    }
+
     void Update()
     {
-        chromaticAberration.intensity.value = valueChanger(chromaticMultiplier * Time.deltaTime, chromaticAberration.intensity.value, minChromaticIntensity, maxChromaticIntensity, ps.inHyperDashZone);
+
+        
+
+
         vignette.intensity.value = valueChanger(vignetteMultiplier * Time.deltaTime, vignette.intensity.value, minVigValue, maxVigValue, gm.tm.isSlowing);
         
     }

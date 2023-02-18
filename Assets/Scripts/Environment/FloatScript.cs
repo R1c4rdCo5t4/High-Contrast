@@ -5,8 +5,8 @@ using UnityEngine;
 public class FloatScript : MonoBehaviour
 {
     float xDefaultPos, yDefaultPos;
-    [SerializeField] Vector2 amplitude;
-    [SerializeField] Vector2 speed;
+    public Vector2 amplitude;
+    public Vector2 speed;
 
     void Start()
     {

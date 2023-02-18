@@ -21,6 +21,8 @@ TagManager:
   - BoosterZone
   - HyperDash
   - Crusher
+  - Transition
+  - Logo
   layers:
   - Default
   - TransparentFX
@@ -32,7 +34,7 @@ TagManager:
   - Wall
   - Chromatic
   - 
-  - 
+  - Post Processing
   - 
   - 
   - 

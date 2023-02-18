@@ -75,6 +75,12 @@ public class PlayerCollision : MonoBehaviour
 
     void ProcessCollision(GameObject collider)
     {
+        FloatScript fs = collider.GetComponent<FloatScript>();
+        if (ps.isGrounded && ps.isTouchingTop && (fs != null && fs.speed.y < 0f)){
+            processDeath();
+            return;
+        } 
+                
         switch (collider.tag)
         {
             case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
@@ -101,23 +107,22 @@ public class PlayerCollision : MonoBehaviour
                 break;
 
             case "Crusher":
-                if (ps.isGrounded && ps.isTouchingTop) processDeath();
                 break;
-    
+
+            case "Transition":
+                TransitionManager tm = collider.gameObject.GetComponent<TransitionManager>();
+                if (tm != null) tm.moveCamera();
+                break;
+
             default: break;
-
         }
-
-
     }
 
     void processReverter(GameObject inverter){
-        gm.ic.Invert();
-        inverter.SetActive(false);
-        gm.darkMode = !gm.darkMode;
-        TimeManager.executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true));
+        // gm.ic.Invert();
+        // inverter.SetActive(false);
+        // TimeManager.executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true));
     }
-
 
 
     void processCrystalDash(GameObject crystalDash){
@@ -186,6 +191,8 @@ public class PlayerCollision : MonoBehaviour
         
         if(Mathf.Sign(dir.x) != ps.facing) return;
 
+        if (!gm.playing()) return;
+
         rb.AddForce(dir * ps.boosterSpeed * (dir.y != 0 ? 2 : 1) , ForceMode2D.Impulse);
         
         
@@ -196,8 +203,4 @@ public class PlayerCollision : MonoBehaviour
         if(boostSprite.color.a != opacity) boostSprite.color = ColorManager.changeOpacity(boostSprite.color, opacity);
     }
 
-
-
-   
-  
 }

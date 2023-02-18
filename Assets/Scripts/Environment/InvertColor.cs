@@ -5,31 +5,23 @@ using UnityEngine.UI;
 
 
 
-public class InvertColor : MonoBehaviour
+public class Inverter : MonoBehaviour
 {
-    Transform[] objects;
-
-    void Start(){
-        objects = GetComponentsInChildren<Transform>();
-    }
-
-    public void Invert(){
-        foreach (Transform obj in objects){
-            invertColor(obj.gameObject);
-        }
-    }
-
-    public void invertColor(GameObject obj){
+    
+    public static void invertGameObject(GameObject obj){
 
         switch(obj.tag){
             case "Non-Invertable": break;
             case "Spike":
             case "Platform":
+            case "Logo":
                 SpriteRenderer sr_ = obj.GetComponent<SpriteRenderer>();
                 sr_.enabled = !sr_.enabled;
 
-                BoxCollider2D bc_ = obj.GetComponent<BoxCollider2D>();
-                bc_.enabled = !bc_.enabled;
+                if (obj.GetComponent<BoxCollider2D>() != null){
+                    BoxCollider2D bc_ = obj.GetComponent<BoxCollider2D>();
+                    bc_.enabled = !bc_.enabled;
+                }
                 break;
 
             default:
@@ -77,9 +69,5 @@ public class InvertColor : MonoBehaviour
                 break;
         }
        
-       
-       
-         
     }
-
 }
