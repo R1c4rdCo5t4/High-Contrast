@@ -11,7 +11,6 @@ public class PostProcessing : MonoBehaviour {
     [SerializeField] float chromaticMultiplier = 1f;
     ChromaticAberration chromaticAberration;
 
-
     [Header("Vignette")]
     [SerializeField] float maxVigValue = 0.25f;
     [SerializeField] float minVigValue = 0.15f;
@@ -19,30 +18,17 @@ public class PostProcessing : MonoBehaviour {
     Vignette vignette;
 
 
-    void Start()
-    {
+    void Start(){
         ps = GameObject.Find("Player").GetComponent<PlayerController>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         UnityEngine.Rendering.VolumeProfile profile = GetComponent<UnityEngine.Rendering.Volume>().profile;
         profile.TryGet<ChromaticAberration>(out chromaticAberration);
         profile.TryGet<Vignette>(out vignette);
-
     }
 
-    void FixedUpdate(){
-        chromaticAberration.intensity.value = Mathf.Sin(Mathf.Abs(chromaticMultiplier * Time.time));
-    }
-
-    void Update()
-    {
-
-        
-
-
+    void Update(){
         vignette.intensity.value = valueChanger(vignetteMultiplier * Time.deltaTime, vignette.intensity.value, minVigValue, maxVigValue, gm.tm.isSlowing);
-        
     }
 
     float valueChanger(float mult, float value, float min, float max, bool cond) => (cond) ? value < max ? value + mult : max : (value > min) ? value - mult : min;
-
 }

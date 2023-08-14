@@ -266,8 +266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 1799753516}
   cam: {fileID: 422648939}
-  swipeRangeMultiplier: 15
-  tapRange: 20
 --- !u!114 &12775041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 12775039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6230c3640b8e1ad41a734c221faa6ad7, type: 3}
+  m_Script: {fileID: 11500000, guid: efe478d14263a544e823a9dcdfbc10fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &12775043
@@ -311,7 +309,7 @@ MonoBehaviour:
   darkMode: 0
   gm: {fileID: 0}
   tm: {fileID: 0}
-  ic: {fileID: 0}
+  gameState: 0
 --- !u!4 &12775044
 Transform:
   m_ObjectHideFlags: 0
@@ -39535,7 +39533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759112553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 280.62, y: -111.14, z: 0}
+  m_LocalPosition: {x: 643, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1799753517}
@@ -41301,7 +41299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001514411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 168.1, y: -103.5, z: 0}
+  m_LocalPosition: {x: 502.66, y: 10.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 499914428}
@@ -80381,11 +80379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071035070249375136, guid: e484b2ca77e086543ade1840dcb35f4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 140.31999
+      value: 502.7
       objectReference: {fileID: 0}
     - target: {fileID: 4071035070249375136, guid: e484b2ca77e086543ade1840dcb35f4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -93.2544
+      value: 12.885599
       objectReference: {fileID: 0}
     - target: {fileID: 4071035070249375136, guid: e484b2ca77e086543ade1840dcb35f4e, type: 3}
       propertyPath: m_LocalPosition.z

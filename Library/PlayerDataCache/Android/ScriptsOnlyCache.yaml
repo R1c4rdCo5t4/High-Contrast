@@ -1,15 +1,23 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - ColorManager
+    - CameraManager
+    - CircularFloat
+    - FloatScript
     - GameManager
+    - Inverter
     - PlatformDetector
     - PlayerCollision
     - PlayerController
     - PostProcessing
+    - SlowMoBar
     - TimeManager
     - TouchManager
-    - TransitionManager
+    Cinemachine.dll:
+    - Cinemachine.CinemachineBrain
+    - Cinemachine.CinemachineFramingTransposer
+    - Cinemachine.CinemachinePipeline
+    - Cinemachine.CinemachineVirtualCamera
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
@@ -72,8 +80,6 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
@@ -84,12 +90,11 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Mask
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
-    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Menu.unity:
+    Assets/Scenes/Level1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -99,6 +104,8 @@ ScriptsOnlyBuild:
     - Class: 21
       Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
@@ -125,15 +132,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1664}
-    - Class: 114
       Script: {instanceID: 1804}
     - Class: 114
       Script: {instanceID: 2428}
     - Class: 114
       Script: {instanceID: 2526}
     - Class: 114
-      Script: {instanceID: 2754}
+      Script: {instanceID: 2692}
+    - Class: 114
+      Script: {instanceID: 2820}
     - Class: 114
       Script: {instanceID: 3242}
     - Class: 114
@@ -147,6 +154,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3596}
     - Class: 114
+      Script: {instanceID: 3620}
+    - Class: 114
       Script: {instanceID: 3722}
     - Class: 114
       Script: {instanceID: 3724}
@@ -157,11 +166,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4162}
     - Class: 114
+      Script: {instanceID: 4248}
+    - Class: 114
       Script: {instanceID: 4338}
     - Class: 114
       Script: {instanceID: 4378}
     - Class: 114
       Script: {instanceID: 4494}
+    - Class: 114
+      Script: {instanceID: 4706}
     - Class: 114
       Script: {instanceID: 4718}
     - Class: 114
@@ -171,13 +184,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5186}
     - Class: 114
-      Script: {instanceID: 5332}
-    - Class: 114
       Script: {instanceID: 5342}
     - Class: 114
       Script: {instanceID: 5356}
     - Class: 114
       Script: {instanceID: 5420}
+    - Class: 114
+      Script: {instanceID: 5446}
     - Class: 114
       Script: {instanceID: 5620}
     - Class: 114
@@ -186,6 +199,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5646}
     - Class: 114
       Script: {instanceID: 5926}
+    - Class: 114
+      Script: {instanceID: 6010}
     - Class: 114
       Script: {instanceID: 6052}
     - Class: 114
@@ -201,8 +216,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6464}
     - Class: 114
-      Script: {instanceID: 6532}
-    - Class: 114
       Script: {instanceID: 6542}
     - Class: 114
       Script: {instanceID: 6654}
@@ -215,8 +228,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6960}
     - Class: 114
-      Script: {instanceID: 7172}
-    - Class: 114
       Script: {instanceID: 7532}
     - Class: 114
       Script: {instanceID: 7552}
@@ -225,9 +236,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 7920}
     - Class: 114
+      Script: {instanceID: 8052}
+    - Class: 114
       Script: {instanceID: 8072}
     - Class: 114
       Script: {instanceID: 8164}
+    - Class: 114
+      Script: {instanceID: 30718}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1099,12 +1114,6 @@ ScriptsOnlyBuild:
     className: DepthOfField
   - hash:
       serializedVersion: 2
-      Hash: 1bfd9a84d1c375078b5d6a0a839c685d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: EnemyFollow
-  - hash:
-      serializedVersion: 2
       Hash: 8d35f16c5022311c6f4d9432be73bfcf
     assemblyName: Unity.RenderPipelines.Core.Runtime.dll
     namespaceName: UnityEngine.Rendering.UI
@@ -1471,7 +1480,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: adeae6c2a93fcae9f9b7e24a877bf25f
+      Hash: bc1654e9f8226a09425f5385e3938cd4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1637,7 +1646,13 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Inverter
   platform: 13
   scenePathNames:
-  - Assets/Scenes/Menu.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.50/highcontrast.apk
+  - Assets/Scenes/Level1.unity
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.51/highcontrast.apk

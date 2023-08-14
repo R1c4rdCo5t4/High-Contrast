@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 
-public class PlayerCollision : MonoBehaviour
-{
+public class PlayerCollision : MonoBehaviour {
+
     PlayerController ps;
     GameObject po;
     GameManager gm;
@@ -15,10 +15,7 @@ public class PlayerCollision : MonoBehaviour
     SpriteRenderer[] playerSprites;
     [SerializeField] Transform respawnPoint;
 
-
-
-    void Start()
-    {
+    void Start(){
         ps = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
         playerSprites = GetComponentsInChildren<SpriteRenderer>();
@@ -27,38 +24,21 @@ public class PlayerCollision : MonoBehaviour
         defaultRotation = transform.eulerAngles;
     }
 
-
-    void FixedUpdate(){
-      
-    }
-
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
+    void OnCollisionEnter2D(Collision2D collision){
         if (ps.inHyperDashZone){
             ps.hyperDashForce = Vector2.zero;
             rb.velocity = Vector2.zero;
         }        
-
         ProcessCollision(collision.gameObject);
     }
 
-    void OnCollisionExit2D(Collision2D collision)
-    {
+    void OnCollisionExit2D(Collision2D collision){}
 
-    }
-
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-
+    void OnTriggerEnter2D(Collider2D collider){
         ProcessCollision(collider.gameObject);
-        
     }
 
-    void OnTriggerExit2D(Collider2D collider)
-    {
-
+    void OnTriggerExit2D(Collider2D collider){
         switch (collider.tag){
             case "Booster":
                 TimeManager.executeAfterSeconds(0.5f, () => { 
@@ -66,23 +46,20 @@ public class PlayerCollision : MonoBehaviour
                     rb.gravityScale = ps.initialGravity;
                     });
                 break;
-            
-            case "BoosterZone": TimeManager.executeAfterSeconds(2.5f, () => ps.isBoosting = false); break;
 
+            case "BoosterZone": TimeManager.executeAfterSeconds(2.5f, () => ps.isBoosting = false); break;
             default: break;
         }
     }
 
-    void ProcessCollision(GameObject collider)
-    {
+    void ProcessCollision(GameObject collider){
         FloatScript fs = collider.GetComponent<FloatScript>();
         if (ps.isGrounded && ps.isTouchingTop && (fs != null && fs.speed.y < 0f)){
             processDeath();
             return;
         } 
                 
-        switch (collider.tag)
-        {
+        switch (collider.tag){
             case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
             case "Reverter": processReverter(collider); break;
             case "CrystalDash": processCrystalDash(collider); break;
@@ -92,6 +69,7 @@ public class PlayerCollision : MonoBehaviour
                 ps.inHyperDashZone = true;
                 ps.enterhyperDashZone();
                 break;
+
             case "ZoneOut":
                 ps.inHyperDashZone = false;
                 ps.exithyperDashZone();
@@ -119,11 +97,10 @@ public class PlayerCollision : MonoBehaviour
     }
 
     void processReverter(GameObject inverter){
-        // gm.ic.Invert();
-        // inverter.SetActive(false);
-        // TimeManager.executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true));
+        gm.invert();
+        inverter.SetActive(false);
+        TimeManager.executeAfterSeconds(2f, () => inverter.gameObject.SetActive(true));
     }
-
 
     void processCrystalDash(GameObject crystalDash){
         SpriteRenderer sprite = crystalDash.gameObject.GetComponent<SpriteRenderer>();
@@ -141,21 +118,16 @@ public class PlayerCollision : MonoBehaviour
         Vector2 direction = crystalDash.transform.position - transform.position;
         rb.AddForce(direction * ps.crystalDashSpeed, ForceMode2D.Impulse);
 
-    
         TimeManager.executeAfterSeconds(0.25f, () => {
             ps.canMove = true;
             rb.gravityScale = ps.initialGravity;
             ps.wallSlideSpeed = ps.defaultSlideSpeed;
         });
-
         TimeManager.executeAfterSeconds(2f, () => sprite.enabled = true);
-
     }
 
     void processDeath(){
-
         if (ps.isDead) return;
-
         ps.isDead = true;
         ps.inHyperDashZone = false;
         ps.canMove = false;
@@ -164,43 +136,30 @@ public class PlayerCollision : MonoBehaviour
         rb.gravityScale = ps.initialGravity;
         var p = Instantiate(particles, transform.position, Quaternion.identity);
         p.Play();
-     
         TimeManager.executeAfterSeconds(1.5f, () => newGame(p.gameObject));
-        
         gameObject.SetActive(false);
     }
-
 
     void newGame(GameObject p) {
         gameObject.SetActive(true);
         transform.position = respawnPoint.position;
         ps.canMove = true;
         ps.isDead = false;
-
         Destroy(p);
         SlowMoBar.restoreAllSlow();
     }
 
-
-
     void processBooster(GameObject booster){
-
         changeBoosterOpacity(booster, 1f);
         float rotation = booster.transform.eulerAngles.z;
         Vector2 dir = new Vector2(Mathf.Cos(rotation), Mathf.Sin(rotation));
-        
         if(Mathf.Sign(dir.x) != ps.facing) return;
-
         if (!gm.playing()) return;
-
         rb.AddForce(dir * ps.boosterSpeed * (dir.y != 0 ? 2 : 1) , ForceMode2D.Impulse);
-        
-        
     }
 
     void changeBoosterOpacity(GameObject booster, float opacity){
         SpriteRenderer boostSprite = booster.GetComponent<SpriteRenderer>();
         if(boostSprite.color.a != opacity) boostSprite.color = ColorManager.changeOpacity(boostSprite.color, opacity);
     }
-
 }
