@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
     public bool isTouchingTop;
     [SerializeField] bool hasJump = true;
     [SerializeField] bool hasWallJump = true;
-    [SerializeField] bool hasAirDash = true;
+    [SerializeField] bool hasAirDash = false;
 
     enum State { Idle, Moving, Jumping, Dashing, WallJumping, WallSliding, InSlope, inHyperDashZone, Dead, Boosting, inMovingPlatform, Undefined }
 
@@ -167,9 +167,7 @@ public class PlayerController : MonoBehaviour {
                 coyoteTimeCounter = coyoteTime;
                 rb.gravityScale = initialGravity;
                 dashesLeft = numOfDashes;
-            }
-            
-            else {
+            } else {
                 if (rb.velocity.y <= 0 && rb.gravityScale == initialGravity){
                     isJumping = false;
                     rb.gravityScale *= gravityMultiplier;
@@ -185,16 +183,16 @@ public class PlayerController : MonoBehaviour {
         trail.emitting = !isDead && (activeMovespeed > 0f || isDashing || (isJumping && rb.velocity.y > 0) || inHyperDashZone);
     }
 
-    public void Dash(Dash dash){
-        if (coyoteTimeCounter < 0 && dashesLeft > 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dash.dir.x) == facing || Mathf.Abs(dash.dir.x) < 0.3f)){
+    public void dash(Vector2 dir, float speed, float duration, Quaternion rotation){
+        if (coyoteTimeCounter < 0 && dashesLeft > 0 && !isTouchingWall && canDash && hasAirDash && (Mathf.Sign(dir.x) == facing || Mathf.Abs(dir.x) < 0.3f)){
             isDashing = true;
             dashesLeft--;
             canDash = dashesLeft > 0;
-            rb.velocity = new Vector2(dash.dir.x, dash.dir.y) * dash.speed;
-            dashTimer = dash.duration;
+            rb.velocity = new Vector2(dir.x, dir.y) * speed;
+            dashTimer = duration;
             rb.gravityScale = 0f;
-            // rb.AddForce(new Vector2(dash.dir.x, dash.dir.y) * dash.speed, ForceMode2D.Impulse);
-            // transform.rotation = Quaternion.Slerp(transform.rotation, dash.rotation * transform.rotation, 0.5f);
+            // rb.AddForce(new Vector2(dir.x, dir.y) * speed, ForceMode2D.Impulse);
+            // transform.rotation = Quaternion.Slerp(transform.rotation, rotation * transform.rotation, 0.5f);
         }
     }
 
@@ -215,20 +213,23 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void hyperDash(Vector2 force){
-        if (isAirBorne && !(Mathf.Abs(rb.velocity.x) < 15f && Mathf.Abs(rb.velocity.y) < 15f)) return;
-        rb.AddForce(force, ForceMode2D.Impulse);
-        if (Mathf.Sign(force.x) != facing) flip();
-        rb.gravityScale = 0f;
-        Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(facing,0f,0f), force);
-        transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation * transform.rotation, 0.5f);
+        // if (isAirBorne && !(Mathf.Abs(rb.velocity.x) < 15f && Mathf.Abs(rb.velocity.y) < 15f)) return;
+        // rb.AddForce(force, ForceMode2D.Impulse);
+        // if (Mathf.Sign(force.x) != facing) flip();
+        // rb.gravityScale = 0f;
+        // Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(facing, 0f, 0f), force);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation * transform.rotation, 0.5f);
     }
 
-    public void wallJump(float dirX, float dirY){
-        if (!isGrounded && isTouchingWall && (hasWallJump || Mathf.Sign(dirX) == facing)){
-            isWallJumping = Mathf.Sign(dirX) != facing;
-            Vector2 force = new Vector2(dirX, dirY) * wallJumpForce;
-            rb.AddForce(force, ForceMode2D.Impulse);
+    public void wallJump(Vector2 dir){
+        if (!isGrounded && isTouchingWall && hasWallJump && Mathf.Sign(dir.x) != facing){
+            rb.velocity = Vector2.zero;
+            isWallJumping = true;
+            Vector2 force = dir.normalized * wallJumpForce;
+            Vector2 finalForce = new Vector2(force.x, force.y * 1.5f);
+            rb.AddForce(finalForce, ForceMode2D.Impulse);
             TimeManager.executeAfterSeconds(.275f, () => isWallJumping = false);
+            flip();
         }
     }
 
@@ -269,20 +270,5 @@ public class PlayerController : MonoBehaviour {
         Gizmos.DrawWireSphere(airBorneCheckPoint.position, airBorneCheckRadius);
         Debug.DrawRay(groundCheckPoint.position, new Vector3(0f, -groundCheckRadius, 0f), Color.blue);
         Debug.DrawRay(wallCheckPoint.position, new Vector3(facing == 1 ? 0.1f : 0.1f, 0f, 0f), Color.blue);
-    }
-}
-
-public class Dash {
-    public Vector2 dir;
-    public float speed;
-    public float duration;
-    public Quaternion rotation;
-    public Dash(Vector2 dir, float speed, float duration, Quaternion rotation)
-    {
-        this.dir = dir;
-        this.speed = speed;
-        this.duration = duration;
-        this.rotation = rotation;
-
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TouchManager : MonoBehaviour
-{
+public class TouchManager : MonoBehaviour {
+
     [SerializeField] PlayerController ps;
     [SerializeField] GameObject cam;
     PlayerCollision pc;
@@ -20,13 +20,9 @@ public class TouchManager : MonoBehaviour
     float tapMaxDuration = .5f;
     float doubleTapMaxDuration = .1f;
     bool tapped;
-
     // float holdTimer = 0f;
     // float holdMinDuration = .0005f;
     // int taps = 0;
-
-    enum Direction { Up, Down, Left, Right }
-
 
     void Start(){
         swipeRange = Screen.height * swipeRangeMultiplier / 100;
@@ -38,10 +34,9 @@ public class TouchManager : MonoBehaviour
         if (ps.isDead) return;
         if (tapTimer > 0) tapTimer -= Time.deltaTime;
         if (tapped && tapTimer <= 0){
-            tapped = false;
             tap();
+            tapped = false;
         }
-
         if (Input.touchCount > 0){
             Touch t = Input.GetTouch(0);
             Vector2 touchPosition = Camera.main.ScreenToWorldPoint(t.position);
@@ -70,80 +65,69 @@ public class TouchManager : MonoBehaviour
         if (currentPosition.x < Screen.width / 3 || Swipe.magnitude < 100 || stopTouch) return;
         Quaternion levelOrientation = cam.transform.rotation;
         swipeDir = levelOrientation * swipeDir;
-      
-        if (swipeDir.x < -Mathf.Abs(swipeDir.y)) {
-            if (!ps.inHyperDashZone) leftSwipe(swipeDir);
-            swipeController(swipeDir, Direction.Left);
-        } else if (swipeDir.x > Mathf.Abs(swipeDir.y)) {
-            if (!ps.inHyperDashZone) rightSwipe(swipeDir);
-            swipeController(swipeDir, Direction.Right);
-        } else if (swipeDir.y > Mathf.Abs(swipeDir.x)) {
-            // if (!ps.inHyperDashZone) //upSwipe(swipeDir);
-            swipeController(swipeDir, Direction.Up);
-        } else if (swipeDir.y < -Mathf.Abs(swipeDir.x)) {
-            if (!ps.inHyperDashZone) downSwipe();
-            swipeController(swipeDir, Direction.Down);
-        }
+        swipeController(swipeDir); 
     }
 
-    void swipeController(Vector2 swipeDir, Direction dir){
-
-        if (!ps.inHyperDashZone){
-            if (!ps.isTouchingWall && !ps.isGrounded){ // dash
-                if ((dir == Direction.Left && ps.facing == 1) || (dir == Direction.Right && ps.facing == -1)){
-                    ps.flip();
-                    if(Mathf.Abs(swipeDir.y) < 0.5f) return;
-                } 
-                Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(ps.facing,0f,0f), swipeDir);
-                Dash dash = new Dash(swipeDir, ps.dashSpeed, ps.dashDuration, dashRotation);
-                ps.Dash(dash);
-            }
-            else { // jump
-                if(swipeDir.y < 0.5f) return;
-                ps.jump(ps.maxJumpForce, new Vector2(0f, swipeDir.y));
-            }
+    void swipeController(Vector2 swipeDir){
+        if (!ps.isTouchingWall && !ps.isGrounded){
+           dashSwipe(swipeDir);
+        } else if(ps.isTouchingWall && !ps.isGrounded){
+            wallJumpSwipe(swipeDir);
         }
-        else ps.hyperDash(swipeDir * ps.hyperDashSpeed);
+        if (swipeDir.x < -0.5f){
+            leftSwipe(swipeDir);
+        } else if (swipeDir.x > 0.5f){
+            rightSwipe(swipeDir);
+        } else {
+            jumpSwipe(swipeDir);
+        }
         stopTouch = true;
+    }
+
+    void dashSwipe(Vector2 swipeDir){
+        if ((swipeDir.x < -Mathf.Abs(swipeDir.y) && ps.facing > 0 && Mathf.Abs(swipeDir.y) < 0.5f) || (swipeDir.x > Mathf.Abs(swipeDir.y) && ps.facing < 0)) return;
+        Quaternion dashRotation = Quaternion.FromToRotation(new Vector3(ps.facing, 0f, 0f), swipeDir);
+        ps.dash(swipeDir, ps.dashSpeed, ps.dashDuration, dashRotation);
+    }
+
+    void wallJumpSwipe(Vector2 swipeDir){        
+        if (Mathf.Abs(swipeDir.x) <= 0.2f){
+            if (swipeDir.y < -0.5f) ps.flip();
+            return;
+        } 
+        ps.wallJump(swipeDir);
+    }
+
+    void jumpSwipe(Vector2 swipeDir){
+        if(swipeDir.y < 0.5f) return;
+        ps.jump(ps.maxJumpForce, new Vector2(0f, swipeDir.y));
     }
 
     void leftSwipe(Vector2 swipeDir){
         ps.activeMovespeed = ps.movementSpeed;
-        if (ps.facing < 0){
-            if (ps.canWallHop){
-                ps.wallJump(-ps.wallHopDir.x, ps.wallHopDir.y); // wall hop
-                ps.canWallHop = false;
-            }
-        } else {
-            ps.wallJump(-ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
-            if (ps.isGrounded || ps.isTouchingWall) ps.flip();
-        }
+        if (ps.facing > 0) ps.flip();
         stopTouch = true;
     }
 
     void rightSwipe(Vector2 swipeDir){
         ps.activeMovespeed = ps.movementSpeed;
-        if (ps.facing > 0){
-            if (ps.canWallHop){
-                ps.wallJump(ps.wallHopDir.x, ps.wallHopDir.y); // wall hop 
-                ps.canWallHop = false;
-            }
-        } else {
-            ps.wallJump(ps.wallJumpDir.x, ps.wallJumpDir.y); // wall jump 
-            if (ps.isGrounded || ps.isTouchingWall) ps.flip();
-        }
+        if (ps.facing < 0) ps.flip();
         stopTouch = true;
     }
 
-    void upSwipe(Vector2 swipeDir){}
+    // void upSwipe(Vector2 swipeDir){
+    //     if (!ps.isTouchingWall) return;
+    //     ps.wallJump(swipeDir.x * 2, swipeDir.y * 3); // wall jump 
+    //     if (ps.isGrounded || ps.isTouchingWall) ps.flip();
+    // }
 
-    void downSwipe(){
-        if (ps.isTouchingWall && !ps.isGrounded){
-            ps.wallJump(-ps.facing * ps.wallOutDir.x, -ps.wallOutDir.y);
-            ps.flip();
-        }
-        stopTouch = true;
-    }
+    // void downSwipe(){
+    //     if (ps.isTouchingWall && !ps.isGrounded){
+    //         ps.wallJump(-ps.facing * ps.wallOutDir.x, -ps.wallOutDir.y);
+    //         ps.flip();
+    //     }
+    //     stopTouch = true;
+    // }
 
     void stationaryTouch(Touch touch){
         if ((touch.position.x > Screen.width / 3)){
