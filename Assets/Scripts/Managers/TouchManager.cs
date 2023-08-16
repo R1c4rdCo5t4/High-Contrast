@@ -71,7 +71,7 @@ public class TouchManager : MonoBehaviour {
     void swipeController(Vector2 swipeDir){
         if (!ps.isTouchingWall && !ps.isGrounded){
            dashSwipe(swipeDir);
-        } else if(ps.isTouchingWall && !ps.isGrounded){
+        } else if(ps.isTouchingWall && !ps.isGrounded && ps.canWallJump){
             wallJumpSwipe(swipeDir);
         }
         if (swipeDir.x < -0.5f){

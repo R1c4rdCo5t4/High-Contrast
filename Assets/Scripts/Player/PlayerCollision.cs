@@ -13,6 +13,7 @@ public class PlayerCollision : MonoBehaviour {
     Rigidbody2D rb;
     ParticleSystem particles;
     SpriteRenderer[] playerSprites;
+    GameObject lastTouchedWall;
     [SerializeField] Transform respawnPoint;
 
     void Start(){
@@ -60,7 +61,20 @@ public class PlayerCollision : MonoBehaviour {
         } 
                 
         switch (collider.tag){
-            case "Ground": ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall; break;
+            case "Ground": 
+                ps.isInSlope = collider.transform.eulerAngles.z != 0 && !ps.isTouchingWall;
+                if(ps.isTouchingWall){
+                    if (lastTouchedWall == collider.gameObject) ps.canWallJump = false;
+                    else {
+                        ps.canWallJump = true;
+                        lastTouchedWall = collider.gameObject;
+                    }
+                }
+                else if(ps.isGrounded){
+                    ps.canWallJump = true;
+                    lastTouchedWall = null;
+                }
+                break;
             case "Reverter": processReverter(collider); break;
             case "CrystalDash": processCrystalDash(collider); break;
             case "Spike":

@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour {
     public bool isDashing;
     public bool canMove = true;
     public bool canWallHop = true;
+    public bool canWallJump = true;
     public bool canDash = true;
     public bool inMovingPlatform;
     public bool inHyperDashZone;

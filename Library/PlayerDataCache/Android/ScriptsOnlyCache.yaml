@@ -2,7 +2,6 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CameraManager
-    - CircularFloat
     - FloatScript
     - GameManager
     - Inverter
@@ -94,7 +93,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Level1.unity:
+    Assets/Scenes/Playground.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -190,43 +189,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5420}
     - Class: 114
-      Script: {instanceID: 5446}
+      Script: {instanceID: 5618}
     - Class: 114
       Script: {instanceID: 5620}
     - Class: 114
-      Script: {instanceID: 5622}
+      Script: {instanceID: 5644}
     - Class: 114
-      Script: {instanceID: 5646}
+      Script: {instanceID: 5924}
     - Class: 114
-      Script: {instanceID: 5926}
+      Script: {instanceID: 6008}
     - Class: 114
-      Script: {instanceID: 6010}
+      Script: {instanceID: 6050}
     - Class: 114
-      Script: {instanceID: 6052}
+      Script: {instanceID: 6204}
     - Class: 114
-      Script: {instanceID: 6206}
+      Script: {instanceID: 6276}
     - Class: 114
-      Script: {instanceID: 6278}
+      Script: {instanceID: 6282}
     - Class: 114
-      Script: {instanceID: 6284}
+      Script: {instanceID: 6382}
     - Class: 114
-      Script: {instanceID: 6384}
+      Script: {instanceID: 6416}
     - Class: 114
-      Script: {instanceID: 6418}
+      Script: {instanceID: 6462}
     - Class: 114
-      Script: {instanceID: 6464}
+      Script: {instanceID: 6540}
     - Class: 114
-      Script: {instanceID: 6542}
+      Script: {instanceID: 6652}
     - Class: 114
-      Script: {instanceID: 6654}
+      Script: {instanceID: 6786}
     - Class: 114
-      Script: {instanceID: 6788}
+      Script: {instanceID: 6826}
     - Class: 114
-      Script: {instanceID: 6828}
+      Script: {instanceID: 6904}
     - Class: 114
-      Script: {instanceID: 6906}
+      Script: {instanceID: 6958}
     - Class: 114
-      Script: {instanceID: 6960}
+      Script: {instanceID: 7460}
     - Class: 114
       Script: {instanceID: 7532}
     - Class: 114
@@ -241,8 +240,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 8072}
     - Class: 114
       Script: {instanceID: 8164}
-    - Class: 114
-      Script: {instanceID: 30718}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1468,6 +1465,12 @@ ScriptsOnlyBuild:
     className: CinemachineTrackedDolly
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Inverter
+  - hash:
+      serializedVersion: 2
       Hash: 48982140c520cbca517d0f96b60a0ba9
     assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
     namespaceName: UnityEngine.Rendering.Universal
@@ -1480,7 +1483,7 @@ ScriptsOnlyBuild:
     className: UniversalAdditionalLightData
   - hash:
       serializedVersion: 2
-      Hash: bc1654e9f8226a09425f5385e3938cd4
+      Hash: 95c84886196472d46e016a1b8cda6622
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1646,13 +1649,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Inverter
   platform: 13
   scenePathNames:
-  - Assets/Scenes/Level1.unity
-  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.51/highcontrast.apk
+  - Assets/Scenes/Playground.unity
+  playerPath: C:/Users/Ricardo/Game Development/High Contrast/Builds/1.52/highcontrast.apk
